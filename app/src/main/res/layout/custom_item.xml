@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Author: Clarissa Gutierrez-->
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:onClick="viewItemDetails">
+
+    <LinearLayout
+        android:id="@+id/customItemLinearLayout"
+        android:layout_width="395dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/itemImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
+            android:layout_weight="15"
+            android:adjustViewBounds="false"
+            android:background="@color/colorGreen"
+            android:contentDescription="@string/content_descrpition_item_logo"
+            android:cropToPadding="false"
+            app:srcCompat="@drawable/ic_shopping_cart_24dp" />
+
+        <TextView
+            android:id="@+id/itemNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_weight="80"
+            android:paddingTop="16dp"
+            android:text="@string/item_name"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/qtyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="Qty"
+            android:textSize="18sp" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public class Coupons implements Parcelable
 {
-
+    // CHLOE WAS HERE!!
     //INSTANCE VARIABLES----------------------------------------------------------------------------
     private long mId;
     private String mImageURI;

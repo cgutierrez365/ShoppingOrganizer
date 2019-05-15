@@ -1,8 +1,10 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -12,6 +14,10 @@ import java.util.List;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes;
 
+/**
+ * Main Menu displays the main page for the user to navigate to items, coupons, stores, or notes
+ * @Author Clarissa Gutierrez
+ */
 public class MainMenuActivity extends AppCompatActivity {
 
     private DBHelper db;
@@ -20,7 +26,10 @@ public class MainMenuActivity extends AppCompatActivity {
     //xml attributes
     private ListView mNotesListView;
 
-
+    /**
+     * Creates the database if it doesn't already exist and connects to the activity_main_menu
+     * @param savedInstanceState the saved bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +37,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         //create a new database if one doesn't already exist (using DBHelper constructor)
         db = new DBHelper(this);
-        //TODO: write getAllNotes() method as well as a Notes database
+        //DONE: write getAllNotes() method as well as a Notes database
         mNotesList = db.getAllNotes();
 
         // Inflate the custom list view with any notes existing in the database from a previous session
@@ -40,9 +49,58 @@ public class MainMenuActivity extends AppCompatActivity {
         //Done: Connect activity to the xml list view
         mNotesListView = findViewById(R.id.itemsListView);
 
-
     }
 
+    /**
+     * links to ItemActivity
+     * @param v the Items button
+     */
+    public void viewItems(View v)
+    {
+        Intent itemsIntent = new Intent(this, ItemActivity.class);
+        startActivity(itemsIntent);
+    }
 
+    //TODO: Uncomment the button onClicks when the other classes are added to the project
+//
+//    /**
+//     * links to StoreActivity
+//     * @param v the Stores button
+//     */
+//    public void viewStores(View v)
+//    {
+//        Intent storeIntent = new Intent(this, StoreActivity.class);
+//        startActivity(storeIntent);
+//    }
+//
+//    /**
+//     * links to CouponsActivity
+//     * @param v the coupons button
+//     */
+//    public void viewCoupons(View v)
+//    {
+//        Intent couponIntent = new Intent(this, CouponActivity.class);
+//        startActivity(couponIntent);
+//    }
+//
+//    /**
+//     * links to the HistoryActivity
+//     * @param v the history button
+//     */
+//    public void viewHistory(View v)
+//    {
+//        Intent historyIntent = new Intent(this, HistoryActivity.class);
+//        startActivity(historyIntent);
+//    }
+//
+//    /**
+//     * links to the NotesActivity
+//     * @param v the Notes button
+//     */
+//    public void addNote(View v)
+//    {
+//        Intent noteIntent = new Intent(this, NoteActivty.class);
+//        startActivity(noteIntent);
+//    }
 
 }

@@ -12,7 +12,6 @@
     <string name="note_pad_label">Note Pad:</string>
     <string name="add_note_button">Add Note</string>
     <string name="content_descrpition_item_logo">image of item</string>
-
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
@@ -32,5 +31,9 @@
     <string name="done">Done</string>
     <string name="click_to_add_image">Click To Add Image</string>
     <string name="permissions_message">Please enable camera and gallery permissions in settings to add image.</string>
+    <string name="addNotes">Additional Notes</string>
+    <string name="IsFavorite">Is Favorite</string>
+    <string name="ExpireDate">Expiration Date</string>
+    <string name="ExpirationDate">Expires When, no slashes or spaces</string>
     />
 </resources>

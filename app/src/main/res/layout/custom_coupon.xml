@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/CouponLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="395dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_end="-8dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <TextView
+        android:id="@+id/ExpireDate"
+        android:layout_width="236dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="11dp"
+        android:contentDescription="@string/ExpireDate"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/IsFavorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Image_Coupon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="ExpireDate" />
+
+    <TextView
+        android:id="@+id/IsFavorite"
+        android:layout_width="236dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="11dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/AddNotes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/Image_Coupon"
+        app:layout_constraintTop_toBottomOf="@+id/ExpireDate"
+        tools:text="IsFavorite" />
+
+    <TextView
+        android:id="@+id/AddNotes"
+        android:layout_width="236dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="561dp"
+        android:contentDescription="@string/addNotes"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/Image_Coupon"
+        app:layout_constraintTop_toBottomOf="@+id/IsFavorite"
+        tools:text="AddNotes" />
+
+    <ImageView
+        android:id="@+id/Image_Coupon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginBottom="576dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/IsFavorite"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+</android.support.constraint.ConstraintLayout>

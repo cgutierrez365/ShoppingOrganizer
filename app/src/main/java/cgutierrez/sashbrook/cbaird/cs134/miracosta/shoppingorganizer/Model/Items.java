@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 /**
- * Pet objects capture information pertaining to one pet
+ * Item objects capture information pertaining to one item
  * @author Chole
  */
 public class Items implements Parcelable
@@ -18,7 +18,7 @@ public class Items implements Parcelable
     private String mStoreName;
     private String mStoreLocation;
     private String mItemQuantity;
-    private ArrayList<Coupons> mCoupons;
+    //private ArrayList<Coupons> mCoupons;
     private String mImageURI;
 
 
@@ -33,13 +33,13 @@ public class Items implements Parcelable
     }
 
 
-    public Items(long id, String itemName, String storeName, String storeLocation, String itemQuantity, ArrayList<Coupons> coupons, String imageURI) {
+    public Items(long id, String itemName, String storeName, String storeLocation, String itemQuantity, /*ArrayList<Coupons> coupons,*/ String imageURI) {
         mId = id;
         mItemName = itemName;
         mStoreName = storeName;
         mStoreLocation = storeLocation;
         mItemQuantity = itemQuantity;
-        mCoupons = coupons;
+        //mCoupons = coupons;
         mImageURI = imageURI;
     }
 
@@ -83,11 +83,11 @@ public class Items implements Parcelable
     }
 
 
-    public void setCoupons(ArrayList<Coupons> coupons)
+/*    public void setCoupons(ArrayList<Coupons> coupons)
     {
         mCoupons = coupons;
     }
-
+*/
 
     //ACCESSORS-------------------------------------------------------------------------------------
     public long getId() { return mId; }
@@ -116,13 +116,14 @@ public class Items implements Parcelable
     }
 
 
-    public ArrayList<Coupons> getCoupons()
+/*    public ArrayList<Coupons> getCoupons()
     {
         return mCoupons;
     }
+*/
 
     /**
-     * Accesses the imageURI of the pet
+     * Accesses the imageURI of the item
      * @return the Uri
      */
     public String getImageURI() {
@@ -130,7 +131,7 @@ public class Items implements Parcelable
     }
 
     /**
-     * Assigns the imageURI of the pet
+     * Assigns the imageURI of the item
      * @param imageURI the Uri
      */
     public void setImageURI(String imageURI) {
@@ -147,7 +148,7 @@ public class Items implements Parcelable
                 ", Store Name='" + mStoreName + '\'' +
                 ", Store Location='" + mStoreLocation + '\'' +
                 ", Item Quantity='" + mItemQuantity + '\'' +
-                ", Coupons=" + mCoupons +
+                /*", Coupons=" + mCoupons +*/
                 '}';
     }
 
@@ -181,7 +182,7 @@ public class Items implements Parcelable
         dest.writeString(mStoreName);
         dest.writeString(mStoreLocation);
         dest.writeString(mItemQuantity);
-        dest.writeList(mCoupons);
+        //dest.writeList(mCoupons);
         dest.writeString(mImageURI);
 
     }
@@ -194,7 +195,7 @@ public class Items implements Parcelable
         mStoreName = parcel.readString();
         mStoreLocation = parcel.readString();
         mItemQuantity = parcel.readString();
-        mCoupons = parcel.readArrayList(Items.class.getClassLoader());
+        //mCoupons = parcel.readArrayList(Items.class.getClassLoader());
         mImageURI = parcel.readString();
     }
 }

@@ -12,6 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -136,6 +137,28 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+
+    /**
+     * Updates the database when an addition or subtraction is made from it
+     * @param db the database
+     * @param oldVersion  oldVersion
+     * @param newVersion newVersion
+     */
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
+
+        db.execSQL("DROP TABLE IF EXISTS " + ITEMS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + COUPONS_TABLES);
+        db.execSQL("DROP TABLE IF EXISTS " + LINK_ITEM_COUPONS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + NOTES_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + STORES_TABLE);
+        onCreate(db);
+
+    }
+
+
+
+    //ITEMS-----------------------------------------------------------------------------------------
     /** Chloe:
      * Adds the Item to the Database with all table fields
      * @param item the new item to be added to the database
@@ -161,6 +184,169 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    /**
+     *  Imports sample items from a comma separated value file
+     * @param csvFileName
+     * @return
+     */
+    public boolean importItemsFromCSV(String csvFileName)
+    {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+
+        try
+        {
+            InputStream inputStream = inStream = manager.open(csvFileName);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+
+        try
+        {
+            while ( (line = buffer.readLine()) != null )
+            {
+                String[] fields = line.split(",");
+                if(fields.length != 6)
+                {
+                    Log.d("Items", "Skipping bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+
+                long id = Long.parseLong(fields[0].trim());
+                String itemName = fields[1].trim();
+                String storeName = fields[2].trim();
+                String storeLocation = fields[3].trim();
+                String quantity = fields[4].trim();
+                String imageUri = fields[5].trim();
+
+                addItem(new Items(id, itemName, storeName, storeLocation, quantity, imageUri));
+
+            }
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+
+        return true;
+    }
+
+
+    /**
+     * Returns a List of all the items in the items table
+     * @return list of Items
+     */
+    public List<Items> getAllItems()
+    {
+        List<Items> itemsList = new ArrayList<>();
+        SQLiteDatabase database = getReadableDatabase();
+
+        //CREATE A CURSOR FOR THE DATABASE
+        Cursor cursor = database.query(
+                ITEMS_TABLE,
+                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME, FIELD_STORE_LOCATION, FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
+                null,
+                null,
+                null, null, null, null);
+
+        //COLLECT EACH ROW IN TABLE
+        if( cursor.moveToFirst() )
+        {
+            do
+            {
+                Items item = new Items(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5));
+            } while ( cursor.moveToNext() );
+
+        }
+
+        cursor.close();
+        database.close();
+
+        return itemsList;
+
+    }
+
+    /**
+     * Gets a  singular item from the database
+     * @param id id
+     * @return Items object
+     */
+    public Items getItem(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ITEMS_TABLE,
+                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME, FIELD_STORE_LOCATION, FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
+                ITEMS_KEY_FIELD_ID + " =?",
+                new String[]{String.valueOf(id)},
+                null, null, null, null
+        );
+
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+        }
+
+        Items item = new Items(cursor.getLong(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
+        );
+
+        cursor.close();
+        db.close();
+
+        return item;
+
+    }
+
+    /**
+     * Deletes an item from the database
+     * @param item
+     */
+    public void deleteItem(Items item)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //DELETE THE TABLE ROW
+        db.delete(ITEMS_TABLE, ITEMS_KEY_FIELD_ID + " = ?",
+                new String[]{ String.valueOf(item.getId()) } );
+
+        db.close();
+    }
+
+    /**
+     * Deletes all the items from the database
+     */
+    public void deleteAllItems()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ITEMS_TABLE, null, null);
+
+        db.close();
+    }
+
+
+
+    //COUPONS---------------------------------------------------------------------------------------
     /**
      * Adds Coupons to database : Stacey
      * @param coupons coupon
@@ -181,24 +367,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void addStore(Store store) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put(FIELD_NAME, store.getName());
-        values.put(FIELD_ADDRESS, store.getAddress());
-        values.put(FIELD_CITY, store.getCity());
-        values.put(FIELD_STATE, store.getState());
-        values.put(FIELD_ZIP_CODE, store.getZipCode());
-        values.put(FIELD_PHONE, store.getPhone());
-        values.put(FIELD_LATITUDE, store.getLatitude());
-        values.put(FIELD_LONGITUDE, store.getLongitude());
-
-        long id = db.insert(STORES_TABLE, null, values);
-        store.setId(id);
-        // CLOSE THE DATABASE CONNECTION
-        db.close();
-    }
 
     /**
      * Stacey:
@@ -240,6 +408,32 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return true;
     }
+
+
+
+
+
+    //STORES----------------------------------------------------------------------------------------
+
+    public void addStore(Store store) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_NAME, store.getName());
+        values.put(FIELD_ADDRESS, store.getAddress());
+        values.put(FIELD_CITY, store.getCity());
+        values.put(FIELD_STATE, store.getState());
+        values.put(FIELD_ZIP_CODE, store.getZipCode());
+        values.put(FIELD_PHONE, store.getPhone());
+        values.put(FIELD_LATITUDE, store.getLatitude());
+        values.put(FIELD_LONGITUDE, store.getLongitude());
+
+        long id = db.insert(STORES_TABLE, null, values);
+        store.setId(id);
+        // CLOSE THE DATABASE CONNECTION
+        db.close();
+    }
+
 
     /**
      * Imports Stores from CSV
@@ -283,55 +477,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
-    /**
-     * Updates the database when an addition or subtraction is made from it
-     * @param db the database
-     * @param oldVersion  oldVersion
-     * @param newVersion newVersion
-     */
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
-
-        db.execSQL("DROP TABLE IF EXISTS " + ITEMS_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + COUPONS_TABLES);
-        db.execSQL("DROP TABLE IF EXISTS " + LINK_ITEM_COUPONS_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + NOTES_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + STORES_TABLE);
-        onCreate(db);
-
-    }
-
-    /**
-     * Returns all the notes in the Notes Table in a List
-     * @return List of Notes
-     */
-    public List<Notes> getAllNotes()
-    {
-        List<Notes> noteList = new ArrayList<>();
-        SQLiteDatabase database = getReadableDatabase();
-
-        // Instantiate a cursor to hold results of database query
-        Cursor cursor = database.query(
-                NOTES_TABLE,
-                new String[]{NOTES_KEY_FIELD_ID, FIELD_NOTE_TITLE, FIELD_NOTE_CONTENTS},
-                null,
-                null,
-                null, null, null, null);
-
-        //collect each row in the table
-        if (cursor.moveToFirst()){
-            do {
-                Notes note =
-                        new Notes(cursor.getInt(0),
-                                cursor.getString(1),
-                                cursor.getString(2));
-                noteList.add(note);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        database.close();
-        return noteList;
-    }
 
     /**
      * Returns a List of all the stores in the database
@@ -368,6 +513,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return allStoresList;
     }
 
+
     /**
      * Gets a store object from the database
      * @param id id
@@ -400,6 +546,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return store;
     }
 
+
     /**
      * Deletes a store in the database
      * @param store
@@ -413,6 +560,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
     /**
      * Deletes all the stores in the database
      */
@@ -421,5 +569,42 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete(STORES_TABLE, null, null);
         db.close();
     }
+
+
+
+    //NOTES-----------------------------------------------------------------------------------------
+    /**
+     * Returns all the notes in the Notes Table in a List
+     * @return List of Notes
+     */
+    public List<Notes> getAllNotes()
+    {
+        List<Notes> noteList = new ArrayList<>();
+        SQLiteDatabase database = getReadableDatabase();
+
+        // Instantiate a cursor to hold results of database query
+        Cursor cursor = database.query(
+                NOTES_TABLE,
+                new String[]{NOTES_KEY_FIELD_ID, FIELD_NOTE_TITLE, FIELD_NOTE_CONTENTS},
+                null,
+                null,
+                null, null, null, null);
+
+        //collect each row in the table
+        if (cursor.moveToFirst()){
+            do {
+                Notes note =
+                        new Notes(cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getString(2));
+                noteList.add(note);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return noteList;
+    }
+
+
 
 }

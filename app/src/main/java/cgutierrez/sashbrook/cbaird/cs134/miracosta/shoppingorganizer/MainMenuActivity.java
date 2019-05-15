@@ -1,6 +1,5 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +12,7 @@ import java.util.List;
 
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes;
+
 
 /**
  * Main Menu displays the main page for the user to navigate to items, coupons, stores, or notes

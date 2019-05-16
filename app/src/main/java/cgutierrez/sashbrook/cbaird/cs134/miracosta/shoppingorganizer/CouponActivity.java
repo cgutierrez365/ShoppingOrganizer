@@ -3,6 +3,7 @@ package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 import android.content.Intent;
 import android.icu.lang.UCharacter;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -17,6 +18,7 @@ import org.w3c.dom.Text;
 
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.List;
 
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Coupons;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
@@ -53,6 +55,7 @@ public class CouponActivity extends AppCompatActivity {
     private CouponsListAdapter couponsListAdapter;
     private static final String TAG = CouponActivity.class.getSimpleName();
     public static final int RESULT_LOAD_IMAGE = 200;
+    private static final int REQUEST_GALLERY = 101;
 
     /**
      * Needed Variables for USer Input
@@ -60,6 +63,8 @@ public class CouponActivity extends AppCompatActivity {
     private ArrayList<String> addArray = new ArrayList<String>();
     private EditText txt;
     private ListView show;
+    private List<Coupons> couponsList;
+    private ListView CouponListView;
 
 
     /**
@@ -75,24 +80,26 @@ public class CouponActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon);
-
         /**
          * List View = DBHELPER is not finished, this is not complete work. Just additions, incase... easier find.
          */
-        //     deleteDatabase(DBHelperCoupon.DATABASE_NAME);   //Database for Coupons
-        //    db = new DBHelperCoupon(this);                //Importing list of coupons
-        //  db.importCouponsFromCSV("coupons.csv");  //direct input
+        deleteDatabase(DBHelper.DATABASE_NAME);   //Database for Coupons
+        db = new DBHelper(this);                //Importing list of coupons
+        db.importCouponsFromCSV("coupons.csv");  //direct input
 
-        //setListAdapter(new CouponsListAdapter(this, R.layout.custom_store, allCouponsList));
-        //couponsListAdapter = new CouponsListAdapter(this, R.layout.custom_store, allCouponsList);
+        CouponListView = findViewById(R.id.Coupon_Image_ListView);
 
-        // allCouponsList = db.getallCouponsList();  // in for list of specific name coupons and where from.
-        //couponsListView = findViewById(R.id.couponsListView); //identify
-        // CouponsListAdapter = new CouponsListAdapter(this, R.layout.custom_coupon, allCouponsList); //linking list to layout
-        // couponsListView.setAdapter(CouponsListAdapter); //list can pull up on screen because of adapter
 
+        db = new DBHelper(this); //to DBhelper connect
+        couponsList = db.getAllCoupons(); //get in list
+        couponsListAdapter = new CouponsListAdapter(this, R.layout.list_item_custom_coupon, couponsList); //put towards here
+        CouponListView = findViewById(R.id.Coupon_Image_ListView); //connect to layout View
+        CouponListView.setAdapter(couponsListAdapter); //set together
+
+        db.importCouponsFromCSV("coupons.csv");
         /** end of list view
          */
+
 
         /**
          * This is for getting TEXT from ADDCouponActivity to the COUPON Activity, THIS IS DONE.
@@ -137,6 +144,28 @@ public class CouponActivity extends AppCompatActivity {
 
     }
 
+    public void addCoupons(View view) {            //to add an activity into view in the app
+        // TODO: Start an activity for intent to pick a picture from the device.
+        // Implicit intent (normally we do explicit)
+        Intent couponsIntent = new Intent(Intent.ACTION_PICK,
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        // Works for any kind of intent
+        startActivityForResult(couponsIntent, REQUEST_GALLERY);
+
+    }
+
+    public void deleteCoupons(View view) {          //another addition to the app view
+        // TODO: Delete the selected contact from the database and remove the contact from the contactsAdapter.
+
+        // Grab the contract from the view
+        Coupons c = (Coupons) view.getTag();
+        db.deleteCoupons(c.getId());
+        couponsListAdapter.remove(c);
+        // Update the list view
+        couponsListAdapter.notifyDataSetChanged();
+
+    }
+
     private void setListAdapter(CouponsListAdapter couponsListAdapter) {
     }
 
@@ -149,6 +178,7 @@ public class CouponActivity extends AppCompatActivity {
     public void revertToPreviousScreen(View v) {
         this.finish();
     }
+
 }
 
 

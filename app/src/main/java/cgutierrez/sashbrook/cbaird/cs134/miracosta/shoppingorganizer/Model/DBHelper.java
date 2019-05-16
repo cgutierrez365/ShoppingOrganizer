@@ -135,7 +135,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(createQuery);
 
     }
-
+    /********** DATABASE OPERATIONS:  ADD, GET ALL, GET 1, DELETE*/
     /** Chloe:
      * Adds the Item to the Database with all table fields
      * @param item the new item to be added to the database
@@ -420,6 +420,108 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(STORES_TABLE, null, null);
         db.close();
+    }
+    /**
+     * HERE ADD LISTVIEW LIST into SYSTEM.
+     *
+     * @param
+     */
+    public List<Coupons> getAllCoupons()
+    {
+        ArrayList<Coupons> couponsList = new ArrayList<>();
+        SQLiteDatabase database = this.getReadableDatabase();
+        // Instantiate a cursor to hold results of database query
+        Cursor cursor = database.query(" Choices: " + DATABASE_TABLE,
+                new String[] {COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+                null,null,null, null, null, null);
+
+        //collect each row in the table
+        if (cursor.moveToFirst()){
+            do{
+                Coupons coupon =
+                        new Coupons(cursor.getLong(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getString(3),
+                                cursor.getString(4),
+                                cursor.getString(5));
+                couponsList.add(coupon);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        database.close();
+        return couponsList;
+    }
+
+    public Coupons getCoupons(String imageURI)
+    {
+        Coupons coupons = new Coupons();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(DATABASE_TABLE,
+                new String[] {COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+                FIELD_COUPON_IMAGE + " = ?", new String[]{imageURI}, null, null, null);
+
+        if(cursor.moveToFirst())
+        {
+            do{
+                long mId = cursor.getLong(0); // index column
+                String mImageURI = cursor.getString(1);
+                String mExpirationDate = cursor.getString(2);
+                String mIsFavorite = cursor.getString(3);
+                String mAdditionalNotes = cursor.getString(4);
+                String mCoupons = cursor.getString(5);
+
+                coupons.setImageURI(mImageURI);
+                coupons.setExpirationDate(mExpirationDate);
+                coupons = new Coupons(mId, mImageURI, mExpirationDate, mIsFavorite, mAdditionalNotes, mCoupons);
+            }
+            while(cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return coupons;
+    }
+
+    public void deleteCoupons(long id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // DELETE THE TABLE ROW
+        db.delete(DATABASE_TABLE, COUPON_KEY_FIELD_ID + " = ?",
+                new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public void deleteAllCoupons() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(DATABASE_TABLE, null, null);
+        db.close();
+    }
+
+    public Coupons getCoupons(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                DATABASE_TABLE,
+                new String[]{COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+                COUPON_KEY_FIELD_ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Coupons coupon =
+                new Coupons(cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5));
+//                        cursor.getString(6),
+//                        cursor.getDouble(7),
+//                        cursor.getDouble(8));
+        cursor.close();
+        db.close();
+        return coupon;
     }
 
 }

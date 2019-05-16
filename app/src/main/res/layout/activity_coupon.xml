@@ -80,6 +80,7 @@
         android:layout_marginBottom="60dp"
         android:background="#04ea00"
         android:text="Collect"
+        android:onClick="addCoupons"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="sans"
@@ -142,9 +143,9 @@
         app:layout_constraintGuide_end="310dp" />
 
     <ListView
-        android:id="@+id/Coupon_Image"
+        android:id="@+id/Coupon_Image_ListView"
         android:layout_width="381dp"
-        android:layout_height="150dp"
+        android:layout_height="144dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="22dp"

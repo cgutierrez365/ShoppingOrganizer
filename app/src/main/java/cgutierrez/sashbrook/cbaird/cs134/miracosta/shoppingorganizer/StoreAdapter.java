@@ -13,14 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.miracosta.cs134.capstonelayouts.Model.Store;
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Store;
 
-//Did finish StoreAdapter, need to figure out how it is going to be connected to StoresActivity.
-//Videos on Youtube.
-//8:44PM 5/3/2019
-//URL: https://www.youtube.com/watch?v=Nw9JF55LDzE
-//URL: https://www.youtube.com/watch?v=IGGT_jfZQrA
-//URL: https://www.youtube.com/watch?v=ZXoGG2XTjzU
 
 /**
  * Helper class to provide custom adapter for the <code>Location</code> list.
@@ -65,84 +59,18 @@ public class StoreAdapter extends ArrayAdapter<Store> {
         View view = inflater.inflate(mResourceId, null);
 
         ConstraintLayout allStoresListConstraintLayout =
-                view.findViewById(R.id.storesListView);  //use view. when adding layout.
-        // Works for all on LinearLayout
+                view.findViewById(R.id.storesListView);  //use view. when adding layout.t
 
         ImageView allStoresListImageView
                 = view.findViewById(R.id.imageView2);
 
         TextView allStoresListNameTextView =
                 view.findViewById(R.id.textView);
-        //TextView locationListAddressTextView =
-                //view.findViewById(R.id.);
-        //TextView locationListPhoneTextView =
-               // view.findViewById(R.id.locationListPhoneTextView);
 
         allStoresListConstraintLayout.setTag(selectedLocation);
 
         allStoresListNameTextView.setText(selectedLocation.getName());
 
-        //locationListAddressTextView.setText(selectedLocation.getFullAddress());
-        //locationListPhoneTextView.setText(selectedLocation.getPhone());
-
-
-//        AssetManager am = mContext.getAssets();
-//        try {
-//            InputStream stream = am.open(selectedLocation.getImageName());
-//            Drawable event = Drawable.createFromStream(stream, selectedLocation.getName());
-//            allStoresListImageView.setImageDrawable(event);
-//        }
-//        catch (IOException ex)
-//        {
-//            Log.e("Stores Select", "Error loading " + selectedLocation.getImageName(), ex);
-//        }
-
         return view;
     }
 }
-
-
-//
-//public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHolder>{
-//
-//    private String[] data;
-//
-//    public StoreAdapter(String[] data)
-//    {
-//        this.data = data;
-//
-//    }
-//
-//    @NonNull
-//    @Override
-//    public StoreAdapter.StoreViewHolder onCreateViewHolder ( @NonNull ViewGroup viewGroup, int i ) {
-//        LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-//        View view = inflater.inflate(R.layout.custom_store, viewGroup, false);
-//        return new StoreViewHolder(view);
-//        //return null;
-//    }
-//
-//    @Override
-//    public void onBindViewHolder ( @NonNull StoreAdapter.StoreViewHolder storeViewHolder, int i ) {
-//        String title = data[i];
-//        storeViewHolder.txtView.setText(title);
-//
-//    }
-//
-//    @Override
-//    public int getItemCount () {
-//        return data.length;
-//    }
-//
-//    public class StoreViewHolder extends RecyclerView.ViewHolder {
-//       ImageView imgView;
-//       TextView txtView;
-//
-//        public StoreViewHolder ( View itemView ) {
-//            super(itemView);
-//            imgView = (ImageView) itemView.findViewById(R.id.imageView2);
-//            txtView = (TextView) itemView.findViewById(R.id.textView);
-//        }
-//    }
-//
-//}

@@ -44,4 +44,6 @@
     <string name="notes_title">Notes Title...</string>
     <string name="notes_contents">Notes Contents...</string>
     <string name="shopping_organizer">Shopping Organizer</string>/>
+    <string name="item_description">an item</string>
+    <string name="default_text">TEXT</string>
 </resources>

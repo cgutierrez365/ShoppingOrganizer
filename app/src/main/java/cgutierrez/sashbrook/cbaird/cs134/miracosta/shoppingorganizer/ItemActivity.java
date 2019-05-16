@@ -7,19 +7,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+/**
+ *
+ */
+
 public class ItemActivity extends AppCompatActivity {
 
     private static final int updatedListCode = 101;
 
     /**
-     * Chloe is in charge of this activity.# # # # # # # # ##
-     * #
-     * #
-     * #
-     * #
-     * #
-     * #
-     * #
+     * Instance variables pertaining to a specific item.
      * @param savedInstanceState
      */
 

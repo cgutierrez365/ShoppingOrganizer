@@ -6,4 +6,65 @@
     android:layout_height="match_parent"
     tools:context=".AddNoteActivity">
 
+    <EditText
+        android:id="@+id/titleEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:hint="@string/note_title"
+        android:inputType="text|textAutoComplete"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:ems="10"
+        android:gravity="top"
+        android:hint="@string/note_contents"
+        android:inputType="text|textCapSentences|textAutoComplete|textImeMultiLine"
+        android:singleLine="false"
+        android:textAlignment="viewStart"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="675dp"
+            tools:text="@string/cancel" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_note_button"
+            tools:layout_editor_absoluteX="312dp"
+            tools:layout_editor_absoluteY="675dp" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

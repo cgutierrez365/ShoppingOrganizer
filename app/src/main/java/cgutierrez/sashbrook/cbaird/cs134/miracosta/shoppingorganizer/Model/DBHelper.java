@@ -57,11 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String STORES_TABLE = "Locations";
     private static final String STORES_KEY_FIELD_ID = "_id";
     private static final String FIELD_NAME = "name";
-    private static final String FIELD_ADDRESS = "address";
-    private static final String FIELD_CITY = "city";
-    private static final String FIELD_STATE = "state";
-    private static final String FIELD_ZIP_CODE = "zip_code";
-    private static final String FIELD_PHONE = "phone";
+    private static final String FIELD_LOCATION = "location";
     private static final String FIELD_LATITUDE = "latitude";
     private static final String FIELD_LONGITUDE = "longitude";
 
@@ -113,7 +109,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         table = "CREATE TABLE IF NOT EXISTS " + COUPONS_TABLES + "("
                 + COUPONS_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
-                + FIELD_COUPON_IMAGE + " BLOB, "
+                + FIELD_COUPON_IMAGE + " String, "
                 + FIELD_EXPIRATION_DATE + "TEXT, "
                 + FIELD_IS_FAVORITE + " REAL, "
                 + FIELD_ADDITIONAL_NOTES + " TEXT" + ")";
@@ -124,11 +120,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String createQuery = "CREATE TABLE " + STORES_TABLE + "("
                 + STORES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_NAME + " TEXT, "
-                + FIELD_ADDRESS + " TEXT, "
-                + FIELD_CITY + " TEXT,"
-                + FIELD_STATE + " TEXT,"
-                + FIELD_ZIP_CODE + " TEXT,"
-                + FIELD_PHONE + " TEXT,"
+                + FIELD_LOCATION + " TEXT, "
                 + FIELD_LATITUDE + " REAL,"
                 + FIELD_LONGITUDE + " REAL"
                 + ")";
@@ -185,17 +177,13 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-//        values.put(FIELD_NAME, store.getName());
-//        values.put(FIELD_ADDRESS, store.getAddress());
-//        values.put(FIELD_CITY, store.getCity());
-//        values.put(FIELD_STATE, store.getState());
-//        values.put(FIELD_ZIP_CODE, store.getZipCode());
-//        values.put(FIELD_PHONE, store.getPhone());
-//        values.put(FIELD_LATITUDE, store.getLatitude());
-//        values.put(FIELD_LONGITUDE, store.getLongitude());
+          values.put(FIELD_NAME, store.getName());
+        values.put(FIELD_LOCATION, store.getLocation());
+        values.put(FIELD_LATITUDE, store.getLatitude());
+        values.put(FIELD_LONGITUDE, store.getLongitude());
 
         long id = db.insert(STORES_TABLE, null, values);
-//        store.setId(id);
+        store.setId(id);
         // CLOSE THE DATABASE CONNECTION
         db.close();
     }
@@ -267,11 +255,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
                 long id = Long.parseLong(fields[0].trim());
                 String name = fields[1].trim();
-                String address = fields[2].trim();
-                String city = fields[3].trim();
-                String state = fields[4].trim();
-                String zipCode = fields[5].trim();
-                String phone = fields[6].trim();
+                String location = fields[2].trim();
                 double latitude = Double.parseDouble(fields[7].trim());
                 double longitude = Double.parseDouble(fields[8].trim());
 //                addStore(new Store(id, name, address, city, state, zipCode, phone, latitude, longitude));
@@ -322,7 +306,7 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()){
             do {
                 Notes note =
-                        new Notes(cursor.getInt(0),
+                        new Notes(cursor.getLong(0),
                                 cursor.getString(1),
                                 cursor.getString(2));
                 noteList.add(note);
@@ -337,36 +321,32 @@ public class DBHelper extends SQLiteOpenHelper {
      * Returns a List of all the stores in the database
      * @return
      */
-//    public List<Store> getallStoresList() {
-//        ArrayList<Store> allStoresList = new ArrayList<>();
-//        SQLiteDatabase db = this.getReadableDatabase();
-//        Cursor cursor = db.query(
-//                STORES_TABLE,
-//                new String[]{STORES_KEY_FIELD_ID, FIELD_NAME, FIELD_ADDRESS, FIELD_CITY, FIELD_STATE, FIELD_ZIP_CODE, FIELD_PHONE, FIELD_LATITUDE, FIELD_LONGITUDE},
-//                null,
-//                null,
-//                null, null, null, null);
-//
-//        //COLLECT EACH ROW IN THE TABLE
-//        if (cursor.moveToFirst()) {
-//            do {
-//                Store store =
-//                        new Store(cursor.getLong(0),
-//                                cursor.getString(1),
-//                                cursor.getString(2),
-//                                cursor.getString(3),
-//                                cursor.getString(4),
-//                                cursor.getString(5),
-//                                cursor.getString(6),
-//                                cursor.getDouble(7),
-//                                cursor.getDouble(8));
-//                allStoresList.add(store);
-//            } while (cursor.moveToNext());
-//        }
-//        cursor.close();
-//        db.close();
-//        return allStoresList;
-//    }
+    public List<Store> getallStoresList() {
+        ArrayList<Store> allStoresList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                STORES_TABLE,
+                new String[]{STORES_KEY_FIELD_ID, FIELD_NAME, FIELD_LOCATION, FIELD_LATITUDE, FIELD_LONGITUDE},
+                null,
+                null,
+                null, null, null, null);
+
+        //COLLECT EACH ROW IN THE TABLE
+        if (cursor.moveToFirst()) {
+            do {
+                Store store =
+                        new Store(cursor.getLong(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getDouble(3),
+                                cursor.getDouble(4));
+                allStoresList.add(store);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return allStoresList;
+    }
 
     /**
      * Gets a store object from the database
@@ -377,7 +357,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //        SQLiteDatabase db = this.getReadableDatabase();
 //        Cursor cursor = db.query(
 //                STORES_TABLE,
-//                new String[]{STORES_KEY_FIELD_ID, FIELD_NAME, FIELD_ADDRESS, FIELD_CITY, FIELD_STATE, FIELD_ZIP_CODE, FIELD_PHONE, FIELD_LATITUDE, FIELD_LONGITUDE},
+//                new String[]{STORES_KEY_FIELD_ID, FIELD_NAME, FIELD_LOCATION, FIELD_CITY, FIELD_STATE, FIELD_ZIP_CODE, FIELD_PHONE, FIELD_LATITUDE, FIELD_LONGITUDE},
 //                STORES_KEY_FIELD_ID + "=?",
 //                new String[]{String.valueOf(id)},
 //                null, null, null, null);

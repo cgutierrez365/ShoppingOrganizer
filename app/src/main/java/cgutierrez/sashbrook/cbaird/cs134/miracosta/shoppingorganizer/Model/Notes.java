@@ -9,7 +9,7 @@ import android.os.Parcelable;
  */
 public class Notes implements Parcelable
 {
-    private int id;
+    private long id;
     private String noteTitle;
     private String noteContents;
 
@@ -28,7 +28,7 @@ public class Notes implements Parcelable
      * @param noteTitle the title
      * @param noteContents the contents
      */
-    public Notes(int id, String noteTitle, String noteContents) {
+    public Notes(long id, String noteTitle, String noteContents) {
         this.id = id;
         this.noteTitle = noteTitle;
         this.noteContents = noteContents;
@@ -38,7 +38,7 @@ public class Notes implements Parcelable
      * Gets the id of the Note item
      * @return id
      */
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -46,7 +46,7 @@ public class Notes implements Parcelable
      * Gets the id of the note
      * @param id id
      */
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

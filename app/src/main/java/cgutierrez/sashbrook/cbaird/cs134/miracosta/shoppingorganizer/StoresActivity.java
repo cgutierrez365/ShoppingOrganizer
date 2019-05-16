@@ -74,7 +74,6 @@ public class StoresActivity extends AppCompatActivity {
 
 
 //        allStoresList = db.getallStoresList();
-
         // DONE:  Connect the list adapter with the list
         storeListAdapter = new StoreAdapter(this, R.layout.custom_store, allStoresList);
 

@@ -43,7 +43,7 @@ public class ItemActivity extends AppCompatActivity {
         //ESTABLISH DATABASE
         db = new DBHelper(this);
 
-        itemsList = db.
+        //itemsList = db.
 
     }
 

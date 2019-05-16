@@ -11,14 +11,27 @@ public class Store implements Parcelable {
      * its name, address, phone number and latitude/longitude location.
      */
 
+    private long id;
     private String mName;
     private String mLocation;
+    private double mLatitude;
+    private double mLongitude;
 
+    public Store()
+    {
+        id = -1;
+        mName = "";
+        mLocation = "";
+        mLatitude = 0.0;
+        mLongitude = 0.0;
+    }
 
-    public Store(String name, String location) {
+    public Store(long mID, String name, String location, double latitude, double longitude) {
+        id = mID;
         mName = name;
         mLocation = location;
-
+        mLatitude = latitude;
+        mLongitude = longitude;
     }
 
 //    public Store(String name, String location) {
@@ -30,6 +43,33 @@ public class Store implements Parcelable {
         mLocation = in.readString();
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public double getLatitude() {
+        return mLatitude;
+    }
+
+    public void setLatitude(double latitude) {
+        mLatitude = latitude;
+    }
+
+    public double getLongitude() {
+        return mLongitude;
+    }
+
+    public void setLongitude(double longitude) {
+        mLongitude = longitude;
+    }
+
+    public static Creator<Store> getCREATOR() {
+        return CREATOR;
+    }
 
     public String getName() {
         return mName;
@@ -46,6 +86,7 @@ public class Store implements Parcelable {
     public void setLocation(String location) {
         mLocation = location;
     }
+
 
 
     public String getFullAddress()

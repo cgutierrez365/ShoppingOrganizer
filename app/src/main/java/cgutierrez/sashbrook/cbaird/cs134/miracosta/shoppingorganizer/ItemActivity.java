@@ -1,6 +1,8 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +31,8 @@ public class ItemActivity extends AppCompatActivity {
     private List<Items> itemsList;
     private ItemListAdapter itemListAdapter;
     private ListView itemListView;
+    private Items newItem;
+
 
     /**
      *
@@ -42,13 +46,18 @@ public class ItemActivity extends AppCompatActivity {
 
         //ESTABLISH DATABASE
         db = new DBHelper(this);
+        itemsList = db.getAllItems();
 
-        //itemsList = db.
+        //INFLATE CUSTOM VIEW
+        itemListAdapter = new ItemListAdapter(this, R.layout.custom_item, itemsList);
+        itemListView = findViewById(R.id.itemsListView);
+        itemListView.setAdapter(itemListAdapter);
 
     }
 
     public void addItem(View v)
     {
+        //Intent addItemIntent = new Intent(Intent.)
         Intent addItemIntent = new Intent(this, AddItemActivity.class);
         startActivityForResult(addItemIntent, UPDATED_LIST_CODE);
     }
@@ -60,7 +69,26 @@ public class ItemActivity extends AppCompatActivity {
 
         if(requestCode == UPDATED_LIST_CODE)
         {
-           //TODO: Get update listview from Chole (should have included it in her onCreate()
+           //DONE(??): Get update listview from Chole (should have included it in her onCreate()
+            Uri itemData = data.getData();
+            Cursor cursor = getContentResolver().query( itemData, null, null, null, null );
+
+            if(cursor.moveToFirst())
+            {
+                long id = Long.parseLong( cursor.getString(0) );
+                String itemName = cursor.getString(1);
+                String storeName = cursor.getString(2);
+                String storeLocation = cursor.getString(3);
+                String quantity = cursor.getString(4);
+                String imageUri = cursor.getString(5);
+
+                newItem = new Items(id, itemName, storeName, storeLocation, quantity, imageUri);
+
+                //ADD TO LIST AND DATABASE
+                db.addItem(newItem);
+                itemListAdapter.add(newItem);
+            }
+
         }
     }
 

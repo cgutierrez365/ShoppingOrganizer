@@ -14,7 +14,7 @@
         android:background="@drawable/img_background"
         android:gravity="bottom|center"
 
-        android:text="@string/ShoppingOrganizer"
+        android:text="@string/shopping_organizer"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorWhite"

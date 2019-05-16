@@ -73,7 +73,7 @@ public class StoresActivity extends AppCompatActivity {
         db.importStoresFromCSV("stores.csv");
 
 
-        allStoresList = db.getallStoresList();
+//        allStoresList = db.getallStoresList();
 
         // DONE:  Connect the list adapter with the list
         storeListAdapter = new StoreAdapter(this, R.layout.custom_store, allStoresList);

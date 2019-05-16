@@ -13,7 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:hint="@string/note_title"
+        android:hint="@string/notes_title"
         android:inputType="text|textAutoComplete"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +28,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:gravity="top"
-        android:hint="@string/note_contents"
+        android:hint="@string/notes_contents"
         android:inputType="text|textCapSentences|textAutoComplete|textImeMultiLine"
         android:singleLine="false"
         android:textAlignment="viewStart"

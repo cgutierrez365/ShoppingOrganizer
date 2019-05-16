@@ -31,15 +31,14 @@
         android:id="@+id/ExpireDate"
         android:layout_width="236dp"
         android:layout_height="42dp"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="19dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginBottom="11dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/ExpireDate"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/IsFavorite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/Image_Coupon"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="ExpireDate" />
@@ -78,8 +77,8 @@
 
     <ImageView
         android:id="@+id/Image_Coupon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="127dp"
+        android:layout_height="85dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="27dp"
         android:layout_marginBottom="576dp"
@@ -88,6 +87,6 @@
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@android:drawable/ic_menu_camera" />
 
 </android.support.constraint.ConstraintLayout>

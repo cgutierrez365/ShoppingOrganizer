@@ -11,8 +11,8 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
-import edu.miracosta.cs134.capstonelayouts.Model.DBHelper;
-import edu.miracosta.cs134.capstonelayouts.Model.Store;
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Store;
 
 /**7. Bringing together a layout called activity_add_store.xml.
  * An Activity that will allow the user to view numerous stores listed together.

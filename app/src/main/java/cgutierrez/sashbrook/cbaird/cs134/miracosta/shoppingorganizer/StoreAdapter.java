@@ -13,7 +13,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.miracosta.cs134.capstonelayouts.Model.Store;
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Store;
+
 
 //Did finish StoreAdapter, need to figure out how it is going to be connected to StoresActivity.
 //Videos on Youtube.

@@ -431,8 +431,8 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<Coupons> couponsList = new ArrayList<>();
         SQLiteDatabase database = this.getReadableDatabase();
         // Instantiate a cursor to hold results of database query
-        Cursor cursor = database.query(" Choices: " + DATABASE_TABLE,
-                new String[] {COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+        Cursor cursor = database.query(" Choices: " + COUPONS_TABLES,
+                new String[] {COUPONS_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
                 null,null,null, null, null, null);
 
         //collect each row in the table
@@ -457,8 +457,8 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         Coupons coupons = new Coupons();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(DATABASE_TABLE,
-                new String[] {COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+        Cursor cursor = db.query(COUPONS_TABLES,
+                new String[] {COUPONS_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
                 FIELD_COUPON_IMAGE + " = ?", new String[]{imageURI}, null, null, null);
 
         if(cursor.moveToFirst())
@@ -486,23 +486,23 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // DELETE THE TABLE ROW
-        db.delete(DATABASE_TABLE, COUPON_KEY_FIELD_ID + " = ?",
+        db.delete(COUPONS_TABLES, COUPONS_KEY_FIELD_ID + " = ?",
                 new String[]{String.valueOf(id)});
         db.close();
     }
 
     public void deleteAllCoupons() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(DATABASE_TABLE, null, null);
+        db.delete(COUPONS_TABLES, null, null);
         db.close();
     }
 
     public Coupons getCoupons(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
-                DATABASE_TABLE,
-                new String[]{COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
-                COUPON_KEY_FIELD_ID + "=?",
+                COUPONS_TABLES,
+                new String[]{COUPONS_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+                COUPONS_KEY_FIELD_ID + "=?",
                 new String[]{String.valueOf(id)},
                 null, null, null, null);
 

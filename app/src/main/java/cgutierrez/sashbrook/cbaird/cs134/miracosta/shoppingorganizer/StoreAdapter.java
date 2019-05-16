@@ -16,9 +16,7 @@ import java.util.List;
 import edu.miracosta.cs134.capstonelayouts.Model.Store;
 
 //Did finish StoreAdapter, need to figure out how it is going to be connected to StoresActivity.
-//TODO: Needed Adapter Information to Move Custom_store into RecyclerView. Built fot RecyclerView but
-//TODO: unable to finish do to errors in code as of recent updates. Added to Main, It's a start. StoresActivity.java
-//TODO: Different Adapters to inflate(Not Complete) added as well as example store locations in assets. Videos on Youtube.
+//Videos on Youtube.
 //8:44PM 5/3/2019
 //URL: https://www.youtube.com/watch?v=Nw9JF55LDzE
 //URL: https://www.youtube.com/watch?v=IGGT_jfZQrA

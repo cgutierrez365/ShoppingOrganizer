@@ -35,5 +35,10 @@
     <string name="IsFavorite">Is Favorite</string>
     <string name="ExpireDate">Expiration Date</string>
     <string name="ExpirationDate">Expires When, no slashes or spaces</string>
+    <string name="credits_title">Credits:</string>
+    <string name="stacey">Stacey Ashbrook</string>
+    <string name="chloe">Chloe Baird</string>
+    <string name="clarissa">Clarissa Gutierrez</string>
+    <string name="return_button">Return</string>
     />
 </resources>

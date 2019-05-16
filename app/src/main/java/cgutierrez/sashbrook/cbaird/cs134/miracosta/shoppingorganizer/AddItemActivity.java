@@ -190,7 +190,8 @@ public class AddItemActivity extends AppCompatActivity {
         }
 
         //DONE: Need to figure out if should send location Address - saving address, not coordinates
-        Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, null, imageUriString);
+    //TODO UNCOMMENT WHEN ADD COUPONSLIST BACK TO ITEMS CLASS---    Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, null, imageUriString);
+        Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, imageUriString); //TODO: Erase this line when above TODO is DONE
 
         // Add the new item to the database to ensure it is persisted.
         db.addItem(newItem); //DONE: write addItem method in DBHelper

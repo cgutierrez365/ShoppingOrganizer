@@ -12,7 +12,7 @@ public class ItemActivity extends AppCompatActivity {
     private static final int updatedListCode = 101;
 
     /**
-     * Chloe is in charge of this activity. DON'T COMPLETE ON MY OWN # # # # # # # # ##
+     * Chloe is in charge of this activity.# # # # # # # # ##
      * #
      * #
      * #

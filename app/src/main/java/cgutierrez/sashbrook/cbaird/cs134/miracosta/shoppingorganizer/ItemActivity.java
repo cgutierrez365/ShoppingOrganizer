@@ -1,11 +1,16 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ListView;
+
+import java.util.List;
+
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items;
 
 /**
  *
@@ -13,10 +18,20 @@ import android.view.View;
 
 public class ItemActivity extends AppCompatActivity {
 
-    private static final int updatedListCode = 101;
+    //INSTANCE VARIABLES----------------------------------------------------------------------------
+    /**
+     * A list of items extracted to and changed from the database
+     */
+    private static final int UPDATED_LIST_CODE = 101;
+    private static final String TAG = ItemActivity.class.getSimpleName();
+
+    private DBHelper db;
+    private List<Items> itemsList;
+    private ItemListAdapter itemListAdapter;
+    private ListView itemListView;
 
     /**
-     * Instance variables pertaining to a specific item.
+     *
      * @param savedInstanceState
      */
 
@@ -24,12 +39,18 @@ public class ItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
+
+        //ESTABLISH DATABASE
+        db = new DBHelper(this);
+
+        itemsList = db.
+
     }
 
     public void addItem(View v)
     {
         Intent addItemIntent = new Intent(this, AddItemActivity.class);
-        startActivityForResult(addItemIntent, updatedListCode);
+        startActivityForResult(addItemIntent, UPDATED_LIST_CODE);
     }
 
     //Will update the listView after user added things to the database
@@ -37,7 +58,7 @@ public class ItemActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == updatedListCode)
+        if(requestCode == UPDATED_LIST_CODE)
         {
            //TODO: Get update listview from Chole (should have included it in her onCreate()
         }

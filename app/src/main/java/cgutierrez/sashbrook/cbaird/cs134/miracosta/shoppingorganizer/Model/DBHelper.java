@@ -524,4 +524,166 @@ public class DBHelper extends SQLiteOpenHelper {
         return coupon;
     }
 
+
+    /**
+     *  Imports sample items from a comma separated value file
+     * @param csvFileName
+     * @return
+     */
+    public boolean importItemsFromCSV(String csvFileName)
+    {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+
+        try
+        {
+            InputStream inputStream = inStream = manager.open(csvFileName);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+
+        try
+        {
+            while ( (line = buffer.readLine()) != null )
+            {
+                String[] fields = line.split(",");
+                if(fields.length != 6)
+                {
+                    Log.d("Items", "Skipping bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+
+                long id = Long.parseLong(fields[0].trim());
+                String itemName = fields[1].trim();
+                String storeName = fields[2].trim();
+                String storeLocation = fields[3].trim();
+                String quantity = fields[4].trim();
+                String imageUri = fields[5].trim();
+
+                addItem(new Items(id, itemName, storeName, storeLocation, quantity, imageUri));
+
+            }
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            return false;
+        }
+
+
+        return true;
+    }
+
+
+
+
+    /**
+     * Returns a List of all the items in the items table
+     * @return list of Items
+     */
+    public List<Items> getAllItems()
+    {
+        List<Items> itemsList = new ArrayList<>();
+        SQLiteDatabase database = getReadableDatabase();
+
+        //CREATE A CURSOR FOR THE DATABASE
+        Cursor cursor = database.query(
+                ITEMS_TABLE,
+                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME, FIELD_STORE_LOCATION, FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
+                null,
+                null,
+                null, null, null, null);
+
+        //COLLECT EACH ROW IN TABLE
+        if( cursor.moveToFirst() )
+        {
+            do
+            {
+                Items item = new Items(
+                        cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4),
+                        cursor.getString(5));
+            } while ( cursor.moveToNext() );
+
+        }
+
+        cursor.close();
+        database.close();
+
+        return itemsList;
+
+    }
+
+    /**
+     * Gets a  singular item from the database
+     * @param id id
+     * @return Items object
+     */
+    public Items getItem(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                ITEMS_TABLE,
+                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME, FIELD_STORE_LOCATION, FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
+                ITEMS_KEY_FIELD_ID + " =?",
+                new String[]{String.valueOf(id)},
+                null, null, null, null
+        );
+
+        if (cursor != null)
+        {
+            cursor.moveToFirst();
+        }
+
+        Items item = new Items(cursor.getLong(0),
+                cursor.getString(1),
+                cursor.getString(2),
+                cursor.getString(3),
+                cursor.getString(4),
+                cursor.getString(5)
+        );
+
+        cursor.close();
+        db.close();
+
+        return item;
+
+    }
+
+    /**
+     * Deletes an item from the database
+     * @param item
+     */
+    public void deleteItem(Items item)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //DELETE THE TABLE ROW
+        db.delete(ITEMS_TABLE, ITEMS_KEY_FIELD_ID + " = ?",
+                new String[]{ String.valueOf(item.getId()) } );
+
+        db.close();
+    }
+
+    /**
+     * Deletes all the items from the database
+     */
+    public void deleteAllItems()
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(ITEMS_TABLE, null, null);
+
+        db.close();
+    }
+
 }

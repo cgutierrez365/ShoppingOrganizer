@@ -7,7 +7,7 @@
     <string name="cancel">Cancel</string>
     <string name="items_button">Items</string>
     <string name="store_button">Stores</string>
-    <string name="history_button">History</string>
+    <string name="map_button">Map</string>
     <string name="coupons_button">Coupons</string>
     <string name="note_pad_label">Note Pad:</string>
     <string name="add_note_button">Add Note</string>
@@ -40,5 +40,6 @@
     <string name="chloe">Chloe Baird</string>
     <string name="clarissa">Clarissa Gutierrez</string>
     <string name="return_button">Return</string>
+    <string name="stores_near_me">Stores Near Me:</string>
     />
 </resources>

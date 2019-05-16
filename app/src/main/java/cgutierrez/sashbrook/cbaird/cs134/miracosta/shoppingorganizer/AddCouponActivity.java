@@ -127,66 +127,6 @@ public class AddCouponActivity extends AppCompatActivity {
      */
 
     public void addCoupons () {
-//
-//        /**
-//         * Executes whe user clicks "Add Item" button on activity_add_item.xml.
-//         * Adds the item to the item database if all the fields are filled
-//         * @param v the button
-//         */
-//        public void addItem(View v)
-//        {
-//            String imageUriString = (String) mItemImageView.getTag();
-//
-//            //Capture the fields added by the user
-//            String itemName = itemNameEditText.getText().toString();
-//            String storeName = storeNameEditText.getText().toString();
-//            String storeAddress = storeAddressEditText.getText().toString();
-//            String quantity = quantityEditText.getText().toString();
-//
-//
-//            if (TextUtils.isEmpty(itemName) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(storeAddress) || TextUtils.isEmpty(quantity))
-//            {
-//                Toast.makeText(this, "All fields (excluding image) must be provided to add an item to the list.", Toast.LENGTH_LONG).show();
-//                return;
-//            }
-//
-//            //DONE: Need to figure out if should send location Address - saving address, not coordinates
-//            Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, null, imageUriString);
-//
-//            // Add the new item to the database to ensure it is persisted.
-//            db.addItem(newItem); //DONE: write addItem method in DBHelper
-//
-//
-//
-//            // Check if lines below update the listView in ItemActivity (but doesn't immediately go to ItemActivity, until press done/cancel button
-//            // Will have to coordinate with Chloe so that she starts my  AddItemActivity using startActivityForResult()
-//            Intent backToItemActivityIntent = new Intent(this, ItemActivity.class);
-//            backToItemActivityIntent.putExtra("newItem", newItem); //OK b/c Items is Parcelable
-//            setResult(RESULT_OK, backToItemActivityIntent); //will send
-//
-//            // Reset all entries so user can add more if they want
-//            itemNameEditText.setText("");
-//            storeNameEditText.setText("");
-//            storeAddressEditText.setText("");
-//            quantityEditText.setText("");
-//            mItemImageView.setImageURI(getUriToResource(this, R.drawable.ic_shopping_cart_24dp));
-//
-//            Toast.makeText(this, "Item Successfully Added", Toast.LENGTH_SHORT).show();
-//
-//            //set value of cancel button to say "Done" instead since a change was made to the database
-//            Button doneButton = findViewById(R.id.cancelButton);
-//            doneButton.setText(R.string.done);
-//        }
-//
-//        /**
-//         * Ends AddItemActivity, thus reverting to the previous activity that called this one
-//         * @param v The cancel / done button
-//         */
-//        public void revertToPreviousScreen(View v)
-//        {
-//            this.finish();
-//        }
-//    }
 
     }
 

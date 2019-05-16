@@ -1,13 +1,16 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -28,29 +31,19 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Store
 
 public class StoresActivity extends AppCompatActivity {
 
-        // Adjusted the ListView in for RecyclerView, cannot use Recyclerview without LinearLayout
-        // and thus needs a layout manager to go with.
-
 
     /**
      * Member variables
      */
-
-    private Button addStore;
-    //private View RecyclerView;
-    private TextView StoreNameTextView;
-    private ImageView StoreFrontView;
-    private int STORES_KEY_FIELD_ID;
-    private Text FIELD_STORE_NAME;
-    private int FIELD_NUMBER_OF_ITEMS;
-    private int FIELD_NUMBER_OF_COUPONS;
-    private Text FIELD_LOCATION;
-
     private DBHelper db;
     private List<Store> allStoresList;
     private ListView storesListView;
-    private StoreAdapter StoreAdapter;
-   // private RecyclerView recyclerView;
+    private StoreAdapter storeListAdapter;
+    private Button addStore;
+    private TextView StoreNameTextView;
+    private ImageView StoreFrontView;
+    private EditText editTextStore;
+
 
 
     /**
@@ -61,6 +54,7 @@ public class StoresActivity extends AppCompatActivity {
 
     /**
      * Created in application
+     *
      * @param savedInstanceState
      */
 
@@ -69,89 +63,64 @@ public class StoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_store);
 
+
+        Button addStore = findViewById(R.id.addStore);
+        TextView StoreNameTextView = findViewById(R.id.StoreNameTextView);
+        ImageView StoreFrontView = findViewById(R.id.StoreimageView);
+
         deleteDatabase(DBHelper.DATABASE_NAME);
         db = new DBHelper(this);
-        db.importStoresFromCSV("coupons.csv");
+        db.importStoresFromCSV("stores.csv");
 
-        //android.support.v7.widget.RecyclerView Custom_Store = (RecyclerView) findViewById(R.id.parent_layout);
-        //CardView StoreFace = (CardView) findViewById(R.id.parent_layout);
 
         allStoresList = db.getallStoresList();
+
+        // DONE:  Connect the list adapter with the list
+        storeListAdapter = new StoreAdapter(this, R.layout.custom_store, allStoresList);
+
+        // DONE:  Set the list view to use the list adapter
         storesListView = findViewById(R.id.storesListView);
-        StoreAdapter = new StoreAdapter(this, R.layout.custom_store, allStoresList);
-        storesListView.setAdapter(StoreAdapter);
-
-
-
-
+        storesListView.setAdapter(storeListAdapter);
 
     }
 
     /**
      * Code to run, alongside or in app.
+     * Flow: Stores Activity --> Model Stores ---> Adapter <- BUTTON
      */
-//    public void viewStoreDetails(View view) {
-//        Store selectedStore = (Store) view.getTag();
-//
-//        Intent detailsIntent = new Intent(this, MainActivity.class);
-//        //detailsIntent.putExtra("Name", selectedGame.getName());
-//        //detailsIntent.putExtra("Description", selectedGame.getDescription());
-//        // detailsIntent.putExtra("Rating", selectedGame.getRating());
-//        // detailsIntent.putExtra("ImageName", selectedGame.getImageName());
-//        // commented out & convert to:
-//        detailsIntent.putExtra("SelectedStore", selectedStore);
-//
-//        startActivity(detailsIntent);
-//    }
-//    public void addStore(View view) {
-//
-//        EditText nameEditText = findViewById(R.id.nameEditText);
-//        EditText descriptionEditText = findViewById(R.id.descriptionEditText);
-//
-//        String name = nameEditText.getText().toString();
-//        String description = descriptionEditText.getText().toString();
-//        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(description)) {
-//            Toast.makeText(this, "Both name and description of the store must be provided.", Toast.LENGTH_LONG);
-//            return;
-//        }
-//        Store newStore = new Store(name, description);
-//
-//        // Add the new game to the database to ensure it is persisted.
-//        db.addStore(newStore);
-//        StoreAdapter.add(newStore);
-//        // Clear all the entries (reset them)
-//        nameEditText.setText("");
-//        descriptionEditText.setText("");
-//    }
-//
-//    public void clearAllStore(View view)
-//    {
-//        allStoresList.clear();
-//        // Permanently delete games from the database, buh bye
-//        db.deleteAllStores();
-//        StoreAdapter.notifyDataSetChanged();
-//    }
 
+    public void viewStoreDetails ( View view ) {
+        Store selectedStore = (Store) view.getTag();
+
+        Intent detailsIntent = new Intent(this, StoresActivity.class);
+
+        detailsIntent.putExtra("SelectedStore", selectedStore);
+
+        startActivity(detailsIntent);
+    }
+    // TODO: Implement the code for when the user clicks on the addStoreButton
+    public void addStore( View view ) {
+
+        TextView storeTextView = findViewById(R.id.StoreNameTextView);
+       // EditText editTextStoreEditText = findViewById(R.id.editTextStore);
+
+        String name = storeTextView.getText().toString();
+        //String name = editTextStoreEditText.getText().toString();
+        if (TextUtils.isEmpty(name)) {
+            Toast.makeText(this, "Both name and description of the store must be provided.", Toast.LENGTH_LONG);
+            return;
+        }
+       // Store newStore = new Store(name);
+
+        // Add the new game to the database to ensure it is persisted.
+       // allStoresList.add(newStore);
+        storeListAdapter.notifyDataSetChanged();
+        // Clear all the entries (reset them)
+    }
+
+    public void clearAllStore ( View view ) {
+        allStoresList.clear();
+        // Permanently delete games from the database, buh bye
+        storeListAdapter.notifyDataSetChanged();
+    }
 }
-
-
-
-//RecyclerView recyclerView = findViewById(R.id.recyclerView);
-//StoreAdapter adapter = new StoreAdapter(this, R.layout.custom_store, allStoresList);
-// Custom_Store.setAdapter(StoreAdapter);
-
-
-//ex: locationListAdapter = new LocationListAdapter(this, R.layout.location_list_item, allLocationsList);
-//locationsListView.setAdapter(locationListAdapter);
-
-// String[] stores = ["Home Depot", "Costco", "Grocery Outlet"];
-//StoreAdapter adapter = new StoreAdapter(new StoreAdapter(stores));
-//StoreAdapter adapter = new StoreAdapter(new StoreAdapter(stores));
-//Custom_Store.setAdapter(adapter);
-//Custom_Store.setLayoutManager(new LinearLayoutManager(this));
-// TODO:  Connect the list adapter with the list
-//StoreAdapter = new StoreAdapter(this, R.layout.activity_add_store, allStoresList);  //OR selectable list on layout?
-
-// TODO:  Set the list view to use the list adapter
-//RecyclerView = findViewById(R.id.recyclerView);
-//recyclerView.setAdapter(StoreAdapter);

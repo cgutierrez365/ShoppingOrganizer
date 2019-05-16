@@ -21,6 +21,16 @@ public class Coupons implements Parcelable
 
 
     //CONSTRUCTORS----------------------------------------------------------------------------------
+    public Coupons()
+    {
+        mId = -1;
+        mImageURI = "";
+        mExpirationDate = "";
+        mIsFavorite = "";
+        mAdditionalNotes = "";
+        //mImageURI = "";
+    }
+
     public Coupons ( long id, String imageURI, String expirationDate, String isFavorite, String additionalNotes, String addArray ) {
         mId = -1;
         mImageURI = "";

@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer">
     <!-- Specify permissions before application -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -13,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CreditsActivity"></activity>
+        <activity android:name=".AddNoteActivity"></activity>
+        <activity android:name=".MapActivity" />
+        <activity android:name=".CreditsActivity" />
         <activity android:name=".ItemActivity" />
         <activity android:name=".MainMenuActivity">
             <intent-filter>
@@ -23,6 +26,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddItemActivity" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBJoe8PNQkbZh36_U8hCRY8rPtn5Bi0how" />
     </application>
 
 </manifest>

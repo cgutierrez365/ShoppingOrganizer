@@ -83,16 +83,16 @@ public class MainMenuActivity extends AppCompatActivity {
 //        startActivity(couponIntent);
 //    }
 //
-//    /**
-//     * links to the HistoryActivity
-//     * @param v the history button
-//     */
-//    public void viewHistory(View v)
-//    {
-//        Intent historyIntent = new Intent(this, HistoryActivity.class);
-//        startActivity(historyIntent);
-//    }
-//
+    /**
+     * links to the MapActivity
+     * @param v the map button
+     */
+    public void viewMap(View v)
+    {
+        Intent mapIntent = new Intent(this, MapActivity.class);
+        startActivity(mapIntent);
+    }
+
 //    /**
 //     * links to the NotesActivity
 //     * @param v the Notes button

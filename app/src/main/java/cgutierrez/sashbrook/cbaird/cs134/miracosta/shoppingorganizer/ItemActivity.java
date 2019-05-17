@@ -69,25 +69,26 @@ public class ItemActivity extends AppCompatActivity {
 
         if(requestCode == UPDATED_LIST_CODE)
         {
-           //DONE(??): Get update listview from Chole (should have included it in her onCreate()
-            Uri itemData = data.getData();
-            Cursor cursor = getContentResolver().query( itemData, null, null, null, null );
-
-            if(cursor.moveToFirst())
-            {
-                long id = Long.parseLong( cursor.getString(0) );
-                String itemName = cursor.getString(1);
-                String storeName = cursor.getString(2);
-                String storeLocation = cursor.getString(3);
-                String quantity = cursor.getString(4);
-                String imageUri = cursor.getString(5);
-
-                newItem = new Items(id, itemName, storeName, storeLocation, quantity, imageUri);
+//           //DONE(??): Get update listview from Chole (should have included it in her onCreate()
+//            Uri itemData = data.getData();
+//            Cursor cursor = getContentResolver().query( itemData, null, null, null, null );
+//
+//            if(cursor.moveToFirst())
+//            {
+//                long id = Long.parseLong( cursor.getString(0) );
+//                String itemName = cursor.getString(1);
+//                String storeName = cursor.getString(2);
+//                String storeLocation = cursor.getString(3);
+//                String quantity = cursor.getString(4);
+//                String imageUri = cursor.getString(5);
+//
+//                newItem = new Items(id, itemName, storeName, storeLocation, quantity, imageUri);
 
                 //ADD TO LIST AND DATABASE
                 db.addItem(newItem);
                 itemListAdapter.add(newItem);
-            }
+                itemListAdapter.notifyDataSetChanged();
+//            }
 
         }
     }

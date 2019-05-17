@@ -3,6 +3,7 @@ package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,13 +64,15 @@ public class ItemActivity extends AppCompatActivity {
     }
 
     //Will update the listView after user added things to the database
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == UPDATED_LIST_CODE)
         {
-//           //DONE(??): Get update listview from Chole (should have included it in her onCreate()
+            //TODO: get parcelable intent -- Pet selectedPet = detailsIntent.getParcelableExtra("SelectedPet");
+
+//           //DONE(??): Get update listview from Chole
 //            Uri itemData = data.getData();
 //            Cursor cursor = getContentResolver().query( itemData, null, null, null, null );
 //
@@ -84,11 +87,11 @@ public class ItemActivity extends AppCompatActivity {
 //
 //                newItem = new Items(id, itemName, storeName, storeLocation, quantity, imageUri);
 
-                //ADD TO LIST AND DATABASE
-                db.addItem(newItem);
+                //ADD TO LIST
+         //       db.addItem(newItem); (Already added to the database in AddItemActivity)
                 itemListAdapter.add(newItem);
                 itemListAdapter.notifyDataSetChanged();
-//            }
+         //   }
 
         }
     }

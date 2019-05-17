@@ -200,9 +200,10 @@ public class AddItemActivity extends AppCompatActivity {
 
         //TODO: Check if lines below update the listView in ItemActivity (but doesn't immediately go to ItemActivity, until press done/cancel button
         //TODO: Will have to coordinate with Chloe so that she starts my  AddItemActivity using startActivityForResult()
-        Intent backToItemActivityIntent = new Intent(this, ItemActivity.class);
+     //   Intent backToItemActivityIntent = new Intent(this, ItemActivity.class);
+        Intent backToItemActivityIntent = getIntent();
         backToItemActivityIntent.putExtra("newItem", newItem); //OK b/c Items is Parcelable
-        setResult(RESULT_OK, backToItemActivityIntent); //will send
+     //   setResult(RESULT_OK, backToItemActivityIntent); //will send
 
         // Reset all entries so user can add more if they want
         itemNameEditText.setText("");
@@ -213,9 +214,11 @@ public class AddItemActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Item Successfully Added", Toast.LENGTH_SHORT).show();
 
+        finish();
+
         //set value of cancel button to say "Done" instead since a change was made to the database
-        Button doneButton = findViewById(R.id.cancelButton);
-        doneButton.setText(R.string.done);
+//        Button doneButton = findViewById(R.id.cancelButton);
+//        doneButton.setText(R.string.done);
     }
 
     /**

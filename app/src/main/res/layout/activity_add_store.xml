@@ -14,6 +14,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:background="#04ea00"
+        android:onClick="addStore"
         android:text="@string/store_add"
         android:textAlignment="center"
         android:textColor="@android:color/black"
@@ -23,29 +24,11 @@
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/StoreNameTextView"
-        android:layout_width="117dp"
-        android:layout_height="92dp"
-        android:layout_marginStart="235dp"
-        android:layout_marginTop="523dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginBottom="116dp"
-        android:text="@string/Store"
-        android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/store_name" />
-
     <ListView
         android:id="@+id/storesListView"
+        style="@style/Widget.AppCompat.ListView"
         android:layout_width="395dp"
-        android:layout_height="359dp"
+        android:layout_height="588dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -55,40 +38,10 @@
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
         android:scrollbars="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/divider"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider3" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="381dp"
-        android:layout_height="195dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="?android:attr/listDivider"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
-
-    <ImageView
-        android:id="@+id/StoreimageView"
-        android:layout_width="152dp"
-        android:layout_height="137dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="498dp"
-        android:layout_marginEnd="221dp"
-        android:layout_marginBottom="96dp"
-        android:contentDescription="@string/StoreImage"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@android:drawable/ic_menu_myplaces" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"

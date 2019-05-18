@@ -60,12 +60,17 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_LOCATION = "location";
     private static final String FIELD_LATITUDE = "latitude";
     private static final String FIELD_LONGITUDE = "longitude";
+    private static final String FIELD_STORE_IMAGE = "imageName";
 
-
+    /**
+     * mContext identifier, fixed mContext to be available for identifier
+     * @param context
+     */
     //CONSTRUCTOR-----------------------------------------------------------------------------------
     public DBHelper(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        mContext = context;
     }
 
 
@@ -106,7 +111,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + ")";
 
         db.execSQL(table);
-
+        //Create Coupons Table
         table = "CREATE TABLE IF NOT EXISTS " + COUPONS_TABLES + "("
                 + COUPONS_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_COUPON_IMAGE + " String, "
@@ -116,13 +121,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(table);
 
+        /**
+         * Stores Database, Added Store Image
+         */
         //Create Stores Table
         String createQuery = "CREATE TABLE " + STORES_TABLE + "("
                 + STORES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_NAME + " TEXT, "
                 + FIELD_LOCATION + " TEXT, "
                 + FIELD_LATITUDE + " REAL,"
-                + FIELD_LONGITUDE + " REAL"
+                + FIELD_LONGITUDE + " REAL,"
+                + FIELD_STORE_IMAGE + " TEXT"
                 + ")";
         db.execSQL(createQuery);
 
@@ -177,7 +186,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-          values.put(FIELD_NAME, store.getName());
+        values.put(FIELD_NAME, store.getName());
         values.put(FIELD_LOCATION, store.getLocation());
         values.put(FIELD_LATITUDE, store.getLatitude());
         values.put(FIELD_LONGITUDE, store.getLongitude());
@@ -189,7 +198,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Stacey:
+     * Stacey: Coupons Database/ CouponListAdapter/ CouponDetails
+     *      *      Stacey: Coupons/AddCouponsActivity & CouponActivity
      * Imports sample coupons from a comma separated value file
      * @param csvFileName csvFileName
      * @return
@@ -229,7 +239,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+
     /**
+     * Stacey: Stores/StoresActivity/Stores Database Partial/StoreAdapter
      * Imports Stores from CSV
      * @param csvFileName csvFileName
      * @return boolean
@@ -249,16 +261,17 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             while ((line = buffer.readLine()) != null) {
                 String[] fields = line.split(",");
-                if (fields.length != 9) {
+                if (fields.length != 6) {
                     Log.d("Stores", "Skipping Bad CSV Row: " + Arrays.toString(fields));
                     continue;
                 }
                 long id = Long.parseLong(fields[0].trim());
                 String name = fields[1].trim();
                 String location = fields[2].trim();
-                double latitude = Double.parseDouble(fields[7].trim());
-                double longitude = Double.parseDouble(fields[8].trim());
-//                addStore(new Store(id, name, address, city, state, zipCode, phone, latitude, longitude));
+                double latitude = Double.parseDouble(fields[3].trim());
+                double longitude = Double.parseDouble(fields[4].trim());
+                String imageName = fields[5].trim();
+                addStore(new Store(id, name, location, latitude, longitude, imageName));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -318,6 +331,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Stacey: Stores/StoresActivity/Stores Database Partial/StoreAdapter
      * Returns a List of all the stores in the database
      * @return
      */
@@ -326,7 +340,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 STORES_TABLE,
-                new String[]{STORES_KEY_FIELD_ID, FIELD_NAME, FIELD_LOCATION, FIELD_LATITUDE, FIELD_LONGITUDE},
+                new String[]{STORES_KEY_FIELD_ID, FIELD_NAME, FIELD_LOCATION, FIELD_LATITUDE, FIELD_LONGITUDE, FIELD_STORE_IMAGE},
                 null,
                 null,
                 null, null, null, null);
@@ -339,7 +353,8 @@ public class DBHelper extends SQLiteOpenHelper {
                                 cursor.getString(1),
                                 cursor.getString(2),
                                 cursor.getDouble(3),
-                                cursor.getDouble(4));
+                                cursor.getDouble(4),
+                                cursor.getString(5));
                 allStoresList.add(store);
             } while (cursor.moveToNext());
         }
@@ -381,6 +396,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //    }
 
     /**
+     *
      * Deletes a store in the database
      * @param store
      */
@@ -402,6 +418,8 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
     /**
+     * Stacey: Coupons Database/ CouponListAdapter/ CouponDetails
+     *      Stacey: Coupons/AddCouponsActivity & CouponActivity
      * HERE ADD LISTVIEW LIST into SYSTEM.
      *
      * @param

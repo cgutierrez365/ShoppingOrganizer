@@ -7,19 +7,24 @@
 
     <TextView
         android:id="@+id/textview1"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
+        android:layout_width="400dp"
+        android:layout_height="52dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:text="@string/Coupon_expires"
         android:textAlignment="center"
+        android:textSize="14sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        android:typeface="monospace"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCoupon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline14" />
+        app:layout_constraintTop_toTopOf="@+id/guideline15"
+        app:layout_constraintVertical_bias="0.59"
+        tools:text=" Expiration View" />
 
     <TextView
         android:id="@+id/textView2"
@@ -27,32 +32,20 @@
         android:layout_height="47dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="116dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="217dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="117dp"
+        android:layout_marginBottom="6dp"
         android:text="Coupon List"
-        android:textAlignment="center"
+        android:textAlignment="textEnd"
         android:textSize="30sp"
         android:typeface="sans"
         android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintBottom_toTopOf="@+id/editTextCoupon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="395dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="?android:attr/listDivider"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/Button_CollectAll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -62,58 +55,62 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="HELLO COUPON JUNKIE!"
+        android:text="Image Selection List"
+        android:textAlignment="viewStart"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.275"
+        app:layout_constraintHorizontal_bias="0.206"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.603" />
 
     <Button
         android:id="@+id/Button_CollectAll"
         android:layout_width="175dp"
         android:layout_height="45dp"
-        android:layout_marginStart="202dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="34dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginStart="192dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="14dp"
         android:background="#04ea00"
-        android:text="Collect"
         android:onClick="addCoupons"
+        android:text="Collect"
         android:textSize="18sp"
         android:textStyle="bold"
         android:typeface="sans"
-        app:layout_constraintBottom_toTopOf="@+id/guideline12"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline7" />
+        app:layout_constraintTop_toBottomOf="@+id/textview1" />
 
     <EditText
         android:id="@+id/editTextCoupon"
         android:layout_width="364dp"
         android:layout_height="50dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="31dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="@string/Coupon_exp"
         android:ems="10"
         android:hint="@string/store_coupon"
         android:inputType="textPersonName"
         android:selectAllOnFocus="true"
-        android:textAlignment="center"
+        android:singleLine="true"
+        android:textAlignment="viewStart"
         android:textSize="14sp"
         android:textStyle="italic"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        app:layout_constraintBottom_toTopOf="@+id/textview1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.161"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <ListView
         android:id="@+id/Coupon_View"
+        style="@style/Widget.AppCompat.ListView"
         android:layout_width="match_parent"
         android:layout_height="268dp"
         android:layout_marginStart="8dp"
@@ -126,24 +123,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline8" />
+        app:layout_constraintTop_toBottomOf="@+id/Coupon_Image_ListView" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:layout_marginEnd="411dp"
+        android:layout_marginBottom="541dp"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="190dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="310dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_begin="445dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
         android:id="@+id/Coupon_Image_ListView"
+        style="@style/Widget.AppCompat.ListView"
         android:layout_width="381dp"
         android:layout_height="144dp"
         android:layout_marginStart="8dp"
@@ -159,24 +157,10 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <android.support.constraint.Guideline
-        android:id="@+id/guideline12"
+        android:id="@+id/guideline15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="344dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline13"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="320dp" />
-
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline14"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="295dp" />
+        app:layout_constraintGuide_percent="0.38" />
 
 </android.support.constraint.ConstraintLayout>

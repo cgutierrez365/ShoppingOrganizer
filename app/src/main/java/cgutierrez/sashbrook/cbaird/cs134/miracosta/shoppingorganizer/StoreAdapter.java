@@ -2,14 +2,21 @@ package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.constraint.ConstraintLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,19 +65,40 @@ public class StoreAdapter extends ArrayAdapter<Store> {
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
 
-        ConstraintLayout allStoresListConstraintLayout =
-                view.findViewById(R.id.storesListView);  //use view. when adding layout.t
+//        String uri ="android.resource://edu.miracostacollege.cs134.capstonelayouts/drawable/images.jpg";
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+//        mContext.startActivity(intent);
 
-        ImageView allStoresListImageView
-                = view.findViewById(R.id.imageView2);
+        ConstraintLayout allStoresListConstraintLayout =
+                view.findViewById(R.id.storesListView);  //use view. when adding layout.
+        // Works for all on LinearLayout
+        LinearLayout allStoresListLinearLayout = view.findViewById(R.id.allStoresListLinearLayout);
+
+        ImageView allStoresListImageView = view.findViewById(R.id.allStoresListImageView);
 
         TextView allStoresListNameTextView =
-                view.findViewById(R.id.textView);
+                view.findViewById(R.id.NameStorestextView);
 
-        allStoresListConstraintLayout.setTag(selectedLocation);
+        allStoresListLinearLayout.setTag(selectedLocation);
+        allStoresListImageView.setImageURI(Uri.parse("images.jpg"));
 
+        allStoresListNameTextView.setText(selectedLocation.getFullAddress());
         allStoresListNameTextView.setText(selectedLocation.getName());
 
+
+
+
+        AssetManager am = mContext.getAssets();
+        try {
+            allStoresListImageView.setImageURI(Uri.parse(selectedLocation.getImageName()));
+            InputStream stream = am.open(selectedLocation.getImageName());
+            Drawable event = Drawable.createFromStream(stream, selectedLocation.getImageName());
+            allStoresListImageView.setImageDrawable(event);
+        }
+        catch (IOException ex)
+        {
+            Log.e("Stores Select", "Error loading " + selectedLocation.getImageName(), ex);
+        }
         return view;
     }
 }

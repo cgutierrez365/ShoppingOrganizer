@@ -7,8 +7,9 @@ import android.os.Parcelable;
 public class Store implements Parcelable {
 
     /**
-     * The <code>Location</code> class represents a place where one can get a caffeine fix, including
-     * its name, address, phone number and latitude/longitude location.
+     * Author@: Stacey Ashbrook 5/18/19
+     * The <code>Store</code> class represents a place where one can get coupon exchanged, including
+     * its name, address, latitude/longitude location.
      */
 
     private long id;
@@ -16,7 +17,12 @@ public class Store implements Parcelable {
     private String mLocation;
     private double mLatitude;
     private double mLongitude;
+    private String mImageName;
 
+
+    /**
+     * CONSTRUCTORS
+     */
     public Store()
     {
         id = -1;
@@ -24,25 +30,31 @@ public class Store implements Parcelable {
         mLocation = "";
         mLatitude = 0.0;
         mLongitude = 0.0;
+        mImageName = "";
     }
 
-    public Store(long mID, String name, String location, double latitude, double longitude) {
+    public Store(long mID, String name, String location, double latitude, double longitude, String imageName) {
         id = mID;
         mName = name;
         mLocation = location;
         mLatitude = latitude;
         mLongitude = longitude;
+        mImageName = imageName;
     }
 
-//    public Store(String name, String location) {
-//        this(name, location);
+//    public Store(String name, String location, double latitude, double longitude) {
+//        this(name, location, latitude, longitude);
 //    }
 
     public Store ( Parcel in ) {
         mName = in.readString();
         mLocation = in.readString();
+        mImageName = in.readString();
     }
-
+    /**
+     * GETTERS AND SETTERS FOR STORE
+     * @return
+     */
     public long getId() {
         return id;
     }
@@ -87,6 +99,13 @@ public class Store implements Parcelable {
         mLocation = location;
     }
 
+    public String getImageName () {
+        return mImageName;
+    }
+
+    public void setImageName(String imageName) {
+        mImageName = imageName;
+    }
 
 
     public String getFullAddress()
@@ -98,8 +117,10 @@ public class Store implements Parcelable {
     @Override
     public String toString() {
         return "Store{" +
-                "Name=" + mName +
+                "Id=" + id +
+                ", Name='" + mName + '\'' +
                 ", Location='" + mLocation + '\'' +
+                ", ImageName='" + mImageName + '\'' +
                 '}';
     }
 
@@ -111,8 +132,10 @@ public class Store implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
         parcel.writeString(mName);
         parcel.writeString(mLocation);
+        parcel.writeString(mImageName);
     }
 
     public static final Creator<Store> CREATOR = new Creator<Store>() {
@@ -127,4 +150,6 @@ public class Store implements Parcelable {
         }
     };
 }
+
+
 

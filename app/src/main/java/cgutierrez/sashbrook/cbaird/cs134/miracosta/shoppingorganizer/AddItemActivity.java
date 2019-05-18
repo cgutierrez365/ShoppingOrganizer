@@ -1,6 +1,7 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -43,6 +44,7 @@ public class AddItemActivity extends AppCompatActivity {
     private EditText storeAddressEditText;
     private EditText quantityEditText;
     private ImageView mItemImageView;
+    private Uri imageUri;
 
     public static final int RESULT_LOAD_ITEM_IMAGE = 101;
 
@@ -67,7 +69,10 @@ public class AddItemActivity extends AppCompatActivity {
         mItemImageView = findViewById(R.id.mItemImageView);
 
         //Initialize item image to that of the shopping cart
-        mItemImageView.setImageURI(getUriToResource(this, R.drawable.ic_shopping_cart_24dp));
+        imageUri = getUriToResource(this, R.drawable.ic_shopping_cart_24dp);
+
+        mItemImageView.setImageURI(imageUri);
+        mItemImageView.setTag(imageUri.toString()); //tag has to be a URI toString b/c that's how Items class data type was configured
 
     }
 
@@ -159,6 +164,11 @@ public class AddItemActivity extends AppCompatActivity {
     {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (data == null)
+        {
+            return;
+        }
+
         if(requestCode == RESULT_LOAD_ITEM_IMAGE)
         {
             Uri uri = data.getData();
@@ -194,16 +204,23 @@ public class AddItemActivity extends AppCompatActivity {
         Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, imageUriString); //TODO: Erase this line when above TODO is DONE
 
         // Add the new item to the database to ensure it is persisted.
-        db.addItem(newItem); //DONE: write addItem method in DBHelper
+        db.addItem(newItem);
 
 
 
         //TODO: Check if lines below update the listView in ItemActivity (but doesn't immediately go to ItemActivity, until press done/cancel button
         //TODO: Will have to coordinate with Chloe so that she starts my  AddItemActivity using startActivityForResult()
-     //   Intent backToItemActivityIntent = new Intent(this, ItemActivity.class);
-        Intent backToItemActivityIntent = getIntent();
-        backToItemActivityIntent.putExtra("newItem", newItem); //OK b/c Items is Parcelable
-     //   setResult(RESULT_OK, backToItemActivityIntent); //will send
+
+        Intent backToItemActivityIntent = new Intent();
+        backToItemActivityIntent.putExtra("newItem", newItem);
+        setResult(Activity.RESULT_OK, backToItemActivityIntent); //Sets the Intent field in onActivityResult to this intent
+
+
+//
+//        Intent backToItemActivityIntent = new Intent(this, ItemActivity.class);
+//    //    Intent backToItemActivityIntent = getIntent();
+//        backToItemActivityIntent.putExtra("newItem", newItem); //OK b/c Items is Parcelable
+//     //   setResult(RESULT_OK, backToItemActivityIntent); //will send
 
         // Reset all entries so user can add more if they want
         itemNameEditText.setText("");

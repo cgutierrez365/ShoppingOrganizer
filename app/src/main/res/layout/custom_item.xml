@@ -26,9 +26,8 @@
             android:layout_marginTop="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
-            android:layout_weight="15"
-            android:adjustViewBounds="false"
-            android:background="@color/colorGreen"
+            android:layout_weight="10"
+            android:adjustViewBounds="true"
             android:contentDescription="@string/content_descrpition_item_logo"
             android:cropToPadding="false"
             app:srcCompat="@drawable/ic_shopping_cart_24dp" />

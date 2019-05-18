@@ -1,5 +1,6 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -32,7 +33,7 @@ public class ItemActivity extends AppCompatActivity {
     private List<Items> itemsList;
     private ItemListAdapter itemListAdapter;
     private ListView itemListView;
-    private Items newItem;
+ //   private Items newItem;
 
 
     /**
@@ -70,7 +71,13 @@ public class ItemActivity extends AppCompatActivity {
 
         if(requestCode == UPDATED_LIST_CODE)
         {
-            //TODO: get parcelable intent -- Pet selectedPet = detailsIntent.getParcelableExtra("SelectedPet");
+            if(data == null) //If user canceled action (Pressing Cancel button, exit the method)
+            {
+                return;
+            }
+
+            //TODO: get parcelable intent
+            Items newItem = data.getParcelableExtra("newItem");
 
 //           //DONE(??): Get update listview from Chole
 //            Uri itemData = data.getData();
@@ -88,7 +95,7 @@ public class ItemActivity extends AppCompatActivity {
 //                newItem = new Items(id, itemName, storeName, storeLocation, quantity, imageUri);
 
                 //ADD TO LIST
-         //       db.addItem(newItem); (Already added to the database in AddItemActivity)
+     //           db.addItem(newItem); //Already added in AddItemActivity
                 itemListAdapter.add(newItem);
                 itemListAdapter.notifyDataSetChanged();
          //   }

@@ -1,9 +1,11 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.icu.lang.UCharacter;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,15 +31,7 @@ import static cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.AddC
 
 public class CouponActivity extends AppCompatActivity {
 
-    /**
-     * 3:43PM, after TODOS on AddCouponActivity.java, 4/28/2019
-     * Adding in database and listview
-     */
-    private DBHelper db;
-    private ArrayAdapter<Coupons> allCouponsList;
-    private ListView couponsListView; // Need a list view for AddCouponActivity.
-    // private CouponsListAdapter couponsListAdapter; //careful for coupon and coupons
-    private Button addCoupon;  //AddCouponActivity
+
     /**
      * Coupons Activity Button
      */
@@ -60,11 +54,22 @@ public class CouponActivity extends AppCompatActivity {
     /**
      * Needed Variables for USer Input
      */
-    private ArrayList<String> addArray = new ArrayList<String>();
+    private ArrayList<String> additionalNotes = new ArrayList<String>();
     private EditText txt;
     private ListView show;
     private List<Coupons> couponsList;
-    private ListView CouponListView;
+    private ListView couponsListView;
+    private static final int UPDATED_LIST_CODE = 131;
+    private Coupons newCoupons;
+    private DBHelper db;
+    /**
+     * Here is to put onto the Layout for said "Coupons"
+     */
+   // private DBHelperCoupon db;
+   // private ArrayAdapter<Coupons> allCouponsList;
+    ; // Need a list view for AddCouponActivity.
+    // private CouponsListAdapter couponsListAdapter; //careful for coupon and coupons
+    private Button addCoupon;  //AddCouponActivity
 
 
     /**
@@ -75,36 +80,28 @@ public class CouponActivity extends AppCompatActivity {
      */
     //DONE: GOING TO NEED TO ADD A COUPON LIST VIEW FOR A LIST OF COUPONS THAT WILL BE SELECTED
     //DONE: OR INPUT BY USER TO PREVIEW ON A LIST ONCE FINISHED. MASS SCROLL. 4:18PM 5/3/19
-    //TODO: ADD IMAGES TO COUPON OPTIONS, adjust the input for numbers only to include slash.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon);
-        /**
-         * List View = DBHELPER is not finished, this is not complete work. Just additions, incase... easier find.
-         */
-        deleteDatabase(DBHelper.DATABASE_NAME);   //Database for Coupons
-        db = new DBHelper(this);                //Importing list of coupons
-        db.importCouponsFromCSV("coupons.csv");  //direct input
-
-        CouponListView = findViewById(R.id.Coupon_Image_ListView);
-
-
-        db = new DBHelper(this); //to DBhelper connect
-        couponsList = db.getAllCoupons(); //get in list
-        couponsListAdapter = new CouponsListAdapter(this, R.layout.list_item_custom_coupon, couponsList); //put towards here
-        CouponListView = findViewById(R.id.Coupon_Image_ListView); //connect to layout View
-        CouponListView.setAdapter(couponsListAdapter); //set together
-
-        db.importCouponsFromCSV("coupons.csv");
-        /** end of list view
-         */
 
 
         /**
          * This is for getting TEXT from ADDCouponActivity to the COUPON Activity, THIS IS DONE.
          * DOES AS INTENDED, FOR COUPON LIST WITH LIST VIEW, ADD tOO LIST and VIEW Coupons Added to next activity.**
          */
+        deleteDatabase(DBHelper.DATABASE_NAME);
+        db = new DBHelper(this);
+        db.importCouponsFromCSV("coupons.csv");
+
+        couponsList = db.getAllCouponsList();
+
+
+        couponsListAdapter = new CouponsListAdapter(this, R.layout.custom_coupon, couponsList);
+        couponsListView = findViewById(R.id.Coupon_Image_ListView);
+        couponsListView.setAdapter(couponsListAdapter);
+
+
 
         Intent intent = getIntent();
         //String text = intent.getStringExtra(AddCouponActivity.EXTRA_TEXT);
@@ -128,14 +125,14 @@ public class CouponActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String getInput = txt.getText().toString();
 
-                if (addArray.contains(getInput)) {
+                if (additionalNotes.contains(getInput)) {
                     Toast.makeText(getBaseContext(), "Coupon Added", Toast.LENGTH_LONG).show();
                 } else if (getInput == null || getInput.trim().equals("")) {
                     Toast.makeText(getBaseContext(), "InputField if Empty", Toast.LENGTH_LONG).show();
 
                 } else {
-                    addArray.add(getInput);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(CouponActivity.this, android.R.layout.simple_list_item_1, addArray);
+                    additionalNotes.add(getInput);
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(CouponActivity.this, android.R.layout.simple_list_item_1, additionalNotes);
                     show.setAdapter(adapter);
                     ((EditText) findViewById(R.id.editTextCoupon)).setText("");
                 }
@@ -143,21 +140,50 @@ public class CouponActivity extends AppCompatActivity {
         });
 
     }
+//    // DONE: Implement the view store details using an Intent
+//    public void viewCouponsDetails ( View view ) {
+//
+//        Coupons selectedCoupon = (Coupons) view.getTag();
+//
+//        Intent couponsIntent = new Intent(this, CouponDetailsActivity.class);
+//        //detailsIntent.putExtra("Name", selectedGame.getName());
+//        //detailsIntent.putExtra("Description", selectedGame.getDescription());
+//        // detailsIntent.putExtra("Rating", selectedGame.getRating());
+//        // detailsIntent.putExtra("ImageName", selectedGame.getImageName());
+//        // commented out & convert to:
+//        couponsIntent.putExtra("SelectedCoupon", selectedCoupon);
+//
+//        startActivity(couponsIntent);
+//    }
 
-    public void addCoupons(View view) {            //to add an activity into view in the app
-        // TODO: Start an activity for intent to pick a picture from the device.
-        // Implicit intent (normally we do explicit)
-        Intent couponsIntent = new Intent(Intent.ACTION_PICK,
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-        // Works for any kind of intent
-        startActivityForResult(couponsIntent, REQUEST_GALLERY);
 
-    }
+//    public void addCoupons(View view) {            //to add an activity into view in the app
+//
+//        // Implicit intent (normally we do explicit)
+//        Button addCoupons = (Button) findViewById(R.id.addCoupons);
+//        couponsListView = (ListView) findViewById(R.id.storesListView);
+//        //show = (ListView) findViewById(R.id.Coupon_View);
+//        addCoupons.setOnClickListener(new View.OnClickListener() {
+//
+//            @Override
+//            public void onClick ( View v ) {
+//                Toast.makeText(CouponActivity.this,"Adding",  Toast.LENGTH_SHORT).show();
+//                couponsListView.deferNotifyDataSetChanged();
+//                openActivityDetails();
+//                Toast.makeText(CouponActivity.this, "Coupons the Details", Toast.LENGTH_LONG).show();
+//            }
+//        });
+////        Intent couponsIntent = new Intent(Intent.ACTION_PICK,
+////                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+////        // Works for any kind of intent
+////        startActivityForResult(couponsIntent,101);
+////        Intent addItemIntent = new Intent(this, CouponActivity.class);
+////        startActivityForResult(addItemIntent, UPDATED_LIST_CODE);
+//
+//    }
 
     public void deleteCoupons(View view) {          //another addition to the app view
-        // TODO: Delete the selected contact from the database and remove the contact from the contactsAdapter.
-
-        // Grab the contract from the view
+       // Grab the contract from the view
         Coupons c = (Coupons) view.getTag();
         db.deleteCoupons(c.getId());
         couponsListAdapter.remove(c);
@@ -165,8 +191,53 @@ public class CouponActivity extends AppCompatActivity {
         couponsListAdapter.notifyDataSetChanged();
 
     }
+  //  Will update the listView after user added things to the database
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == UPDATED_LIST_CODE) {
+            Coupons coupons = new Coupons();
+            /// (should have included it in her onCreate()
+            Uri couponData = data.getData();
+            Cursor cursor = getContentResolver().query(couponData, null, null, null, null);
+
+            if (cursor.moveToFirst()) {
+                long _id = cursor.getLong(0); // index column
+                String imageURI = cursor.getString(1);
+                String expirationDate = cursor.getString(2);
+                String isFavorite = cursor.getString(3);
+                String additionalNotes = cursor.getString(4);
+                //*******REFERENCES
+
+                //                    public Coupons ( long id, String imageURI, String expirationDate, String isFavorite, String additionalNotes, ArrayList<Coupons> coupons) {
+//                    mId = id;
+//                    mImageURI = imageURI;
+//                    mExpirationDate = expirationDate;
+//                    mIsFavorite = isFavorite;
+//                    mAdditionalNotes = additionalNotes;
+//                    mCoupons = coupons;
+//                    // mImageURI = imageURI;
+//                }
+
+                coupons.setId(_id);
+                coupons.setImageURI(imageURI);
+                coupons.setExpirationDate(expirationDate);
+                coupons.setIsFavorite(isFavorite);
+                coupons.setAdditionalNotes(additionalNotes);
+                newCoupons = new Coupons(_id, imageURI, expirationDate, isFavorite, additionalNotes);
+
+                //ADD TO LIST AND DATABASE
+                db.addCoupons(newCoupons);
+                couponsListAdapter.add(newCoupons);
+                couponsListAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+
 
     private void setListAdapter(CouponsListAdapter couponsListAdapter) {
+        couponsListView.getTag();
     }
 
     /**
@@ -176,9 +247,21 @@ public class CouponActivity extends AppCompatActivity {
      * @param v The cancel / done button
      */
     public void revertToPreviousScreen(View v) {
-        this.finish();
+        CouponActivity.this.finish();
     }
 
+    public void openActivityDetails() {
+        //ListView  = findViewById(
+        //ListView = findViewById(
+        //Gallery Image = findViewById(
+
+        //TextView textViewDetails
+        Intent detailsIntent = new Intent(this, CouponDetailsActivity.class);
+        //intent.putExtra("");
+        //intent.putExtra("ListViewDetails");
+        //intent.putExtra(mCoupons);
+        startActivity(detailsIntent);
+    }
 }
 
 

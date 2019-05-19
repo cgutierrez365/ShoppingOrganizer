@@ -35,7 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_ITEM_URI = "image_uri";
 
     //Linking table for Items and Coupons fields : Clarissa
-    private static final String LINK_ITEM_COUPONS_TABLE = "Link_Items_Coupons";
+    private static final String LINK_ITEM_COUPON_TABLE = "Link_Items_Coupons";
     private static final String FIELD_COURSE_ID = "item_id";
     private static final String FIELD_INSTRUCTOR_ID = "coupons_id";
 
@@ -46,11 +46,11 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String FIELD_NOTE_CONTENTS = "noteContents";
 
     //Coupons Table : Stacey
-    public static final String COUPONS_TABLES = "Coupons";
-    public static final String COUPONS_KEY_FIELD_ID = "_id";
-    private static final String FIELD_COUPON_IMAGE = "couponPicture";
+    public static final String COUPON_TABLE = "Coupons";
+    public static final String COUPON_KEY_FIELD_ID = "_id";
+    private static final String FIELD_COUPON_IMAGE = "imageURI";
     private static final String FIELD_EXPIRATION_DATE = "expirationDate";
-    private static final String FIELD_IS_FAVORITE = "couponFavorite";
+    private static final String FIELD_IS_FAVORITE = "isFavorite";
     private static final String FIELD_ADDITIONAL_NOTES = "additionalNotes";
 
     //Stores Table : Stacey
@@ -93,17 +93,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         db.execSQL(table);
 
-        //Create Linking table
-        table = "CREATE TABLE " + LINK_ITEM_COUPONS_TABLE + "("
+        //Create Linking table Clarissa
+        table = "CREATE TABLE " + LINK_ITEM_COUPON_TABLE + "("
                 + FIELD_COURSE_ID + " INTEGER, "
                 + FIELD_INSTRUCTOR_ID + " INTEGER, "
                 + "FOREIGN KEY(" + FIELD_COURSE_ID + ") REFERENCES "
                 + ITEMS_TABLE + "(" + ITEMS_KEY_FIELD_ID + "), "
                 + "FOREIGN KEY(" + FIELD_INSTRUCTOR_ID + ") REFERENCES "
-                + COUPONS_TABLES + "(" + COUPONS_KEY_FIELD_ID + "))";
+                + COUPON_TABLE + "(" + COUPON_KEY_FIELD_ID + "))";
         db.execSQL(table);
 
-        //Create Notes Table
+        //Create Notes Table Chloe
         table = "CREATE TABLE IF NOT EXISTS " + NOTES_TABLE + "("
                 + NOTES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_NOTE_TITLE + " TEXT, "
@@ -111,12 +111,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 + ")";
 
         db.execSQL(table);
-        //Create Coupons Table
-        table = "CREATE TABLE IF NOT EXISTS " + COUPONS_TABLES + "("
-                + COUPONS_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
+        //Create Coupon Table Stacey
+        table = "CREATE TABLE IF NOT EXISTS " + COUPON_TABLE + "("
+                + COUPON_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_COUPON_IMAGE + " String, "
-                + FIELD_EXPIRATION_DATE + "TEXT, "
-                + FIELD_IS_FAVORITE + " REAL, "
+                + FIELD_EXPIRATION_DATE + " TEXT, " //Correction 5/19/2019 .." T..from "T
+                + FIELD_IS_FAVORITE + " TEXT, "     //Corrected REAL and plural Coupon(s) and Table, not Tables
                 + FIELD_ADDITIONAL_NOTES + " TEXT" + ")";
 
         db.execSQL(table);
@@ -124,7 +124,7 @@ public class DBHelper extends SQLiteOpenHelper {
         /**
          * Stores Database, Added Store Image
          */
-        //Create Stores Table
+        //Create Stores Table Stacey
         String createQuery = "CREATE TABLE " + STORES_TABLE + "("
                 + STORES_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_NAME + " TEXT, "
@@ -164,7 +164,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Adds Coupons to database : Stacey
-     * @param coupons coupon
+     * @param coupons coupon        checked 5/19
      */
     public void addCoupons(Coupons coupons)
     {
@@ -176,7 +176,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(FIELD_IS_FAVORITE, coupons.getIsFavorite());
         values.put(FIELD_ADDITIONAL_NOTES, coupons.getAdditionalNotes());
 
-        long id = db.insert(COUPONS_TABLES, null, values);  //DATABASE NAME, listed as table.
+        long id = db.insert(COUPON_TABLE, null, values);  //DATABASE NAME, listed as table.
         coupons.setId(id);
         // CLOSE THE DATABASE CONNECTION
         db.close();
@@ -190,6 +190,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(FIELD_LOCATION, store.getLocation());
         values.put(FIELD_LATITUDE, store.getLatitude());
         values.put(FIELD_LONGITUDE, store.getLongitude());
+        values.put(FIELD_STORE_IMAGE, store.getImageName());
 
         long id = db.insert(STORES_TABLE, null, values);
         store.setId(id);
@@ -199,7 +200,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     /**
      * Stacey: Coupons Database/ CouponListAdapter/ CouponDetails
-     *      *      Stacey: Coupons/AddCouponsActivity & CouponActivity
+     *   Stacey: Coupons/AddCouponsActivity & CouponActivity
      * Imports sample coupons from a comma separated value file
      * @param csvFileName csvFileName
      * @return
@@ -219,7 +220,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             while ((line = buffer.readLine()) != null) {
                 String[] fields = line.split(",");
-                if (fields.length != 9) {
+                if (fields.length != 5) {
                     Log.d("Coupons", "Skipping Bad CSV Row: " + Arrays.toString(fields));
                     continue;
                 }
@@ -228,8 +229,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String expirationDate = fields[2].trim();
                 String isFavorite = fields[3].trim();
                 String additionalNotes = fields[4].trim();
-                String addArray = fields[5].trim();
-                addCoupons(new Coupons(id, imageURI, expirationDate, isFavorite, additionalNotes, addArray));
+                addCoupons(new Coupons(id, imageURI, expirationDate, isFavorite, additionalNotes));
                 //CORRECTION UPON ADDITION OF THE ADDCOUPON(s) TABLE IN FROM DBHelper, to add to database, etc.
             }
         } catch (IOException e) {
@@ -290,8 +290,8 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
 
         db.execSQL("DROP TABLE IF EXISTS " + ITEMS_TABLE);
-        db.execSQL("DROP TABLE IF EXISTS " + COUPONS_TABLES);
-        db.execSQL("DROP TABLE IF EXISTS " + LINK_ITEM_COUPONS_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + COUPON_TABLE);
+        db.execSQL("DROP TABLE IF EXISTS " + LINK_ITEM_COUPON_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + NOTES_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + STORES_TABLE);
         onCreate(db);
@@ -333,7 +333,8 @@ public class DBHelper extends SQLiteOpenHelper {
     /**
      * Stacey: Stores/StoresActivity/Stores Database Partial/StoreAdapter
      * Returns a List of all the stores in the database
-     * @return
+     * @return allStoresList, db.getallStoresList()
+     * @add ListView
      */
     public List<Store> getallStoresList() {
         ArrayList<Store> allStoresList = new ArrayList<>();
@@ -417,46 +418,74 @@ public class DBHelper extends SQLiteOpenHelper {
         db.delete(STORES_TABLE, null, null);
         db.close();
     }
+
+        //Corrected: ListView Up!
+    // **Up To Date** 5/19/2019
+//-------------------/-----------------------------------------------/
     /**
      * Stacey: Coupons Database/ CouponListAdapter/ CouponDetails
      *      Stacey: Coupons/AddCouponsActivity & CouponActivity
+    /**
      * HERE ADD LISTVIEW LIST into SYSTEM.
      *
      * @param
      */
-    public List<Coupons> getAllCoupons()
-    {
+    public List<Coupons> getAllCouponsList() {
         ArrayList<Coupons> couponsList = new ArrayList<>();
-        SQLiteDatabase database = this.getReadableDatabase();
-        // Instantiate a cursor to hold results of database query
-        Cursor cursor = database.query(" Choices: " + COUPONS_TABLES,
-                new String[] {COUPONS_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
-                null,null,null, null, null, null);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                COUPON_TABLE,
+                new String[]{COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+                null,
+                null,
+                null, null, null, null);
 
-        //collect each row in the table
-        if (cursor.moveToFirst()){
-            do{
-                Coupons coupon =
+        //COLLECT EACH ROW IN THE TABLE
+        if (cursor.moveToFirst()) {
+            do {
+                Coupons coupons =
                         new Coupons(cursor.getLong(0),
                                 cursor.getString(1),
                                 cursor.getString(2),
                                 cursor.getString(3),
-                                cursor.getString(4),
-                                cursor.getString(5));
-                couponsList.add(coupon);
+                                cursor.getString(4));
+                couponsList.add(coupons);
             } while (cursor.moveToNext());
         }
         cursor.close();
-        database.close();
+        db.close();
         return couponsList;
+    }
+
+    public Coupons getCoupons(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                COUPON_TABLE,
+                new String[]{COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+                COUPON_KEY_FIELD_ID + "=?",
+                new String[]{String.valueOf(id)},
+                null, null, null, null);
+
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        Coupons coupon =
+                new Coupons(cursor.getLong(0),
+                        cursor.getString(1),
+                        cursor.getString(2),
+                        cursor.getString(3),
+                        cursor.getString(4));
+        cursor.close();
+        db.close();
+        return coupon;
     }
 
     public Coupons getCoupons(String imageURI)
     {
         Coupons coupons = new Coupons();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(COUPONS_TABLES,
-                new String[] {COUPONS_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
+        Cursor cursor = db.query(COUPON_TABLE,
+                new String[] {COUPON_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
                 FIELD_COUPON_IMAGE + " = ?", new String[]{imageURI}, null, null, null);
 
         if(cursor.moveToFirst())
@@ -467,11 +496,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 String mExpirationDate = cursor.getString(2);
                 String mIsFavorite = cursor.getString(3);
                 String mAdditionalNotes = cursor.getString(4);
-                String mCoupons = cursor.getString(5);
 
+                coupons.setId(mId);
                 coupons.setImageURI(mImageURI);
                 coupons.setExpirationDate(mExpirationDate);
-                coupons = new Coupons(mId, mImageURI, mExpirationDate, mIsFavorite, mAdditionalNotes, mCoupons);
+                coupons.setIsFavorite(mIsFavorite);
+                coupons.setAdditionalNotes(mAdditionalNotes);
+                coupons = new Coupons(mId, mImageURI, mExpirationDate, mIsFavorite, mAdditionalNotes);
             }
             while(cursor.moveToNext());
         }
@@ -484,43 +515,19 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // DELETE THE TABLE ROW
-        db.delete(COUPONS_TABLES, COUPONS_KEY_FIELD_ID + " = ?",
+        db.delete(COUPON_TABLE, COUPON_KEY_FIELD_ID + " = ?",
                 new String[]{String.valueOf(id)});
         db.close();
     }
 
     public void deleteAllCoupons() {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(COUPONS_TABLES, null, null);
+        db.delete(COUPON_TABLE, null, null);
         db.close();
     }
-
-    public Coupons getCoupons(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(
-                COUPONS_TABLES,
-                new String[]{COUPONS_KEY_FIELD_ID, FIELD_COUPON_IMAGE, FIELD_EXPIRATION_DATE, FIELD_IS_FAVORITE, FIELD_ADDITIONAL_NOTES},
-                COUPONS_KEY_FIELD_ID + "=?",
-                new String[]{String.valueOf(id)},
-                null, null, null, null);
-
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        Coupons coupon =
-                new Coupons(cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5));
-//                        cursor.getString(6),
-//                        cursor.getDouble(7),
-//                        cursor.getDouble(8));
-        cursor.close();
-        db.close();
-        return coupon;
-    }
+        //Corrected: ListView Up!
+    // **Up To Date** 5/19/2019
+//-------------------/-----------------------------------------------/
 
 
     /**
@@ -578,8 +585,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return true;
     }
-
-
 
 
     /**

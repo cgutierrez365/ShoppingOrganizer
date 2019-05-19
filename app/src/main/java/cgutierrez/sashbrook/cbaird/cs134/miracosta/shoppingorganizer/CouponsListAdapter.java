@@ -2,9 +2,11 @@ package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +35,7 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
 //    //private String mImageURI;
 
     private Context mContext;
-    private List<Coupons> mallCouponsList;
+    private List<Coupons> mallCouponsList = new ArrayList<>();
     private int mResourceId;
 
     //called from Main Activity
@@ -80,31 +84,59 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
         //DONE:// TEXTVIEW (FOR NAME AND DETAILS) SHOULD BE INFLATED WITH THE CORRECT INFORMATION ABOUT THE PET.
         //use ALOHA MUSIC IS NEEDED for Uri & Buttons
 
-        String uri ="android.resource://edu.miracostacollege.cs134.capstonelayouts/drawable/none";
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-        mContext.startActivity(intent);
-
+//        String uri ="android.resource://edu.miracostacollege.cs134.capstonelayouts/drawable/user";
+//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+//        mContext.startActivity(intent);
+        /**
+         * ADD COUPON
+         */
         LinearLayout CouponsLinearLayout =
-                (LinearLayout) view.findViewById(R.id.CouponsLinearLayout);
+              (LinearLayout) view.findViewById(R.id.CouponsLinearLayout);
         ImageView CouponImageView =
                 (ImageView) view.findViewById(R.id.CouponImageView);
         TextView CouponExpirationTextView =
                 (TextView) view.findViewById(R.id.CouponExpirationTextView);
-        //TextView petListDescriptionTextView =
-        //(TextView) view.findViewById(R.id.petListDescriptionTextView);
-        //TextView petListPhoneTextView =
-        //TextView) view.findViewById(R.id.petListPhoneTextView);
+
+
+        /** COUPON ACTIVITY TO DETAILS */
+
+        LinearLayout allCouponListLinearLayout = (LinearLayout) view.findViewById(R.id.allCouponListLinearLayout);
+        TextView CouponIsFavoriteTextView =
+                (TextView) view.findViewById(R.id.IsFavorite);
+        TextView CouponExpirationDateTextView =
+                (TextView) view.findViewById(R.id.ExpireDate);
+        TextView CouponAdditionalNotesTextView =
+                (TextView) view.findViewById(R.id.AddNotes);
+        ImageView COUPONImageCoupon = view.findViewById(R.id.Image_Coupon);
+
+        allCouponListLinearLayout.setTag(selectedCoupons);
+        COUPONImageCoupon.setImageURI(Uri.parse("images.jpg"));
+
+        CouponIsFavoriteTextView.setText(selectedCoupons.getIsFavorite());
+        CouponExpirationDateTextView.setText(selectedCoupons.getExpirationDate());
+        CouponAdditionalNotesTextView.setText(selectedCoupons.getAdditionalNotes());
+//        CouponsLinearLayout.setTag(selectedCoupons);
+//        CouponExpirationDateTextView.setText(selectedCoupons.getExpirationDate());
+//        CouponIsFavoriteTextView.setText(selectedCoupons.getIsFavorite());
+//        CouponAdditionalNotesTextView.setText(selectedCoupons.getAdditionalNotes());
+
+
+
+
+        AssetManager am = mContext.getAssets();
+        try {
+            COUPONImageCoupon.setImageURI(Uri.parse(selectedCoupons.getImageURI()));
+            InputStream stream = am.open(selectedCoupons.getImageURI());
+            Drawable event = Drawable.createFromStream(stream, selectedCoupons.getImageURI());
+            COUPONImageCoupon.setImageDrawable(event);
+        }
+        catch (IOException ex)
+        {
+            Log.e("Stores Select", "Error loading " + selectedCoupons.getImageURI(), ex);
+        }
+
+
         /** put information into textviews and image view //Set Tag */
-        //DONE: ENSURE THE TAG PROPERTY OF THE PETLISTLINEARLAYOUT(MAIN LAYOUT FOR PET_LIST_ITEM) IS SET TO BE THE SELECTED PET,
-        //DONE: THIS WILL FACILITATE THE VIEWPETDETAILS (pub void ViewPetDetails) METHOD OF PETLISTACTIVITY.JAVA(MAINACTIVITY)
-        //
-        CouponsLinearLayout.setTag(selectedCoupons);
-        CouponExpirationTextView.setText(selectedCoupons.getExpirationDate());
-        //petListDescriptionTextView.setText(selectedPet.getDescription());
-        // petListPhoneTextView.setText(selectedPet.getPhone());
-
-
-        //refer to Aloha Music for AssetManager replacement.
 
         /** return view inflated with all information */
         return view;

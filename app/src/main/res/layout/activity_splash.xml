@@ -13,16 +13,11 @@
         android:layout_height="match_parent"
         android:background="@drawable/img_background"
         android:gravity="bottom|center"
-
-        android:text="@string/shopping_organizer"
-        android:textAlignment="center"
-        android:textAllCaps="false"
-        android:textColor="@color/colorWhite"
+        android:text="@string/ShoppingOrganizer"
+        android:textColor="@android:color/white"
         android:textSize="38sp"
-        android:textStyle="normal|bold|italic"
-        android:typeface="serif"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold|normal"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

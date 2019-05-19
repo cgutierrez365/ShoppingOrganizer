@@ -2,8 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/CouponsLinearLayout"
@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/CouponExpirationTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,14 +21,19 @@
 
         <ImageView
             android:id="@+id/CouponImageView"
-            android:layout_width="377dp"
-            android:layout_height="213dp"
+            android:layout_width="500dp"
+            android:layout_height="225dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="104dp"
             android:layout_marginEnd="8dp"
+            android:layout_weight="@android:integer/config_longAnimTime"
             android:adjustViewBounds="true"
             android:contentDescription="@string/StoreImage"
+            android:cropToPadding="true"
+            android:keepScreenOn="true"
+            android:onClick="selectCouponImageView"
             android:scaleType="fitCenter"
+            android:visibility="visible"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
@@ -80,7 +85,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="393dp"
         android:layout_marginBottom="293dp"
+        android:hint="@string/ExpirationDate"
         android:inputType="number"
+        android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

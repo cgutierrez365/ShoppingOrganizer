@@ -4,53 +4,56 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Objects;
+
 /**
- * Class not in use yet, so greyed out until associated...? Work to do, not finished 5/3/19 @ 3:35pm
- */
+ * Coupons Model connected to CouponListAdapter, CouponActivity and
+ * AddCouponActivity. To be added to: CouponDetailsActivity.
+ * The <code>Coupons</code> class maintains information about coupons,
+ * * including the_id assigned to it, image of the coupon, the expiration date,
+ * * favorite of coupons and any additional notes.
+ * * @author: Stacey Ashbrook
+ * */
+
 public class Coupons implements Parcelable
 {
+    /**FOR INFORMATION ON/TO GO TO DATABASE*/
 
-    //INSTANCE VARIABLES----------------------------------------------------------------------------
-    private long mId;
+    /**INSTANCE VARIABLES------------------------------------------------------------------------*/
+    private long id;
     private String mImageURI;
     private String mExpirationDate;
     private String mIsFavorite;
     private String mAdditionalNotes;
-    public ArrayList<Coupons> mCoupons;
-    //private String mImageURI;
 
 
-    //CONSTRUCTORS----------------------------------------------------------------------------------
-    public Coupons()
+    /**
+     * CONSTRUCTORS
+     */
+    public Coupons ()
     {
-        mId = -1;
+        id = -1;
         mImageURI = "";
         mExpirationDate = "";
         mIsFavorite = "";
         mAdditionalNotes = "";
-        //mImageURI = "";
     }
 
-    public Coupons ( long id, String imageURI, String expirationDate, String isFavorite, String additionalNotes, String addArray ) {
-        mId = -1;
-        mImageURI = "";
-        mExpirationDate = "";
-        mIsFavorite = "";
-        mAdditionalNotes = "";
-        //mImageURI = "";
-    }
-
-
-    public Coupons ( long id, String imageURI, String expirationDate, String isFavorite, String additionalNotes, ArrayList<Coupons> coupons) {
-        mId = id;
+    public Coupons ( long mID, String imageURI, String expirationDate, String isFavorite, String additionalNotes) {
+        id = mID;
         mImageURI = imageURI;
         mExpirationDate = expirationDate;
         mIsFavorite = isFavorite;
         mAdditionalNotes = additionalNotes;
-        mCoupons = coupons;
-        // mImageURI = imageURI;
     }
 
+    /**PARCEL CONTROLLER*/
+    public Coupons ( Parcel in ) {
+        id = in.readLong();
+        mImageURI = in.readString();
+        mExpirationDate = in.readString();
+        mIsFavorite = in.readString();
+        mAdditionalNotes = in.readString();
+    }
 
     public static final Creator<Coupons> CREATOR = new Creator<Coupons>() {
         @Override
@@ -64,13 +67,14 @@ public class Coupons implements Parcelable
         }
     };
 
-    //MUTATORS--------------------------------------------------------------------------------------
-    public void setId(long id) { mId = id; }
+    /**MUTATORS----------------------------------------------------------------------------------*/
+    public long getId() {
+        return id;
+    }
 
-    //  public void setImageURI(String imageURI)
-    // {
-    //     mImageURI = itemName;
-    //}
+    public void setId(long id) {
+        this.id = id;
+    }
 
 
     public void setExpirationDate(String expirationDate)
@@ -91,21 +95,6 @@ public class Coupons implements Parcelable
     }
 
 
-    public void setCoupons(ArrayList<Coupons> coupons)
-    {
-        mCoupons = coupons;
-    }
-
-
-    //ACCESSORS-------------------------------------------------------------------------------------
-    public long getId() { return mId; }
-
-    // public String getImageURI()
-    // {
-    //     return mImageURI;
-    //}
-
-
     public String getExpirationDate()
     {
         return mExpirationDate;
@@ -124,13 +113,8 @@ public class Coupons implements Parcelable
     }
 
 
-    public ArrayList<Coupons> getCoupons()
-    {
-        return mCoupons;
-    }
-
     /**
-     * Accesses the imageURI of the pet
+     * Accesses the imageURI of the coupon
      * @return the Uri
      */
     public String getImageURI() {
@@ -138,7 +122,7 @@ public class Coupons implements Parcelable
     }
 
     /**
-     * Assigns the imageURI of the pet
+     * Assigns the imageURI of the coupon
      * @param imageURI the Uri
      */
     public void setImageURI(String imageURI) {
@@ -146,16 +130,15 @@ public class Coupons implements Parcelable
     }
 
 
-    //HELPER METHODS--------------------------------------------------------------------------------
+    /**HELPER METHODS---------------------------------------------------------------------------**/
     @Override
     public String toString() {
         return "Coupons{" +
-                "ID: " + mId + '\'' +
+                "ID: " + id + '\'' +
                 "ImageURI='" + mImageURI + '\'' +
                 ", Expiration Date='" + mExpirationDate + '\'' +
                 ", Is Favorite='" + mIsFavorite + '\'' +
                 ", Additional Notes='" + mAdditionalNotes + '\'' +
-                ", Coupons=" + mCoupons +
                 '}';
     }
 
@@ -175,33 +158,20 @@ public class Coupons implements Parcelable
     }
 
 
-    //IMPLEMENT METHODS-----------------------------------------------------------------------------
+    /**IMPLEMENT METHODS-----------------------------------------------------------------------**/
     @Override
     public int describeContents() {
-        return 0;
+        return -1;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
 
-        dest.writeLong(mId);
+        dest.writeLong(id);
         dest.writeString(mImageURI);
         dest.writeString(mExpirationDate);
         dest.writeString(mIsFavorite);
         dest.writeString(mAdditionalNotes);
-        dest.writeList(mCoupons);
 
-    }
-
-
-    //PARCEL CONTROLLER
-    private Coupons(Parcel parcel) {
-        mId = parcel.readLong();
-        mImageURI = parcel.readString();
-        mExpirationDate = parcel.readString();
-        mIsFavorite = parcel.readString();
-        mAdditionalNotes = parcel.readString();
-        mCoupons = parcel.readArrayList(Coupons.class.getClassLoader());
-        // mImageURI = parcel.readString();
     }
 }

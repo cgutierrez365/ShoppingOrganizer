@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
-import android.icu.lang.UCharacter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,18 +16,18 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Coupons;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
 
 /**6. This activity is to aide and help in gathering coupons
@@ -53,31 +52,40 @@ public class AddCouponActivity extends AppCompatActivity {
      * Added textviews on second activity
      * Added Switching to next activity and displaying text in a textview! woo!
      *
-     * //TODO: Add Image Code, then Move Image with Number Expiration to Activity2,
-     * //TODO: give a descriptor to Expiration Date, 'how to enter'.
-     * //TODO: Add in optional images to select from, possibly on side gallery and gallery opener.
-     */
 
-    public static final String EXTRA_NUMBER = "com.example.application.example.EXTRA_TEXT";
-    private CouponsListAdapter couponsListAdapter;
-    private static final String TAG = AddCouponActivity.class.getSimpleName();
-    public static final int RESULT_LOAD_IMAGE = 200;
-    public static final String EXTRA_TEXT = "com.example.application.example.EXTRA_TEXT";
+    //public static final String EXTRA_TEXT = "com.example.application.example.EXTRA_TEXT";
+
+    /**
+     * Reminders
+     */
+//    private int COUPON_KEY_FIELD_ID;
+//    private Text FIELD_COUPON_IMAGE;
+//    private Text FIELD_EXPIRATION_DATE;
+//    private Text FIELD_IS_FAVORITE;
+//    private Text FIELD_ADDITIONAL_NOTES;
 
     /**
      * Member variables
      */
-    private DBHelper db;
     private Button addCoupon;
     private TextView CouponExpiration;
-    private ImageView CouponImageView;
-    private EditText editText1;
+
+
+    private EditText ExpireDateEditText;
+    private EditText IsFavoriteEditText;
+    private EditText AddNotesEditText;
+    private EditText CouponsEditText;
+    private String imageUriString;
     private ImageView ThemePicture;
-    private int COUPON_KEY_FIELD_ID;
-    private Blob FIELD_COUPON_IMAGE;
-    private Text FIELD_EXPIRATION_DATE;
-    private UCharacter.NumericType FIELD_IS_FAVORITE;
-    private Text FIELD_ADDITIONAL_NOTES;
+    private DBHelper db;
+    private List<Coupons> couponsList;
+    private ListView CouponListView;
+    private ImageView CouponImageView;
+    public static final String EXTRA_NUMBER = "com.example.application.example.EXTRA_TEXT";
+    private ArrayAdapter couponsListAdapter;
+    private static final String TAG = AddCouponActivity.class.getSimpleName();
+    public static final int RESULT_LOAD_IMAGE = 200;
+
 
 
     /**
@@ -93,22 +101,17 @@ public class AddCouponActivity extends AppCompatActivity {
 
         CouponImageView = findViewById(R.id.CouponImageView);
 
-        db = new DBHelper(this); //to DBhelper connect
-        //  contactsList = db.getAllContacts(); //get in list
-        // contactsAdapter = new ContactsAdapter(this, R.layout.contact_list_item, contactsList); //put towards here
-        //  contactsListView = findViewById(R.id.contactsListView); //connect to layout View
-        // contactsListView.setAdapter(contactsAdapter); //set together
 
 
-        CouponImageView.setImageURI(getUriToResource(this, R.drawable.logo));
+        CouponImageView.setImageURI(getUriToResource(this, R.drawable.images));
 
         Button addCoupon = (Button) findViewById(R.id.button_addcoupon);
         addCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick ( View v ) {
-                openActivity2();
-                Toast.makeText(AddCouponActivity.this, "Coupons Not In Place", Toast.LENGTH_SHORT).show();
-            }
+                    openActivity2();
+                    Toast.makeText(AddCouponActivity.this, "Saving Money", Toast.LENGTH_SHORT).show();
+                }
         });
     }
     public void openActivity2() {
@@ -123,11 +126,67 @@ public class AddCouponActivity extends AppCompatActivity {
     }
     //---/TO HERE /--/Exp Date/
     /**
-     * Constructor class
+     * ADD, DELETE COUPON
      */
 
-    public void addCoupons () {
+//    /**
+//     * Executes whe user clicks "Add Item" button on activity_add_item.xml.
+//     * Adds the item to the item database if all the fields are filled
+//     * @param view the button
+//     */
+//
+//    public void addCoupons (View view) {
+//
+//        String imageUriString = (String) CouponImageView.getTag();
+//
+//        //Capture the fields added by the user
+//        String expirationDate = ExpireDateEditText.getText().toString();
+//        String isFavorite = IsFavoriteEditText.getText().toString();
+//        String additionalNotes = AddNotesEditText.getText().toString();
+//        String coupons = CouponsEditText.getText().toString();
+//
+//
+//        if (TextUtils.isEmpty(expirationDate) || !isEmpty(isFavorite) || !isEmpty(additionalNotes) || !isEmpty(coupons))
+//        {
+//            Toast.makeText(this, "Including what you have!", Toast.LENGTH_LONG).show();
+//            return;
+//        }
+//
+//        //DONE: Need to figure out if should send location Address - saving address, not coordinates
+//        Coupons newCoupon = new Coupons(-1, imageUriString, expirationDate, isFavorite, additionalNotes, coupons);
+//
+//        // Add the new item to the database to ensure it is persisted.
+//        db.addCoupons(newCoupon); //DONE: write addItem method in DBHelper
+//
+//
+//
+//        // Check if lines below update the listView in ItemActivity (but doesn't immediately go to ItemActivity, until press done/cancel button
+//        // Will have to coordinate with Chloe so that she starts my  AddItemActivity using startActivityForResult()
+//        Intent backToItemActivityIntent = new Intent(this, CouponActivity.class);
+//        backToItemActivityIntent.putExtra("newCoupon", newCoupon); //OK b/c Items is Parcelable
+//        setResult(RESULT_OK, backToItemActivityIntent); //will send
+//
+//        // Reset all entries so user can add more if they want
+//        ExpireDateEditText.setText("");
+//        IsFavoriteEditText.setText("");
+//        AddNotesEditText.setText("");
+//        CouponsEditText.setText("");
+//        CouponImageView.setImageURI(getUriToResource(this, R.drawable.images));
+//
+//        Toast.makeText(this, "Item Successfully Added", Toast.LENGTH_SHORT).show();
+//
+//        //set value of cancel button to say "Done" instead since a change was made to the database
+//        Button doneButton = findViewById(R.id.button_addcoupon);
+//        doneButton.setText(R.string.store_coupon);
+//    }
 
+    /**
+     * Ends AddItemActivity, thus reverting to the previous activity that called this one
+     * @param v The cancel / done button
+     */
+    public void revertToPreviousScreen(View v)
+    {
+        this.finish();
     }
 
 

@@ -44,6 +44,7 @@ public class Items implements Parcelable
     }
 
 
+    /*
     public static final Creator<Items> CREATOR = new Creator<Items>() {
         @Override
         public Items createFromParcel(Parcel in) {
@@ -55,6 +56,7 @@ public class Items implements Parcelable
             return new Items[size];
         }
     };
+    */
 
     //MUTATORS--------------------------------------------------------------------------------------
     public void setId(long id) { mId = id; }
@@ -198,4 +200,21 @@ public class Items implements Parcelable
         //mCoupons = parcel.readArrayList(Items.class.getClassLoader());
         mImageURI = parcel.readString();
     }
+
+    public static final Parcelable.Creator<Items> CREATOR = new Creator<Items>()
+    {
+        @Override
+        public Items createFromParcel(Parcel source)
+        {
+            return new Items(source);
+        }
+
+        @Override
+        public Items[] newArray(int size)
+        {
+            return new Items[size];
+        }
+
+    };
+
 }

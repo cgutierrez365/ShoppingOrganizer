@@ -1,6 +1,7 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import java.io.InputStream;
 
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items;
 
@@ -38,29 +41,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
         locationTextView = findViewById(R.id.locationTextView);
         quantityTextView = findViewById(R.id.quantityTextView);
 
-        Intent addItemIntent = getIntent();
+        Intent detailIntent = getIntent();
 
         //RETRIEVE SENT OBJECT
-        Items item = addItemIntent.getParcelableExtra("SelectedItem");
+        Items item = detailIntent.getParcelableExtra("SelectedItem");
 
 
-        //IMPORT IMAGE
-        /*
-        AssetManager am = getAssets();
-
-        try
-        {
-        // TODO: add getImageName() to Items.java
-            InputStream stream = am.open( item.getImageName() );
-            Drawable image = Drawable.createFromStream(stream, item.getItemName() );
-            itemImageView.setImageDrawable(image);
-        }
-        catch(IOException e)
-        {
-            Log.e(TAG, "Error loading: " + item.getItemName(), e);
-        }
-
-        */
 
         itemNameTextView.setText(item.getItemName());
         storeNameTextView.setText(item.getStoreName());
@@ -75,7 +61,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
     //ON CLICK--------------------------------------------------------------------------------------
     public void addCoupon(View v)
     {
+        Intent addCouponIntent = new Intent(this, AddCouponActivity.class);
 
+        startActivity(addCouponIntent);
 
     }
 

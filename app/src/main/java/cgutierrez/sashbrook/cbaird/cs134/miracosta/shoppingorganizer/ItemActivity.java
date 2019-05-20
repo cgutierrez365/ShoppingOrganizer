@@ -103,4 +103,15 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
+    public void viewItemDetails(View v)
+    {
+        Items selectedItem = (Items) v.getTag();
+        Intent itemDetailsIntent = new Intent(this, ItemDetailsActivity.class);
+
+        itemDetailsIntent.putExtra("SelectedItem", selectedItem);
+
+        startActivity(itemDetailsIntent);
+
+    }
+
 }

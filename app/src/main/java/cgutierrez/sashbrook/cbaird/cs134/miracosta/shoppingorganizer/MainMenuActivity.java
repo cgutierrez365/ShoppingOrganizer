@@ -97,10 +97,10 @@ public class MainMenuActivity extends AppCompatActivity {
 //     * links to the NotesActivity
 //     * @param v the Notes button
 //     */
-//    public void addNote(View v)
-//    {
-//        Intent noteIntent = new Intent(this, NoteActivty.class);
-//        startActivity(noteIntent);
-//    }
+    public void addNote(View v)
+    {
+        Intent noteIntent = new Intent(this, AddNoteActivity.class);
+        startActivity(noteIntent);
+    }
 
 }

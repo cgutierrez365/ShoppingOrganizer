@@ -48,5 +48,6 @@
     <string name="default_text">TEXT</string>
     <string name="Add_All">Add All</string>
     <string name="ShoppingOrganizer">Shopping Organizer</string>
+    <string name="delete_text">Delete</string>
 
 </resources>

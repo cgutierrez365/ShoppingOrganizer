@@ -26,6 +26,8 @@ public class MainMenuActivity extends AppCompatActivity {
     //xml attributes
     private ListView mNotesListView;
 
+    private static final int UPDATED_LIST_CODE = 101;
+
     /**
      * Creates the database if it doesn't already exist and connects to the activity_main_menu
      * @param savedInstanceState the saved bundle
@@ -110,7 +112,27 @@ public class MainMenuActivity extends AppCompatActivity {
     public void addNote(View v)
     {
         Intent noteIntent = new Intent(this, AddNoteActivity.class);
-        startActivity(noteIntent);
+        startActivityForResult(noteIntent, UPDATED_LIST_CODE);
+
+        //startActivity(noteIntent);
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == UPDATED_LIST_CODE)
+        {
+            if(data == null)
+            {
+                return;
+            }
+
+            Notes newNote = data.getParcelableExtra("");
+
+        }
+
+
     }
 
 

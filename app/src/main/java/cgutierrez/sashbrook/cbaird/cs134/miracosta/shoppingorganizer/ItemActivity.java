@@ -17,15 +17,13 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHel
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items;
 
 /**
- *
+ * speothpo
+ * @author Chloe Baird
  */
 
 public class ItemActivity extends AppCompatActivity {
 
     //INSTANCE VARIABLES----------------------------------------------------------------------------
-    /**
-     * A list of items extracted to and changed from the database
-     */
     private static final int UPDATED_LIST_CODE = 101;
     private static final String TAG = ItemActivity.class.getSimpleName();
 
@@ -36,11 +34,11 @@ public class ItemActivity extends AppCompatActivity {
  //   private Items newItem;
 
 
+    //ONCREATE--------------------------------------------------------------------------------------
     /**
-     *
+     * Sets up the database and inflates the cutsom view for Items in the list.
      * @param savedInstanceState
      */
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +55,12 @@ public class ItemActivity extends AppCompatActivity {
 
     }
 
+
+    //OTHER METHODS---------------------------------------------------------------------------------
+    /**
+     * Sends the user to an activity to add an item to the database. Returns the user when finished.
+     * @param v
+     */
     public void addItem(View v)
     {
         //Intent addItemIntent = new Intent(Intent.)
@@ -64,7 +68,13 @@ public class ItemActivity extends AppCompatActivity {
         startActivityForResult(addItemIntent, UPDATED_LIST_CODE);
     }
 
-    //Will update the listView after user added things to the database
+
+    /**
+     * Updates the ListView after the user has made changes to the database.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -103,6 +113,10 @@ public class ItemActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sends user to an activity to view the details of an individual item.
+     * @param v
+     */
     public void viewItemDetails(View v)
     {
         Items selectedItem = (Items) v.getTag();

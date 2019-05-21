@@ -138,6 +138,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
     /********** DATABASE OPERATIONS:  ADD, GET ALL, GET 1, DELETE*/
     /**
+     * Clarissa:
+     *
      * Adds the Item to the Database with all table fields
      * @param item the new item to be added to the database
      */
@@ -256,6 +258,8 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * Clarissa:
+     *
      * Imports Notes from a csv file
      * @param csvFileName commma separated values of notes
      * @return boolean value indicating whether was able to successfully add items to the database or not

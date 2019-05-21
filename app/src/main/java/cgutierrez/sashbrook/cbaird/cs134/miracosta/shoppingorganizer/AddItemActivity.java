@@ -130,7 +130,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
         else
         {
-            //TODO: Toast informing the user need permissions
+            //DONE: Toast informing the user need permissions
             Toast.makeText(this, R.string.permissions_message,Toast.LENGTH_LONG).show();
         }
     }
@@ -215,13 +215,6 @@ public class AddItemActivity extends AppCompatActivity {
         backToItemActivityIntent.putExtra("newItem", newItem);
         setResult(Activity.RESULT_OK, backToItemActivityIntent); //Sets the Intent field in onActivityResult to this intent
 
-
-//
-//        Intent backToItemActivityIntent = new Intent(this, ItemActivity.class);
-//    //    Intent backToItemActivityIntent = getIntent();
-//        backToItemActivityIntent.putExtra("newItem", newItem); //OK b/c Items is Parcelable
-//     //   setResult(RESULT_OK, backToItemActivityIntent); //will send
-
         // Reset all entries so user can add more if they want
         itemNameEditText.setText("");
         storeNameEditText.setText("");
@@ -232,10 +225,6 @@ public class AddItemActivity extends AppCompatActivity {
         Toast.makeText(this, "Item Successfully Added", Toast.LENGTH_SHORT).show();
 
         finish();
-
-        //set value of cancel button to say "Done" instead since a change was made to the database
-//        Button doneButton = findViewById(R.id.cancelButton);
-//        doneButton.setText(R.string.done);
     }
 
     /**

@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.List;
-
-import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes;
 
 /**
@@ -33,7 +30,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_note_details);
 
         //LINK VIEW AND CONTROLLER
-        titleTextView = findViewById(R.id.titleTextView);
+        titleTextView = findViewById(R.id.titleEditText);
         contentsTextView = findViewById(R.id.contentsTextView);
 
         //RETRIEVE SENT ITEM

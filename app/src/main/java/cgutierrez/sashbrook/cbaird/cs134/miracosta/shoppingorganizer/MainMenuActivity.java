@@ -37,8 +37,8 @@ public class MainMenuActivity extends AppCompatActivity {
 
         //create a new database if one doesn't already exist (using DBHelper constructor)
         db = new DBHelper(this);
-        //DONE: write getAllNotes() method as well as a Notes database
-        mNotesList = db.getAllNotes();
+        db.importNotesFromCSV("notes.csv");
+        mNotesList = db.getAllNotes(); //DONE: write getAllNotes() method as well as a Notes database
 
         // Inflate the custom list view with any notes existing in the database from a previous session
         mNotesListAdapter = new NotesListAdapter(this, R.layout.note_list_item, mNotesList);

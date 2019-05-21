@@ -15,16 +15,19 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes
 
 /**
  * Add Note Activity enables user to add a general note reminder
+ * @Author Chloe
  */
 public class AddNoteActivity extends AppCompatActivity {
 
     private DBHelper db;
-    private List<Notes> mNotesList;
-    private NotesListAdapter mNotesListAdapter;
 
     private EditText titleEditText;
     private EditText contentsEditText;
 
+    /**
+     * On Create associates AddNoteActivity.java with associated file activity_add_note.xml and inflates the
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,19 +35,10 @@ public class AddNoteActivity extends AppCompatActivity {
 
         //create a new database if one doesn't already exist (using DBHelper constructor)
         db = new DBHelper(this);
-        //DONE: write getAllNotes() method as well as a Notes database
-        mNotesList = db.getAllNotes();
 
-        // Inflate the custom list view with any notes existing in the database from a previous session
-        // mNotesListAdapter = new NotesListAdapter(this, R.layout.note_list_item, mNotesList);
-       // mNotesListView = findViewById(R.id.notesListView);
-       // mNotesListView.setAdapter(mNotesListAdapter);
-
-
-        //Done: Connect activity to the xml list view
-        //mNotesListView = findViewById(R.id.itemsListView);
-
-
+        //Connect activity to the xml list view
+        titleEditText = findViewById(R.id.titleEditText);
+        contentsEditText = findViewById(R.id.contentsEditText);
     }
 
     public void addNote(View v)

@@ -137,7 +137,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
     /********** DATABASE OPERATIONS:  ADD, GET ALL, GET 1, DELETE*/
-    /** Chloe:
+    /**
      * Adds the Item to the Database with all table fields
      * @param item the new item to be added to the database
      */
@@ -244,8 +244,44 @@ public class DBHelper extends SQLiteOpenHelper {
                 String expirationDate = fields[2].trim();
                 String isFavorite = fields[3].trim();
                 String additionalNotes = fields[4].trim();
+                //TODO: If error shows up for importCouponsFromCSV, might be because we shouldn't import the coupon id from the csv file
                 addCoupons(new Coupons(id, imageURI, expirationDate, isFavorite, additionalNotes));
                 //CORRECTION UPON ADDITION OF THE ADDCOUPON(s) TABLE IN FROM DBHelper, to add to database, etc.
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Imports Notes from a csv file
+     * @param csvFileName commma separated values of notes
+     * @return boolean value indicating whether was able to successfully add items to the database or not
+     */
+    public boolean importNotesFromCSV(String csvFileName) {
+        AssetManager manager = mContext.getAssets();
+        InputStream inStream;
+        try {
+            inStream = manager.open(csvFileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
+        String line;
+        try {
+            while ((line = buffer.readLine()) != null) {
+                String[] fields = line.split(",");
+                if (fields.length != 2) {
+                    Log.d("Shopping Organizer", "Skipping Bad CSV Row: " + Arrays.toString(fields));
+                    continue;
+                }
+                String noteTitle = fields[0].trim();
+                String noteContents = fields[1].trim();
+                addNote(new Notes(-1, noteTitle, noteContents));
             }
         } catch (IOException e) {
             e.printStackTrace();

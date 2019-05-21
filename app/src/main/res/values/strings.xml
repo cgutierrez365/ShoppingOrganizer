@@ -49,5 +49,6 @@
     <string name="Add_All">Add All</string>
     <string name="ShoppingOrganizer">Shopping Organizer</string>
     <string name="delete_text">Delete</string>
+    <string name="add_store">Click to Set Store Image</string>
 
 </resources>

@@ -14,19 +14,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StoreDetailsActivity"></activity>
-        <activity android:name=".NoteDetailsActivity" />
+        <activity android:name=".NoteDetailsActivity"></activity>
         <activity android:name=".ItemDetailsActivity" />
         <activity android:name=".AddNoteActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".CreditsActivity" />
         <activity android:name=".ItemActivity" />
-        <activity android:name=".StoresActivity" />
-        <activity android:name=".AddCouponActivity" />
-        <activity android:name=".CouponActivity" />
-        <activity android:name=".CouponDetailsActivity" />
-        <activity android:name=".SplashActivity" />
-        <activity android:name=".MainMenuActivity">
+        <activity android:name=".StoresActivity"></activity>
+        <activity android:name=".AddCouponActivity"></activity>
+        <activity android:name=".CouponActivity"></activity>
+        <activity android:name=".CouponDetailsActivity"></activity>
+        <activity android:name=".MainMenuActivity"></activity>
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

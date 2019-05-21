@@ -103,4 +103,16 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(noteIntent);
     }
 
+
+    //NOTE LIST ONCLICK
+    public void viewNoteDetails(View v)
+    {
+        Notes selectedNote = (Notes) v.getTag();
+        Intent notesDetailsIntent = new Intent(this, NoteDetailsActivity.class);
+
+        notesDetailsIntent.putExtra("SelectedNote", selectedNote);
+
+        startActivity(notesDetailsIntent);
+    }
+
 }

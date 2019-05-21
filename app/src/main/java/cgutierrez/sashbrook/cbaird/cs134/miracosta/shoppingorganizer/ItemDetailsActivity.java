@@ -54,7 +54,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         quantityTextView.setText(item.getItemQuantity());
         // TODO: ask how you would get the coupon database visible in the list??
 
-
     }
 
 

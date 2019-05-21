@@ -198,6 +198,21 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    public void addNote(Notes note) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(FIELD_NOTE_TITLE, note.getNoteTitle());
+        values.put(FIELD_NOTE_CONTENTS, note.getNoteContents());
+
+        long id = db.insert(NOTES_TABLE, null, values);
+        note.setId(id);
+        // CLOSE THE DATABASE CONNECTION
+        db.close();
+    }
+
+
     /**
      * Stacey: Coupons Database/ CouponListAdapter/ CouponDetails
      *   Stacey: Coupons/AddCouponsActivity & CouponActivity

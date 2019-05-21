@@ -244,7 +244,6 @@ public class AddItemActivity extends AppCompatActivity {
      */
     public void revertToPreviousScreen(View v)
     {
-        //db.close();
         this.finish();
     }
 }

@@ -61,6 +61,7 @@
             android:id="@+id/doneButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="addNote"
             android:text="@string/add_note_button"
             tools:layout_editor_absoluteX="312dp"
             tools:layout_editor_absoluteY="675dp" />

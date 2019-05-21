@@ -14,6 +14,10 @@ import java.io.InputStream;
 
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items;
 
+/**
+ * soeiht
+ * @author Chloe Baird
+ */
 
 public class ItemDetailsActivity extends AppCompatActivity {
 
@@ -29,7 +33,12 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
     private static final String TAG = ItemDetailsActivity.class.getSimpleName();
 
+
     //ON CREATE-------------------------------------------------------------------------------------
+    /**
+     * Retrieves the item which the user wishes to view, along with its data.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +66,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
     }
 
 
-    //ON CLICK--------------------------------------------------------------------------------------
+    //OTHER METHODS---------------------------------------------------------------------------------
+    /**
+     * Redirects the user to an activity to upload coupons relating to the particular item.
+     * @param v
+     */
     public void addCoupon(View v)
     {
         Intent addCouponIntent = new Intent(this, AddCouponActivity.class);
@@ -65,8 +78,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         startActivity(addCouponIntent);
 
     }
-
-
 
 
 }

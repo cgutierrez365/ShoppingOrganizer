@@ -10,6 +10,7 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes
 
 /**
  * Displays a specific note to saved by the user
+ * @author Chloe Baird
  */
 public class NoteDetailsActivity extends AppCompatActivity {
 
@@ -41,11 +42,21 @@ public class NoteDetailsActivity extends AppCompatActivity {
         contentsTextView.setText(note.getNoteContents());
     }
 
+
+    //OTHER METHODS---------------------------------------------------------------------------------
+    /**
+     * Deletes a note from the database and ListView.
+     * @param v
+     */
     public void deleteNote(View v)
     {
 
     }
 
+    /**
+     * Returns the user to the ItemActivity.
+     * @param v
+     */
     public void finishActivity(View v)
     {
         this.finish();

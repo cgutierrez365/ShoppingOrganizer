@@ -17,11 +17,10 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHel
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Store;
 
 /**  Author@: Stacey Ashbrook
- *      Accompanying activity_add_store Layout, custom_store list.
+ *      Accompanying activity_stores Layout, custom_store list.
  *      Store Database & Store Adapter, along with (Store model)
  *
- * 7. Bringing together a layout called activity_add_store.xml.
- * An Activity that will allow the user to view numerous stores listed together.
+ * 7. Bringing together a layout called activity_stores.xml* An Activity that will allow the user to view numerous stores listed together.
  * Able to select a store from the list (currently listed as item), once
  * selected a click of the button, “+ Add Store” moves to another activity where
  * 'Store' is added to an organizer list for the user to visit and achieve needed
@@ -65,7 +64,7 @@ public class StoresActivity extends AppCompatActivity {
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_store);
+        setContentView(R.layout.activity_stores);
 
 
         Button addStore = findViewById(R.id.addStore);

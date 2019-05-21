@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Got rid of the following (was previously line 38): android:entries="@drawable/logo" Because of runtime Error-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".StoresActivity">
 
 
     <Button
@@ -34,7 +36,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:cacheColorHint="@android:color/holo_green_dark"
-        android:entries="@drawable/logo"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
         android:scrollbars="vertical"

@@ -62,27 +62,27 @@ public class MainMenuActivity extends AppCompatActivity {
     }
 
     //TODO: Uncomment the button onClicks when the other classes are added to the project
-//
-//    /**
-//     * links to StoreActivity
-//     * @param v the Stores button
-//     */
-//    public void viewStores(View v)
-//    {
-//        Intent storeIntent = new Intent(this, StoreActivity.class);
-//        startActivity(storeIntent);
-//    }
-//
-//    /**
-//     * links to CouponsActivity
-//     * @param v the coupons button
-//     */
-//    public void viewCoupons(View v)
-//    {
-//        Intent couponIntent = new Intent(this, CouponActivity.class);
-//        startActivity(couponIntent);
-//    }
-//
+
+    /**
+     * links to StoreActivity
+     * @param v the Stores button
+     */
+    public void viewStores(View v)
+    {
+        Intent storeIntent = new Intent(this, StoresActivity.class);
+        startActivity(storeIntent);
+    }
+
+    /**
+     * links to CouponsActivity
+     * @param v the coupons button
+     */
+    public void viewCoupons(View v)
+    {
+        Intent couponIntent = new Intent(this, CouponActivity.class);
+        startActivity(couponIntent);
+    }
+
     /**
      * links to the MapActivity
      * @param v the map button
@@ -91,6 +91,16 @@ public class MainMenuActivity extends AppCompatActivity {
     {
         Intent mapIntent = new Intent(this, MapActivity.class);
         startActivity(mapIntent);
+    }
+
+    /**
+     * links to Credits Activity
+     * @param v the coupons button
+     */
+    public void viewCredits(View v)
+    {
+        Intent creditsIntent = new Intent(this, CreditsActivity.class);
+        startActivity(creditsIntent);
     }
 
 //    /**

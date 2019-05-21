@@ -24,6 +24,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private DBHelper db;
     private List<Store> allStoresList;
     private ListView storesListView;
+    private MapListAdapter mapListAdapter;
 
     //TODO: private LocationListAdapter locationListAdapter;
 
@@ -40,8 +41,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         allStoresList = db.getallStoresList();
         storesListView = findViewById(R.id.storesListView);
-//        locationListAdapter = new LocationListAdapter(this, R.layout.location_list_item, allLocationsList);
-//        storesListView.setAdapter(locationListAdapter);
+        mapListAdapter = new MapListAdapter(this, R.layout.custom_map_list_item, allStoresList);
+        storesListView.setAdapter(mapListAdapter);
 
         // Load the Map fragment asynchronously
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapFragment);

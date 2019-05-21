@@ -74,13 +74,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         map.moveCamera(cameraUpdate);
 
         //TODO: Add all store locations from the database to the map using a for each loop
-//        LatLng position;
-//        for (Location location : allLocationsList)
-//        {
-//            position = new LatLng(location.getLatitude(), location.getLongitude());
-//            map.addMarker(new MarkerOptions()
-//                    .position(position)
-//                    .title(location.getName()));
-//        }
+        LatLng position;
+        for (Store location : allStoresList)
+        {
+            position = new LatLng(location.getLatitude(), location.getLongitude());
+            map.addMarker(new MarkerOptions()
+                    .position(position)
+                    .title(location.getName()));
+        }
     }
 }

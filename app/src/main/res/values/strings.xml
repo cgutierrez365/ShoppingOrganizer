@@ -24,7 +24,7 @@
     <string name="store_name">Store Name</string>
     <string name="Store">Name of Store</string>
     <string name="StoreImage">Store Image</string>
-    <string name="store_coupon">Coupon Add...</string>
+    <string name="store_coupon">Add Coupon</string>
     <string name="Coupon_exp">Coupon</string>
     <string name="Coupon_expires">Expiration Date:</string>
     <string name="theme_background">Background Theme Green</string>
@@ -56,5 +56,8 @@
     <string name="add_item_toast">All fields (excluding image) must be provided to add an item to the list.</string>
     <string name="item_successful_added">Item Successfully Added</string>
     <string name="store_successful_added">Store Successfully Added</string>
+    <string name="image_view_content">image view content</string>
+    <string name="sample_text">sample text</string>
+    <string name="Location">Location</string>
 
 </resources>

@@ -16,6 +16,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +31,14 @@ import java.util.List;
 
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Coupons;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
+
+
+/**
+ * Executes whe user clicks "Add Coupon" button on, adjust from Coupon Add.
+ * Both the Image and Expiration are moved to the next page so the user can see Available
+ * coupons and make a list.
+ * @param view the button
+ */
 
 /**6. This activity is to aide and help in gathering coupons
  *  in various forms. Whether displayed within the application
@@ -46,35 +56,10 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHel
 public class AddCouponActivity extends AppCompatActivity {
 
     /**
-     * Last DONE: Added in EditText for entry of Coupons date, switched on layout activity_add_coupon.xml -
-     * the text and (wrench text) to display Expiration date correctly. <exactly a switch></exactly>
-     * Added Button clickable for adding coupon, (will add image later)
-     * Added textviews on second activity
-     * Added Switching to next activity and displaying text in a textview! woo!
-     *
-
-    //public static final String EXTRA_TEXT = "com.example.application.example.EXTRA_TEXT";
-
-    /**
-     * Reminders
-     */
-//    private int COUPON_KEY_FIELD_ID;
-//    private Text FIELD_COUPON_IMAGE;
-//    private Text FIELD_EXPIRATION_DATE;
-//    private Text FIELD_IS_FAVORITE;
-//    private Text FIELD_ADDITIONAL_NOTES;
-
-    /**
      * Member variables
      */
     private Button addCoupon;
     private TextView CouponExpiration;
-
-
-    private EditText ExpireDateEditText;
-    private EditText IsFavoriteEditText;
-    private EditText AddNotesEditText;
-    private EditText CouponsEditText;
     private String imageUriString;
     private ImageView ThemePicture;
     private DBHelper db;
@@ -85,7 +70,7 @@ public class AddCouponActivity extends AppCompatActivity {
     private ArrayAdapter couponsListAdapter;
     private static final String TAG = AddCouponActivity.class.getSimpleName();
     public static final int RESULT_LOAD_IMAGE = 200;
-
+    private Animation customAnim;
 
 
     /**
@@ -100,85 +85,52 @@ public class AddCouponActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_coupon);
 
         CouponImageView = findViewById(R.id.CouponImageView);
-
-
-
         CouponImageView.setImageURI(getUriToResource(this, R.drawable.images));
 
         Button addCoupon = (Button) findViewById(R.id.button_addcoupon);
         addCoupon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick ( View v ) {
-                    openActivity2();
-                    Toast.makeText(AddCouponActivity.this, "Saving Money", Toast.LENGTH_SHORT).show();
-                }
+                openActivity2();
+                Toast.makeText(AddCouponActivity.this, "Saving Money", Toast.LENGTH_SHORT).show();
+            }
         });
     }
+
+    public void toggleCustomAnim(View v) {
+        customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
+        CouponImageView.startAnimation(customAnim);
+    }
+
+    /**
+     * Important for moving the Expiration Date,
+     * basic number entry - no slashes or spaces required.
+     *
+     * >>may be adjusted to accomodate slashes?
+     *      * number easiest entry.
+     */
     public void openActivity2() {
         EditText editText1 = (EditText) findViewById(R.id.edittext1);
-        //String text = String.format(editText1.getText().toString());
         int number = Integer.parseInt(editText1.getText().toString());
 
         Intent intent = new Intent(this, CouponActivity.class);
         intent.putExtra(EXTRA_NUMBER, number);
-        //intent.putExtra(EXTRA_TEXT, text);
         startActivity(intent);
+
     }
     //---/TO HERE /--/Exp Date/
     /**
      * ADD, DELETE COUPON
      */
 
-//    /**
-//     * Executes whe user clicks "Add Item" button on activity_add_item.xml.
-//     * Adds the item to the item database if all the fields are filled
-//     * @param view the button
-//     */
-//
-//    public void addCoupons (View view) {
-//
-//        String imageUriString = (String) CouponImageView.getTag();
-//
-//        //Capture the fields added by the user
-//        String expirationDate = ExpireDateEditText.getText().toString();
-//        String isFavorite = IsFavoriteEditText.getText().toString();
-//        String additionalNotes = AddNotesEditText.getText().toString();
-//        String coupons = CouponsEditText.getText().toString();
-//
-//
-//        if (TextUtils.isEmpty(expirationDate) || !isEmpty(isFavorite) || !isEmpty(additionalNotes) || !isEmpty(coupons))
-//        {
-//            Toast.makeText(this, "Including what you have!", Toast.LENGTH_LONG).show();
-//            return;
-//        }
-//
-//        //DONE: Need to figure out if should send location Address - saving address, not coordinates
-//        Coupons newCoupon = new Coupons(-1, imageUriString, expirationDate, isFavorite, additionalNotes, coupons);
-//
-//        // Add the new item to the database to ensure it is persisted.
-//        db.addCoupons(newCoupon); //DONE: write addItem method in DBHelper
-//
-//
-//
-//        // Check if lines below update the listView in ItemActivity (but doesn't immediately go to ItemActivity, until press done/cancel button
-//        // Will have to coordinate with Chloe so that she starts my  AddItemActivity using startActivityForResult()
-//        Intent backToItemActivityIntent = new Intent(this, CouponActivity.class);
-//        backToItemActivityIntent.putExtra("newCoupon", newCoupon); //OK b/c Items is Parcelable
-//        setResult(RESULT_OK, backToItemActivityIntent); //will send
-//
-//        // Reset all entries so user can add more if they want
-//        ExpireDateEditText.setText("");
-//        IsFavoriteEditText.setText("");
-//        AddNotesEditText.setText("");
-//        CouponsEditText.setText("");
-//        CouponImageView.setImageURI(getUriToResource(this, R.drawable.images));
-//
-//        Toast.makeText(this, "Item Successfully Added", Toast.LENGTH_SHORT).show();
-//
-//        //set value of cancel button to say "Done" instead since a change was made to the database
-//        Button doneButton = findViewById(R.id.button_addcoupon);
-//        doneButton.setText(R.string.store_coupon);
-//    }
+    public void addCoupons (View view) {
+        if(view== findViewById(R.id.button_addcoupon))
+        {
+            Toast.makeText(this, "Coupons Successfully Added", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
+    }
 
     /**
      * Ends AddItemActivity, thus reverting to the previous activity that called this one
@@ -186,7 +138,7 @@ public class AddCouponActivity extends AppCompatActivity {
      */
     public void revertToPreviousScreen(View v)
     {
-        this.finish();
+        AddCouponActivity.this.finish();
     }
 
 
@@ -239,9 +191,6 @@ public class AddCouponActivity extends AppCompatActivity {
          * Permission Allowances to enter a new screen on the device,
          * which will access photos including the gallery.
          */
-
-        // after requesting permissions, find out which ones user granted
-        //check to see if ALL permissions were granted
         if (hasCameraPerm == PackageManager.PERMISSION_GRANTED &&
                 hasReadExternalPerm == PackageManager.PERMISSION_GRANTED &&
                 hasWriteExternalPerm == PackageManager.PERMISSION_GRANTED) {
@@ -269,7 +218,8 @@ public class AddCouponActivity extends AppCompatActivity {
             toast.setMargin(150, 150);
             toast.show();
         }
-
+        customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
+        CouponImageView.startAnimation(customAnim);
     }
 
     /**
@@ -310,3 +260,4 @@ public class AddCouponActivity extends AppCompatActivity {
 
     }
 }
+

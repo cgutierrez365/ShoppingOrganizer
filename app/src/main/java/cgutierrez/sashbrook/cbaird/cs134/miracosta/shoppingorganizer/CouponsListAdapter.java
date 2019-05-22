@@ -70,8 +70,6 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
     public View getView( int position, View convertView, @NonNull ViewGroup parent)
     {
         final Coupons selectedCoupons = mallCouponsList.get(position);
-        //ImageView selectedImageView = (ImageView) selectedPet.getSelectedView();
-        //Pet petDetails;
 
         //Done: CODE FOR GETVIEW, TO INFLATE THE VIEW(PET_LIST_ITEM) WITH INFORMATION
         //ABOUT THE PET. THEIMAGEVIEW SHOULD DISPLAY THE CORRECT IMAGE USING THE SETIMAGEURI()
@@ -80,9 +78,6 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         /** Tell the inflater to inflate pet_list_item.xml */
         View view = inflater.inflate(mResourceId, null);
-        //DONE:// SHOULD DISPLAY THE CORRECT IMAGE USING THE SETIMAGEURI() METHOD(NOT ASSETMANAGER). THE TWO
-        //DONE:// TEXTVIEW (FOR NAME AND DETAILS) SHOULD BE INFLATED WITH THE CORRECT INFORMATION ABOUT THE PET.
-        //use ALOHA MUSIC IS NEEDED for Uri & Buttons
 
 //        String uri ="android.resource://edu.miracostacollege.cs134.capstonelayouts/drawable/user";
 //        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
@@ -119,8 +114,6 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
 //        CouponExpirationDateTextView.setText(selectedCoupons.getExpirationDate());
 //        CouponIsFavoriteTextView.setText(selectedCoupons.getIsFavorite());
 //        CouponAdditionalNotesTextView.setText(selectedCoupons.getAdditionalNotes());
-
-
 
 
         AssetManager am = mContext.getAssets();

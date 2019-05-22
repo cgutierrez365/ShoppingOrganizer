@@ -459,10 +459,10 @@ public class DBHelper extends SQLiteOpenHelper {
     public void deleteStore(Store store) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-//        // DELETE THE TABLE ROW
-//        db.delete(STORES_TABLE, STORES_KEY_FIELD_ID + " = ?",
-//                new String[]{String.valueOf(store.getId())});
-//        db.close();
+        // DELETE THE TABLE ROW
+        db.delete(STORES_TABLE, STORES_KEY_FIELD_ID + " = ?",
+                new String[]{String.valueOf(store.getId())});
+        db.close();
     }
 
     /**

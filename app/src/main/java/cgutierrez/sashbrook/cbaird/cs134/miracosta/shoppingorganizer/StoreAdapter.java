@@ -68,9 +68,6 @@ public class StoreAdapter extends ArrayAdapter<Store> {
 //        String uri ="android.resource://edu.miracostacollege.cs134.capstonelayouts/drawable/images.jpg";
 //        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
 //        mContext.startActivity(intent);
-
-        ConstraintLayout allStoresListConstraintLayout =
-                view.findViewById(R.id.storesListView);  //use view. when adding layout.
         // Works for all on LinearLayout
         LinearLayout allStoresListLinearLayout = view.findViewById(R.id.allStoresListLinearLayout);
 
@@ -78,13 +75,19 @@ public class StoreAdapter extends ArrayAdapter<Store> {
 
         TextView allStoresListNameTextView =
                 view.findViewById(R.id.NameStorestextView);
+        TextView allStoresListLocationTextView =
+                view.findViewById(R.id.LocationTextView);
 
         allStoresListLinearLayout.setTag(selectedLocation);
         allStoresListImageView.setImageURI(Uri.parse("images.jpg"));
 
-        allStoresListNameTextView.setText(selectedLocation.getFullAddress());
-        allStoresListNameTextView.setText(selectedLocation.getName());
 
+        //allStoresListNameTextView.setText(selectedLocation.getName());
+        allStoresListNameTextView.setText(selectedLocation.getFullAddress());
+        allStoresListLocationTextView.setText(selectedLocation.getLocation());
+
+
+        allStoresListNameTextView.setText(selectedLocation.getName());
 
 
 
@@ -92,13 +95,14 @@ public class StoreAdapter extends ArrayAdapter<Store> {
         try {
             allStoresListImageView.setImageURI(Uri.parse(selectedLocation.getImageName()));
             InputStream stream = am.open(selectedLocation.getImageName());
-            Drawable event = Drawable.createFromStream(stream, selectedLocation.getImageName());
+            Drawable event = Drawable.createFromStream(stream, selectedLocation.getName());
             allStoresListImageView.setImageDrawable(event);
         }
         catch (IOException ex)
         {
             Log.e("Stores Select", "Error loading " + selectedLocation.getImageName(), ex);
         }
+
         return view;
     }
 }

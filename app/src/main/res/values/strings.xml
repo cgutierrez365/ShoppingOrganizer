@@ -50,5 +50,11 @@
     <string name="ShoppingOrganizer">Shopping Organizer</string>
     <string name="delete_text">Delete</string>
     <string name="add_store">Click to Set Store Image</string>
+    <string name="latitude">Latitude</string>
+    <string name="longitude">Longitude</string>
+    <string name="add_store_toast">All fields (excluding image) must be provided to add an store to the list.</string>
+    <string name="add_item_toast">All fields (excluding image) must be provided to add an item to the list.</string>
+    <string name="item_successful_added">Item Successfully Added</string>
+    <string name="store_successful_added">Store Successfully Added</string>
 
 </resources>

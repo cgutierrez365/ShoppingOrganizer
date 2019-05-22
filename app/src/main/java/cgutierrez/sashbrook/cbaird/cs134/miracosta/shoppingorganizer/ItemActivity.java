@@ -31,7 +31,6 @@ public class ItemActivity extends AppCompatActivity {
     private List<Items> itemsList;
     private ItemListAdapter itemListAdapter;
     private ListView itemListView;
- //   private Items newItem;
 
 
     //ONCREATE--------------------------------------------------------------------------------------

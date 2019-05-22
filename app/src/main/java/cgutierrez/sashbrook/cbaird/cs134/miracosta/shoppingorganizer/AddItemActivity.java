@@ -173,7 +173,7 @@ public class AddItemActivity extends AppCompatActivity {
         {
             Uri uri = data.getData();
             mItemImageView.setImageURI(uri);
-            mItemImageView.setTag(uri.toString()); //For use in addPet() to extract the imageUri from the image view and add it to the database
+            mItemImageView.setTag(uri.toString()); //extract the imageUri from the image view and add it to the database
         }
     }
 
@@ -195,13 +195,12 @@ public class AddItemActivity extends AppCompatActivity {
 
         if (TextUtils.isEmpty(itemName) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(storeAddress) || TextUtils.isEmpty(quantity))
         {
-            Toast.makeText(this, "All fields (excluding image) must be provided to add an item to the list.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.add_item_toast, Toast.LENGTH_LONG).show();
             return;
         }
 
-        //DONE: Need to figure out if should send location Address - saving address, not coordinates
-    //TODO UNCOMMENT WHEN ADD COUPONSLIST BACK TO ITEMS CLASS---    Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, null, imageUriString);
-        Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, imageUriString); //TODO: Erase this line when above TODO is DONE
+        //Create Item from user fields
+        Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, imageUriString);
 
         // Add the new item to the database to ensure it is persisted.
         db.addItem(newItem);
@@ -222,7 +221,7 @@ public class AddItemActivity extends AppCompatActivity {
         quantityEditText.setText("");
         mItemImageView.setImageURI(getUriToResource(this, R.drawable.ic_shopping_cart_24dp));
 
-        Toast.makeText(this, "Item Successfully Added", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.item_successful_added, Toast.LENGTH_SHORT).show();
 
         finish();
     }

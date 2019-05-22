@@ -16,7 +16,7 @@ public class Items implements Parcelable
     private long mId;
     private String mItemName;
     private String mStoreName;
-    private String mStoreLocation;
+   // private String mStoreLocation;
     private String mItemQuantity;
     //private ArrayList<Coupons> mCoupons;
     private String mImageURI;
@@ -27,17 +27,17 @@ public class Items implements Parcelable
         mId = -1;
         mItemName = "";
         mStoreName = "";
-        mStoreLocation = "";
+   //     mStoreLocation = "";
         mItemQuantity = "";
         mImageURI = "";
     }
 
 
-    public Items(long id, String itemName, String storeName, String storeLocation, String itemQuantity, /*ArrayList<Coupons> coupons,*/ String imageURI) {
+    public Items(long id, String itemName, String storeName,/* String storeLocation,*/ String itemQuantity, /*ArrayList<Coupons> coupons,*/ String imageURI) {
         mId = id;
         mItemName = itemName;
         mStoreName = storeName;
-        mStoreLocation = storeLocation;
+    //    mStoreLocation = storeLocation;
         mItemQuantity = itemQuantity;
         //mCoupons = coupons;
         mImageURI = imageURI;
@@ -73,10 +73,10 @@ public class Items implements Parcelable
     }
 
 
-    public void setStoreLocation(String storeLocation)
-    {
-        mStoreLocation = storeLocation;
-    }
+//    public void setStoreLocation(String storeLocation)
+//    {
+//        mStoreLocation = storeLocation;
+//    }
 
 
     public void setItemQuantity(String itemQuantity)
@@ -106,10 +106,10 @@ public class Items implements Parcelable
     }
 
 
-    public String getStoreLocation()
-    {
-        return mStoreLocation;
-    }
+//    public String getStoreLocation()
+//    {
+//        return mStoreLocation;
+//    }
 
 
     public String getItemQuantity()
@@ -148,7 +148,7 @@ public class Items implements Parcelable
                 "ID: " + mId + '\'' +
                 "Item Name='" + mItemName + '\'' +
                 ", Store Name='" + mStoreName + '\'' +
-                ", Store Location='" + mStoreLocation + '\'' +
+//                ", Store Location='" + mStoreLocation + '\'' +
                 ", Item Quantity='" + mItemQuantity + '\'' +
                 /*", Coupons=" + mCoupons +*/
                 '}';
@@ -182,7 +182,7 @@ public class Items implements Parcelable
         dest.writeLong(mId);
         dest.writeString(mItemName);
         dest.writeString(mStoreName);
-        dest.writeString(mStoreLocation);
+//        dest.writeString(mStoreLocation);
         dest.writeString(mItemQuantity);
         //dest.writeList(mCoupons);
         dest.writeString(mImageURI);
@@ -195,7 +195,7 @@ public class Items implements Parcelable
         mId = parcel.readLong();
         mItemName = parcel.readString();
         mStoreName = parcel.readString();
-        mStoreLocation = parcel.readString();
+//        mStoreLocation = parcel.readString();
         mItemQuantity = parcel.readString();
         //mCoupons = parcel.readArrayList(Items.class.getClassLoader());
         mImageURI = parcel.readString();

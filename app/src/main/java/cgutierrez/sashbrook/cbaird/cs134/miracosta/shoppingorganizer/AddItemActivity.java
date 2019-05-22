@@ -41,7 +41,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private EditText itemNameEditText;
     private EditText storeNameEditText;
-    private EditText storeAddressEditText;
+//    private EditText storeAddressEditText;
     private EditText quantityEditText;
     private ImageView mItemImageView;
     private Uri imageUri;
@@ -64,7 +64,7 @@ public class AddItemActivity extends AppCompatActivity {
 
         itemNameEditText = findViewById(R.id.itemNameEditText);
         storeNameEditText = findViewById(R.id.storeNameEditText);
-        storeAddressEditText = findViewById(R.id.storeAddressEditText);
+//        storeAddressEditText = findViewById(R.id.storeAddressEditText);
         quantityEditText = findViewById(R.id.quantityEditText);
         mItemImageView = findViewById(R.id.mItemImageView);
 
@@ -189,18 +189,18 @@ public class AddItemActivity extends AppCompatActivity {
         //Capture the fields added by the user
         String itemName = itemNameEditText.getText().toString();
         String storeName = storeNameEditText.getText().toString();
-        String storeAddress = storeAddressEditText.getText().toString();
+//        String storeAddress = storeAddressEditText.getText().toString();
         String quantity = quantityEditText.getText().toString();
 
 
-        if (TextUtils.isEmpty(itemName) || TextUtils.isEmpty(storeName) || TextUtils.isEmpty(storeAddress) || TextUtils.isEmpty(quantity))
+        if (TextUtils.isEmpty(itemName) || TextUtils.isEmpty(storeName) || /* TextUtils.isEmpty(storeAddress) || */ TextUtils.isEmpty(quantity))
         {
             Toast.makeText(this, R.string.add_item_toast, Toast.LENGTH_LONG).show();
             return;
         }
 
         //Create Item from user fields
-        Items newItem = new Items(-1, itemName, storeName, storeAddress, quantity, imageUriString);
+        Items newItem = new Items(-1, itemName, storeName,/* storeAddress,*/ quantity, imageUriString);
 
         // Add the new item to the database to ensure it is persisted.
         db.addItem(newItem);
@@ -217,7 +217,7 @@ public class AddItemActivity extends AppCompatActivity {
         // Reset all entries so user can add more if they want
         itemNameEditText.setText("");
         storeNameEditText.setText("");
-        storeAddressEditText.setText("");
+//        storeAddressEditText.setText("");
         quantityEditText.setText("");
         mItemImageView.setImageURI(getUriToResource(this, R.drawable.ic_shopping_cart_24dp));
 

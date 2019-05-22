@@ -30,7 +30,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String ITEMS_KEY_FIELD_ID = "_id";
     private static final String FIELD_ITEM_NAME = "itemName";
     private static final String FIELD_STORE_NAME = "storeName";
-    private static final String FIELD_STORE_LOCATION = "storeLocation";
+//    private static final String FIELD_STORE_LOCATION = "storeLocation";
     private static final String FIELD_ITEM_QUANTITY = "itemQuantity";
     private static final String FIELD_ITEM_URI = "image_uri";
 
@@ -87,7 +87,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + ITEMS_KEY_FIELD_ID + " INTEGER PRIMARY KEY, "
                 + FIELD_ITEM_NAME + " TEXT, "
                 + FIELD_STORE_NAME + " TEXT, "
-                + FIELD_STORE_LOCATION + " REAL, "
+//                + FIELD_STORE_LOCATION + " REAL, "
                 + FIELD_ITEM_QUANTITY + " TEXT,"
                 + FIELD_ITEM_URI + " TEXT" + ")";
 
@@ -151,7 +151,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         values.put(FIELD_ITEM_NAME, item.getItemName());
         values.put(FIELD_STORE_NAME, item.getStoreName());
-        values.put(FIELD_STORE_LOCATION, item.getStoreLocation());
+//        values.put(FIELD_STORE_LOCATION, item.getStoreLocation());
         values.put(FIELD_ITEM_QUANTITY, item.getItemQuantity());
         values.put(FIELD_ITEM_URI, item.getImageURI());
 
@@ -626,7 +626,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 String quantity = fields[4].trim();
                 String imageUri = fields[5].trim();
 
-                addItem(new Items(id, itemName, storeName, storeLocation, quantity, imageUri));
+                addItem(new Items(id, itemName, storeName,/* storeLocation, */quantity, imageUri));
 
             }
 
@@ -654,7 +654,7 @@ public class DBHelper extends SQLiteOpenHelper {
         //CREATE A CURSOR FOR THE DATABASE
         Cursor cursor = database.query(
                 ITEMS_TABLE,
-                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME, FIELD_STORE_LOCATION, FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
+                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME,/* FIELD_STORE_LOCATION,*/ FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
                 null,
                 null,
                 null, null, null, null);
@@ -668,9 +668,9 @@ public class DBHelper extends SQLiteOpenHelper {
                         cursor.getLong(0),
                         cursor.getString(1),
                         cursor.getString(2),
+//                        cursor.getString(3),
                         cursor.getString(3),
-                        cursor.getString(4),
-                        cursor.getString(5));
+                        cursor.getString(4));
             } while ( cursor.moveToNext() );
 
         }
@@ -692,7 +692,7 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(
                 ITEMS_TABLE,
-                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME, FIELD_STORE_LOCATION, FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
+                new String[]{ITEMS_KEY_FIELD_ID, FIELD_ITEM_NAME, FIELD_STORE_NAME, /*FIELD_STORE_LOCATION, */FIELD_ITEM_QUANTITY, FIELD_ITEM_URI},
                 ITEMS_KEY_FIELD_ID + " =?",
                 new String[]{String.valueOf(id)},
                 null, null, null, null
@@ -706,9 +706,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Items item = new Items(cursor.getLong(0),
                 cursor.getString(1),
                 cursor.getString(2),
+//                cursor.getString(3),
                 cursor.getString(3),
-                cursor.getString(4),
-                cursor.getString(5)
+                cursor.getString(4)
         );
 
         cursor.close();

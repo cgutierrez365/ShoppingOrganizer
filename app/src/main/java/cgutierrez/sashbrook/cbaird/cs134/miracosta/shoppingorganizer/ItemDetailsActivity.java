@@ -47,7 +47,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         itemImageView = findViewById(R.id.itemImageView);
         itemNameTextView = findViewById(R.id.itemListItemNameTextView);
         storeNameTextView = findViewById(R.id.storeNameTextView);
-        locationTextView = findViewById(R.id.locationTextView);
+//        locationTextView = findViewById(R.id.locationTextView);
         quantityTextView = findViewById(R.id.quantityTextView);
 
         Intent detailIntent = getIntent();
@@ -59,7 +59,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         itemNameTextView.setText(item.getItemName());
         storeNameTextView.setText(item.getStoreName());
-        locationTextView.setText(item.getStoreLocation());
+//        locationTextView.setText(item.getStoreLocation());
         quantityTextView.setText(item.getItemQuantity());
         // TODO: ask how you would get the coupon database visible in the list??
 

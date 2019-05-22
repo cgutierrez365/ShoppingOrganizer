@@ -98,8 +98,8 @@ public class AddCouponActivity extends AppCompatActivity {
     }
 
     public void toggleCustomAnim(View v) {
-        customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
-        CouponImageView.startAnimation(customAnim);
+//        customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
+//        CouponImageView.startAnimation(customAnim);
     }
 
     /**

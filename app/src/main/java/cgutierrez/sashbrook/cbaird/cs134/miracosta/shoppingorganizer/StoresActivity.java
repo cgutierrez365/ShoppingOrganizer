@@ -170,7 +170,7 @@ public class StoresActivity extends AppCompatActivity {
 //                newStore = new Store(id, mName, mLocation, Double.parseDouble(mLatitude), Double.parseDouble(mLongitude), mImageName);
 
                 //ADD TO LIST AND DATABASE
-                db.addStore(newStore);
+         //       db.addStore(newStore); //Already added in AddStoreActivity
                 storeListAdapter.add(newStore);
                 storeListAdapter.notifyDataSetChanged();
 //            }

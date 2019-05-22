@@ -51,6 +51,7 @@ public class ItemActivity extends AppCompatActivity {
         itemListAdapter = new ItemListAdapter(this, R.layout.custom_item, itemsList);
         itemListView = findViewById(R.id.itemsListView);
         itemListView.setAdapter(itemListAdapter);
+        itemListAdapter.notifyDataSetChanged();
 
     }
 

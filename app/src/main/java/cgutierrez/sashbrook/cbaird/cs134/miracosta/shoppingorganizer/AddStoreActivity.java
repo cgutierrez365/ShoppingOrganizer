@@ -198,8 +198,8 @@ public class AddStoreActivity extends AppCompatActivity {
             return;
         }
 
-        int storeLatitude = Integer.parseInt(storeLatitudeString);
-        int storeLongitude = Integer.parseInt(storeLongitudeString);
+        double storeLatitude = Double.parseDouble(storeLatitudeString);
+        double storeLongitude = Double.parseDouble(storeLongitudeString);
 
         //Create new Store with data from fields
         Store newStore = new Store(-1, storeName, storeAddress, storeLatitude, storeLongitude, imageUriString);
@@ -207,6 +207,9 @@ public class AddStoreActivity extends AppCompatActivity {
         //DONE: Set the result (the newStore) so StoreActivity has access to the new data
         Intent backToItemActivityIntent = new Intent();
         backToItemActivityIntent.putExtra("newStore", newStore);
+
+        db.addStore(newStore); //Add Store to the database
+
         setResult(Activity.RESULT_OK, backToItemActivityIntent); //Sets the Intent field in onActivityResult to this intent
 
         // Reset all entries so user can add more if they want

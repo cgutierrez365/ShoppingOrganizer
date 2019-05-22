@@ -95,7 +95,7 @@ public class StoreAdapter extends ArrayAdapter<Store> {
         try {
             allStoresListImageView.setImageURI(Uri.parse(selectedLocation.getImageName()));
             InputStream stream = am.open(selectedLocation.getImageName());
-            Drawable event = Drawable.createFromStream(stream, selectedLocation.getName());
+            Drawable event = Drawable.createFromStream(stream, selectedLocation.getImageName());
             allStoresListImageView.setImageDrawable(event);
         }
         catch (IOException ex)

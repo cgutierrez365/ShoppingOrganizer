@@ -228,7 +228,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     /**
      * Ends AddItemActivity, thus reverting to the previous activity that called this one
-     * @param v The cancel / done button
+     * @param v The cancel button
      */
     public void revertToPreviousScreen(View v)
     {

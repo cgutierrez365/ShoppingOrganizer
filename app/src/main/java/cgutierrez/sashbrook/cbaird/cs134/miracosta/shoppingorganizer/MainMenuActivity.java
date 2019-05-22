@@ -17,6 +17,7 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes
 /**
  * Main Menu displays the main page for the user to navigate to items, coupons, stores, or notes
  * @Author Clarissa Gutierrez
+ * @Version 5/22/19
  */
 public class MainMenuActivity extends AppCompatActivity {
 
@@ -105,18 +106,24 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(creditsIntent);
     }
 
-//    /**
-//     * links to the NotesActivity
-//     * @param v the Notes button
-//     */
+    /**
+     * links to the NotesActivity
+     * @param v the Notes button
+     */
     public void addNote(View v)
     {
         Intent noteIntent = new Intent(this, AddNoteActivity.class);
         startActivityForResult(noteIntent, UPDATED_LIST_CODE);
 
-        //startActivity(noteIntent);
+        startActivity(noteIntent);
     }
 
+    /**
+     * Updates the Notes List View after a note is added in AddNoteActivity
+     * @param requestCode tells onActivityResult which requestCode if block to execute. (In this case, the only option is requestCode == UPDATED_LIST_CODE)
+     * @param resultCode the result code
+     * @param data The intent (Containing a Note object) returned by the calling activity (AddNotesActivity)
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
@@ -129,14 +136,20 @@ public class MainMenuActivity extends AppCompatActivity {
             }
 
             Notes newNote = data.getParcelableExtra("");
-
+            db.addNote(newNote); //Already added in AddItemActivity
+            mNotesListAdapter.add(newNote);
+            mNotesListAdapter.notifyDataSetChanged();
         }
 
 
     }
 
 
-    //NOTE LIST ONCLICK
+    //NOTE LIST ONCLICK -- Chole did this part
+    /**
+     * Launches NoteDetailsActivity when user clicks a note item
+     * @param v the listView item of a note
+     */
     public void viewNoteDetails(View v)
     {
         Notes selectedNote = (Notes) v.getTag();

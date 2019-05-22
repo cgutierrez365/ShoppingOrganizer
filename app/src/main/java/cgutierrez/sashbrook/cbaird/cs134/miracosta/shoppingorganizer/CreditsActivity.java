@@ -7,16 +7,17 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-//TODO: Add an Alpha animation to the image view
 /**
- * Displays the authors of this app
+ * Activity displays the authors of this app by fading in (alpha animation) from the background color
+ * @Author Clarissa Gutierrez
+ * @Version 5/22/19
  */
 public class CreditsActivity extends AppCompatActivity {
 
     private Animation alphaAnim;
 
     /**
-     * connects to the activity_credits
+     * Connects to the activity_credits and applies the alpha animation to the constraint layout holding the image and text
      * @param savedInstanceState the bundle
      */
     @Override
@@ -32,7 +33,7 @@ public class CreditsActivity extends AppCompatActivity {
     }
 
     /**
-     * finishes the activity to return to the main menu
+     * Finishes the activity to return to the Main Menu Activity
      * @param v the return button
      */
     public void returnToMainMenu(View v)

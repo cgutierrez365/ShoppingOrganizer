@@ -41,7 +41,8 @@ public class StoresActivity extends AppCompatActivity {
     private ListView storesListView;
     private StoreAdapter storeListAdapter;
     private DBHelper db;
-    private Store newStore;
+//  private Store newStore;
+    private Button addStore;
 
 
 
@@ -63,7 +64,8 @@ public class StoresActivity extends AppCompatActivity {
         setContentView(R.layout.activity_stores);
 
 
-        Button addStore = findViewById(R.id.addStore);
+//      Button addStore = findViewById(R.id.addStore);
+        addStore = findViewById(R.id.addStore);
         //TextView StoreNameTextView = findViewById(R.id.StoreNameTextView);
         //ImageView StoreFrontView = findViewById(R.id.StoreimageView);
 
@@ -105,19 +107,19 @@ public class StoresActivity extends AppCompatActivity {
     // DONE: Implement the code for when the user clicks on the addStoreButton
     public void addStore ( View view ) {
 
-        Store stores = newStore;
-        Button addStore = (Button) findViewById(R.id.addStore);
-        storesListView = (ListView) findViewById(R.id.storesListView);
-        //show = (ListView) findViewById(R.id.Coupon_View);
-        addStore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick ( View v ) {
-                Toast.makeText(StoresActivity.this, "Store Added!", Toast.LENGTH_SHORT).show();
-                storesListView.deferNotifyDataSetChanged();
-            }
-        });
-        allStoresList.add(stores);
-        Intent addItemIntent = new Intent(this, AddCouponActivity.class); //Change to store
+//        Store stores = newStore;
+//        Button addStore = (Button) findViewById(R.id.addStore);
+//        storesListView = (ListView) findViewById(R.id.storesListView);
+//        //show = (ListView) findViewById(R.id.Coupon_View);
+//        addStore.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick ( View v ) {
+//                Toast.makeText(StoresActivity.this, "Store Added!", Toast.LENGTH_SHORT).show();
+//                storesListView.deferNotifyDataSetChanged();
+//            }
+//        });
+//        allStoresList.add(stores);
+        Intent addItemIntent = new Intent(this, AddStoreActivity.class); //Change to store
         startActivityForResult(addItemIntent, UPDATED_LIST_CODE);
     }
 
@@ -138,32 +140,40 @@ public class StoresActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == UPDATED_LIST_CODE) {
-            Store stores = new Store();
-            /// (should have included it in her onCreate()
-            Uri storeData = data.getData();
-            Cursor cursor = getContentResolver().query(storeData, null, null, null, null);
 
-            if (cursor.moveToFirst()) {
-                long id = cursor.getLong(0); // index column
-                String mName = cursor.getString(1);
-                String mLocation = cursor.getString(2);
-                String mLatitude = cursor.getString(3);
-                String mLongitude = cursor.getString(4);
-                String mImageName = cursor.getString(5);
+            if(data == null) //If user canceled action (Pressing Cancel button, exit the method)
+            {
+                return;
+            }
 
-                stores.setId(id);
-                stores.setName(mName);
-                stores.setLocation(mLocation);
-                stores.setImageName(mImageName);
-                //stores.setLatitude(mLatitude);
-                //stores.setLongitude(mLongitude);
-                newStore = new Store(id, mName, mLocation, Double.parseDouble(mLatitude), Double.parseDouble(mLongitude), mImageName);
+            Store newStore = data.getParcelableExtra("newStore");
+
+//            Store stores = new Store();
+//            /// (should have included it in her onCreate()
+//            Uri storeData = data.getData();
+//            Cursor cursor = getContentResolver().query(storeData, null, null, null, null);
+//
+//            if (cursor.moveToFirst()) {
+//                long id = cursor.getLong(0); // index column
+//                String mName = cursor.getString(1);
+//                String mLocation = cursor.getString(2);
+//                String mLatitude = cursor.getString(3);
+//                String mLongitude = cursor.getString(4);
+//                String mImageName = cursor.getString(5);
+//
+//                stores.setId(id);
+//                stores.setName(mName);
+//                stores.setLocation(mLocation);
+//                stores.setImageName(mImageName);
+//                //stores.setLatitude(mLatitude);
+//                //stores.setLongitude(mLongitude);
+//                newStore = new Store(id, mName, mLocation, Double.parseDouble(mLatitude), Double.parseDouble(mLongitude), mImageName);
 
                 //ADD TO LIST AND DATABASE
                 db.addStore(newStore);
                 storeListAdapter.add(newStore);
                 storeListAdapter.notifyDataSetChanged();
-            }
+//            }
         }
     }
 

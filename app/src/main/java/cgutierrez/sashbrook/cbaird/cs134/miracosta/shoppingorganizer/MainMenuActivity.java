@@ -150,9 +150,7 @@ public class MainMenuActivity extends AppCompatActivity {
     {
         Notes selectedNote = (Notes) v.getTag();
         Intent notesDetailsIntent = new Intent(this, NoteDetailsActivity.class);
-
         notesDetailsIntent.putExtra("SelectedNote", selectedNote);
-
         startActivity(notesDetailsIntent);
     }
 

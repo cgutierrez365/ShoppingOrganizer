@@ -2,11 +2,13 @@ package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 import java.util.List;
 
@@ -54,11 +56,11 @@ public class NotesListAdapter extends ArrayAdapter<Notes> {
         View view = inflater.inflate(mResourceId, null);
 
         //Connect XML
-        LinearLayout noteListTableLayout = view.findViewById(R.id.noteListTableLayout);
+        ConstraintLayout noteListConstraintLayout = view.findViewById(R.id.noteListConstraintLayout);
         TextView noteTitleTextView = view.findViewById(R.id.noteTitleTextView);
         TextView notePreviewTextView = view.findViewById(R.id.notePreviewTextView);
 
-        noteListTableLayout.setTag(selectedNote);
+        noteListConstraintLayout.setTag(selectedNote);
 
         noteTitleTextView.setText(selectedNote.getNoteTitle());
         notePreviewTextView.setText(selectedNote.getNoteContents());

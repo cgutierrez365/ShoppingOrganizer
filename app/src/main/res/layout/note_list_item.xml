@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/ConstraintLayout"
+    android:id="@+id/noteListConstraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:onClick="viewNoteDetails">
 
     <TableLayout
-        android:id="@+id/noteListTableLayout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginStart="8dp"

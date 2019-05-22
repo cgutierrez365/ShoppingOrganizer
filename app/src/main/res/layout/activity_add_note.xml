@@ -52,9 +52,10 @@
             android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="revertToPreviousScreen"
+            android:text="@string/cancel"
             tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="675dp"
-            tools:text="@string/cancel" />
+            tools:layout_editor_absoluteY="675dp" />
 
 
         <Button

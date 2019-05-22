@@ -1,5 +1,7 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -76,9 +78,18 @@ public class AddNoteActivity extends AppCompatActivity {
 
         Toast.makeText(this, "Note successfully added!", Toast.LENGTH_LONG).show();
 
+        //TODO: Send Intent back to MainMenuActivity
+        Intent backToMenuActivityIntent = new Intent();
+        backToMenuActivityIntent.putExtra("newNote", newNote);
+        setResult(Activity.RESULT_OK, backToMenuActivityIntent); //Sets the Intent field in onActivityResult to this intent
+
         finish();
 
     }
 
+    public void revertToPreviousScreen(View v)
+    {
+        this.finish();
+    }
 
 }

@@ -114,8 +114,6 @@ public class MainMenuActivity extends AppCompatActivity {
     {
         Intent noteIntent = new Intent(this, AddNoteActivity.class);
         startActivityForResult(noteIntent, UPDATED_LIST_CODE);
-
-        startActivity(noteIntent);
     }
 
     /**
@@ -135,7 +133,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 return;
             }
 
-            Notes newNote = data.getParcelableExtra("");
+            Notes newNote = data.getParcelableExtra("newNote");
             db.addNote(newNote); //Already added in AddItemActivity
             mNotesListAdapter.add(newNote);
             mNotesListAdapter.notifyDataSetChanged();
@@ -144,8 +142,6 @@ public class MainMenuActivity extends AppCompatActivity {
 
     }
 
-
-    //NOTE LIST ONCLICK -- Chole did this part
     /**
      * Launches NoteDetailsActivity when user clicks a note item
      * @param v the listView item of a note

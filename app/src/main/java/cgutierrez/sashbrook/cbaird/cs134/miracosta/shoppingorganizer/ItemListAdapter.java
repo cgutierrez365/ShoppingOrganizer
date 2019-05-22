@@ -58,7 +58,7 @@ public class ItemListAdapter extends ArrayAdapter<Items> {
         customItemLinearLayout.setTag(selectedItem);
 
         itemImageView.setImageURI(Uri.parse(selectedItem.getImageURI()));
-        itemNameTextView.setText(selectedItem.getStoreName());
+        itemNameTextView.setText(selectedItem.getItemName());
         qtyTextView.setText(selectedItem.getItemQuantity());
 
         try

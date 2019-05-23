@@ -47,7 +47,7 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
 
     //called from Main Activity
     /**
-     * Creates a new <code>GameListAdapter</code> given a mContext, resource id and list of games.
+     * Creates a new <code>CouponListAdapter</code> given a mContext, resource id and list of games.
      *
      * @param context The mContext for which the adapter is being used (typically an activity)
      * @param resourceId The resource id (typically the layout file name)

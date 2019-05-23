@@ -1,7 +1,11 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,11 +29,8 @@ public class ItemDetailsActivity extends AppCompatActivity {
     ImageView itemImageView;
     TextView itemNameTextView;
     TextView storeNameTextView;
-    TextView locationTextView;
     TextView quantityTextView;
-
     ListView couponListView;
-    Button addCouponButton;
 
     private static final String TAG = ItemDetailsActivity.class.getSimpleName();
 
@@ -47,7 +48,6 @@ public class ItemDetailsActivity extends AppCompatActivity {
         itemImageView = findViewById(R.id.itemImageView);
         itemNameTextView = findViewById(R.id.itemListItemNameTextView);
         storeNameTextView = findViewById(R.id.storeNameTextView);
-//        locationTextView = findViewById(R.id.locationTextView);
         quantityTextView = findViewById(R.id.quantityTextView);
 
         Intent detailIntent = getIntent();
@@ -55,13 +55,13 @@ public class ItemDetailsActivity extends AppCompatActivity {
         //RETRIEVE SENT OBJECT
         Items item = detailIntent.getParcelableExtra("SelectedItem");
 
-
-
+        itemImageView.setImageURI(Uri.parse(item.getImageURI()));
         itemNameTextView.setText(item.getItemName());
         storeNameTextView.setText(item.getStoreName());
-//        locationTextView.setText(item.getStoreLocation());
         quantityTextView.setText(item.getItemQuantity());
         // TODO: ask how you would get the coupon database visible in the list??
+
+
 
     }
 
@@ -77,6 +77,24 @@ public class ItemDetailsActivity extends AppCompatActivity {
 
         startActivity(addCouponIntent);
 
+    }
+
+    /**
+     * Gets a image resource from a given URI
+     * @param context the context we wish to use the image resource in
+     * @param id the id
+     * @return a URI connecting to the image resource
+     */
+    protected static Uri getUriToResource(Context context, int id)
+    {
+        //String uri = "android.resource://";
+        Resources res = context.getResources();
+
+        String uri = ContentResolver.SCHEME_ANDROID_RESOURCE + "://"
+                + res.getResourcePackageName(id) + "/"
+                + res.getResourceTypeName(id) + "/"
+                + res.getResourceEntryName(id);
+        return Uri.parse(uri);
     }
 
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import java.io.InputStream;
 
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items;
 
 /**
@@ -26,11 +27,12 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items
 public class ItemDetailsActivity extends AppCompatActivity {
 
     //INSTANCE VARIABLES----------------------------------------------------------------------------
-    ImageView itemImageView;
-    TextView itemNameTextView;
-    TextView storeNameTextView;
-    TextView quantityTextView;
-    ListView couponListView;
+    private ImageView itemImageView;
+    private TextView itemNameTextView;
+    private TextView storeNameTextView;
+    private TextView quantityTextView;
+    private ListView couponListView;
+    private DBHelper db;
 
     private static final String TAG = ItemDetailsActivity.class.getSimpleName();
 
@@ -44,6 +46,9 @@ public class ItemDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_details);
+
+        //create a new database if one doesn't already exist
+        db = new DBHelper(this);
 
         itemImageView = findViewById(R.id.itemImageView);
         itemNameTextView = findViewById(R.id.itemListItemNameTextView);
@@ -60,8 +65,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
         storeNameTextView.setText(item.getStoreName());
         quantityTextView.setText(item.getItemQuantity());
         // TODO: ask how you would get the coupon database visible in the list??
-
-
+//        db.getAllLinkedItemCoupons()
 
     }
 

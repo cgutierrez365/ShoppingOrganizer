@@ -36,8 +36,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Linking table for Items and Coupons fields : Clarissa
     private static final String LINK_ITEM_COUPON_TABLE = "Link_Items_Coupons";
-    private static final String FIELD_COURSE_ID = "item_id";
-    private static final String FIELD_INSTRUCTOR_ID = "coupons_id";
+    private static final String FIELD_ITEM_ID = "item_id";
+    private static final String FIELD_COUPON_ID = "coupons_id";
 
     //Notes table fields : Clarissa
     public static final String NOTES_TABLE = "Notes";
@@ -95,11 +95,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //Create Linking table Clarissa
         table = "CREATE TABLE " + LINK_ITEM_COUPON_TABLE + "("
-                + FIELD_COURSE_ID + " INTEGER, "
-                + FIELD_INSTRUCTOR_ID + " INTEGER, "
-                + "FOREIGN KEY(" + FIELD_COURSE_ID + ") REFERENCES "
+                + FIELD_ITEM_ID + " INTEGER, "
+                + FIELD_COUPON_ID + " INTEGER, "
+                + "FOREIGN KEY(" + FIELD_ITEM_ID + ") REFERENCES "
                 + ITEMS_TABLE + "(" + ITEMS_KEY_FIELD_ID + "), "
-                + "FOREIGN KEY(" + FIELD_INSTRUCTOR_ID + ") REFERENCES "
+                + "FOREIGN KEY(" + FIELD_COUPON_ID + ") REFERENCES "
                 + COUPON_TABLE + "(" + COUPON_KEY_FIELD_ID + "))";
         db.execSQL(table);
 

@@ -20,11 +20,14 @@
         <activity android:name=".AddNoteActivity" />
         <activity android:name=".MapActivity" />
         <activity android:name=".CreditsActivity" />
-        <activity android:name=".ItemActivity" />
+        <activity android:name=".ItemActivity"
+            android:parentActivityName="AddItemActivity"/>
         <activity android:name=".StoresActivity" />
         <activity android:name=".AddCouponActivity" />
-        <activity android:name=".CouponActivity" />
-        <activity android:name=".CouponDetailsActivity" />
+        <activity android:name=".CouponActivity"
+            android:parentActivityName="AddCouponActivity"/>
+        <activity android:name=".CouponDetailsActivity"
+            android:parentActivityName=".CouponActivity"/>
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".SplashActivity">
             <intent-filter>
@@ -37,7 +40,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAEePWoj4jKDcUXv6eL-mOpEKAutyXdrPA" />
+            android:value="AIzaSyBh2wuiqcFLjF1VntpYw51Kxg2NpDR-iaA" />
     </application>
 
 </manifest>

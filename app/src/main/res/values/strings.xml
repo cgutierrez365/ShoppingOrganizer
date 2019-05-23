@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Shopping Organizer</string>
     <string name="item_name">Item Name</string>
     <string name="store_address">Store Address</string>
     <string name="quantity">Quantity</string>
@@ -36,9 +35,9 @@
     <string name="ExpireDate">Expiration Date</string>
     <string name="ExpirationDate">Expires When, no slashes or spaces</string>
     <string name="credits_title">Credits:</string>
-    <string name="stacey">Stacey Ashbrook</string>
-    <string name="chloe">Chloe Baird</string>
-    <string name="clarissa">Clarissa Gutierrez</string>
+    <string name="stacey" translatable="false">Stacey Ashbrook</string>
+    <string name="chloe" translatable="false">Chloe Baird</string>
+    <string name="clarissa" translatable="false">Clarissa Gutierrez</string>
     <string name="return_button">Return</string>
     <string name="stores_near_me">Stores Near Me:</string>
     <string name="notes_title">Notes Title...</string>
@@ -63,5 +62,6 @@
     <string name="add_coupon">Click to Set Coupon Image</string>
     <string name="setCouponListing">Set Coupon Listing, Favorite, List</string>
     <string name="Collect">Collect</string>
+    <string name="app_name">Shopping Organizer</string>
 
 </resources>

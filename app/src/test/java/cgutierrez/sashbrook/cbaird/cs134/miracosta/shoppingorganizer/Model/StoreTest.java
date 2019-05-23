@@ -4,7 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ItemsTest {
+import static org.junit.Assert.*;
+
+public class StoreTest {
+
     @Before
     public void setUp () throws Exception {
     }
@@ -14,43 +17,59 @@ public class ItemsTest {
     }
 
     @Test
-    public void setId () {
-    }
-
-    @Test
-    public void setItemName () {
-    }
-
-    @Test
-    public void setStoreName () {
-    }
-
-    @Test
-    public void setItemQuantity () {
-    }
-
-    @Test
     public void getId () {
     }
 
     @Test
-    public void getItemName () {
+    public void setId () {
     }
 
     @Test
-    public void getStoreName () {
+    public void getLatitude () {
     }
 
     @Test
-    public void getItemQuantity () {
+    public void setLatitude () {
     }
 
     @Test
-    public void getImageURI () {
+    public void getLongitude () {
     }
 
     @Test
-    public void setImageURI () {
+    public void setLongitude () {
+    }
+
+    @Test
+    public void getCREATOR () {
+    }
+
+    @Test
+    public void getName () {
+    }
+
+    @Test
+    public void setName () {
+    }
+
+    @Test
+    public void getLocation () {
+    }
+
+    @Test
+    public void setLocation () {
+    }
+
+    @Test
+    public void getImageName () {
+    }
+
+    @Test
+    public void setImageName () {
+    }
+
+    @Test
+    public void getFullAddress () {
     }
 
     @Test

@@ -4,7 +4,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ItemsTest {
+import static org.junit.Assert.*;
+
+public class CouponsTest {
+
     @Before
     public void setUp () throws Exception {
     }
@@ -14,35 +17,35 @@ public class ItemsTest {
     }
 
     @Test
-    public void setId () {
-    }
-
-    @Test
-    public void setItemName () {
-    }
-
-    @Test
-    public void setStoreName () {
-    }
-
-    @Test
-    public void setItemQuantity () {
-    }
-
-    @Test
     public void getId () {
     }
 
     @Test
-    public void getItemName () {
+    public void setId () {
     }
 
     @Test
-    public void getStoreName () {
+    public void setExpirationDate () {
     }
 
     @Test
-    public void getItemQuantity () {
+    public void setIsFavorite () {
+    }
+
+    @Test
+    public void setAdditionalNotes () {
+    }
+
+    @Test
+    public void getExpirationDate () {
+    }
+
+    @Test
+    public void getIsFavorite () {
+    }
+
+    @Test
+    public void getAdditionalNotes () {
     }
 
     @Test

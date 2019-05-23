@@ -2,7 +2,6 @@ package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**

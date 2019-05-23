@@ -14,7 +14,7 @@ public class CouponDetailsActivity extends AppCompatActivity {
      * Member Variables for inputting
      * @Stacey
      */
-    // private Button addToCouponButton;
+   // private Button addToCouponButton;
     private String mId = "";
     private String id = "";
     private String mImageURI = "";
@@ -38,14 +38,10 @@ public class CouponDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_coupon_details);
 
-        //Button addToCouponButton = findViewById(R.id.Button_CollectAll);
         couponDetailsImageView = findViewById(R.id.couponDetailsImageView);
         couponExpireTextView = findViewById(R.id.couponExpireTextView);
         couponIsFavoriteTextView = findViewById(R.id.couponIsFavoriteTextView);
         couponAdditionalNotesTextView = findViewById(R.id.couponAdditionalNotesTextView);
-
-        //  couponDetailsImageView = findViewById(R.id.couponDetailsImageView);
-        //  couponExpireTextView = findViewById(R.id.couponExpireTextView);
 
         Intent detailsIntent = getIntent();
 
@@ -59,27 +55,9 @@ public class CouponDetailsActivity extends AppCompatActivity {
         String isFavorite = detailsIntent.getStringExtra("isFavorite");
         mAdditionalNotes = getIntent().getStringExtra("additionalNotes");
         String additionalNotes = detailsIntent.getStringExtra("additionalNotes");
-        //**ERROR reading images.jpg//
-//        CouponImage.setImageURI(Uri.parse("images.jpg"));
-//        AssetManager am = this.getAssets();
-//        try {
-//            InputStream stream = am.open(imageURI);
-//            Drawable couponImage = Drawable.createFromStream(stream, imageURI);
-//            CouponImage.setImageDrawable(couponImage);
-//        }
-//        catch (IOException ex)
-//        {
-//            Log.e(TAG, "Error loading " + imageURI, ex);
-//        }
-
-        //  couponDetailsImageView.setImageDrawable();
-//        ExpireDate.setText(mExpirationDate);
-        couponExpireTextView.setText("Lists are great!" + expirationDate);
-//        IsFavorite.setText("Lots of Coupons to Enjoy " + toString().format(mIsFavorite));
-        couponIsFavoriteTextView.setText("Lots of Coupons to Enjoy " + isFavorite);
-//        AddNotes.setText( + (mAdditionalNotes));
-        couponAdditionalNotesTextView.setText("Write Everything Down " + additionalNotes);
-
+        couponExpireTextView.setText("Lists are great!" + mExpirationDate);
+        couponIsFavoriteTextView.setText("Lots of Coupons to Enjoy " + mIsFavorite);
+        couponAdditionalNotesTextView.setText("Write Everything Down " + mAdditionalNotes);
 
     }
 

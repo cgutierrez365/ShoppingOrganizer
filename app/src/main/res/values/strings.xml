@@ -59,5 +59,9 @@
     <string name="image_view_content">image view content</string>
     <string name="sample_text">sample text</string>
     <string name="Location">Location</string>
+    <string name="coupon_Add_List">Input Here Additional Notes, Collect upon completion.</string>
+    <string name="add_coupon">Click to Set Coupon Image</string>
+    <string name="setCouponListing">Set Coupon Listing, Favorite, List</string>
+    <string name="Collect">Collect</string>
 
 </resources>

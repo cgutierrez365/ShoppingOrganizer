@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.io.IOException;
@@ -22,15 +22,17 @@ import java.util.List;
 
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Store;
 
-
 /**
- * Helper class to provide custom adapter for the <code>Location</code> list.
+ * Helper class to provide custom adapter for the <code>Store</code> list and to
+ * inflate the ListView between StoresActivity, StoreDetailsActivity and AddStoreActivity.
+ * @author Stacey Ashbrook
  */
 public class StoreAdapter extends ArrayAdapter<Store> {
 
     private Context mContext;
     private List<Store> mallStoresList = new ArrayList<>();
     private int mResourceId;
+    private ListView storeListView;
 
 
 
@@ -65,13 +67,11 @@ public class StoreAdapter extends ArrayAdapter<Store> {
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
 
-//        String uri ="android.resource://edu.miracostacollege.cs134.capstonelayouts/drawable/images.jpg";
-//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-//        mContext.startActivity(intent);
-        // Works for all on LinearLayout
         LinearLayout allStoresListLinearLayout = view.findViewById(R.id.allStoresListLinearLayout);
 
         ImageView allStoresListImageView = view.findViewById(R.id.allStoresListImageView);
+
+        ListView storeListView = view.findViewById(R.id.storesListView);
 
         TextView allStoresListNameTextView =
                 view.findViewById(R.id.NameStorestextView);
@@ -80,23 +80,17 @@ public class StoreAdapter extends ArrayAdapter<Store> {
 
         allStoresListLinearLayout.setTag(selectedLocation);
         allStoresListImageView.setImageURI(Uri.parse("images.jpg"));
-
-
-        //allStoresListNameTextView.setText(selectedLocation.getName());
         allStoresListNameTextView.setText(selectedLocation.getFullAddress());
         allStoresListLocationTextView.setText(selectedLocation.getLocation());
-
-
         allStoresListNameTextView.setText(selectedLocation.getName());
-
 
 
         AssetManager am = mContext.getAssets();
         try {
-            allStoresListImageView.setImageURI(Uri.parse(selectedLocation.getImageName()));
-            InputStream stream = am.open(selectedLocation.getImageName());
-            Drawable event = Drawable.createFromStream(stream, selectedLocation.getImageName());
-            allStoresListImageView.setImageDrawable(event);
+              allStoresListImageView.setImageURI(Uri.parse(selectedLocation.getImageName()));
+              InputStream stream = am.open(selectedLocation.getImageName());
+              Drawable event = Drawable.createFromStream(stream, selectedLocation.getName());
+              allStoresListImageView.setImageDrawable(event);
         }
         catch (IOException ex)
         {
@@ -105,4 +99,7 @@ public class StoreAdapter extends ArrayAdapter<Store> {
 
         return view;
     }
+
+
+
 }

@@ -5,6 +5,41 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-light"
+        android:text="@string/add_coupon"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_cancelCoupon"
+        android:layout_width="92dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="168dp"
+        android:layout_marginTop="144dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="#FF2A7A1A"
+        android:fontFamily="sans-serif-light"
+        android:onClick="returnToMainMenu"
+        android:text="@string/cancel"
+        android:textColor="@android:color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.619"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/divider"
+        app:layout_constraintVertical_bias="0.145" />
+
+
     <LinearLayout
         android:id="@+id/CouponsLinearLayout"
         android:layout_width="match_parent"
@@ -16,12 +51,14 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/CouponExpirationTextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/CouponImageView"
-            android:layout_width="500dp"
+            android:layout_width="0dp"
             android:layout_height="225dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="104dp"
@@ -49,11 +86,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-light"
         android:text="@string/Coupon_expires"
         android:textAlignment="viewStart"
         android:textColor="@android:color/black"
         android:textSize="18sp"
-        android:textStyle="bold"
         android:typeface="sans"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
@@ -62,35 +99,41 @@
 
     <Button
         android:id="@+id/button_addcoupon"
-        android:layout_width="236dp"
-        android:layout_height="51dp"
+        android:layout_width="139dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="627dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#04ea00"
+        android:background="#FF2A7A1A"
+        android:fontFamily="sans-serif-light"
         android:text="@string/store_coupon"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/divider"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/edittext1"
-        android:layout_width="match_parent"
+        android:id="@+id/ExpirationDateEditText"
+        android:layout_width="306dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="393dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="293dp"
+        android:fontFamily="sans-serif-light"
         android:hint="@string/ExpirationDate"
-        android:inputType="number"
+        android:inputType="date"
         android:textAlignment="center"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -107,8 +150,10 @@
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.571"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4"
+        app:layout_constraintVertical_bias="0.472" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline2"

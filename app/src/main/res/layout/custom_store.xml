@@ -17,7 +17,7 @@
     <LinearLayout
         android:id="@+id/allStoresListLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="222dp"
+        android:layout_height="250dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -30,8 +30,8 @@
 
         <ImageView
             android:id="@+id/allStoresListImageView"
-            android:layout_width="220dp"
-            android:layout_height="50dp"
+            android:layout_width="110dp"
+            android:layout_height="75dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="15dp"
@@ -57,7 +57,7 @@
             android:text="@string/store_name"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/guideline6"
             app:layout_constraintEnd_toStartOf="@+id/guideline5"
@@ -77,12 +77,12 @@
         <TextView
             android:id="@+id/LocationTextView"
             android:layout_width="200dp"
-            android:layout_height="50dp"
+            android:layout_height="75dp"
             android:contentDescription="@string/Location"
             android:text="@string/Location"
             android:textAlignment="center"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             tools:text="@string/Location" />
     </LinearLayout>

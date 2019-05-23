@@ -1,6 +1,7 @@
 package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -37,40 +37,28 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHel
  * Executes whe user clicks "Add Coupon" button on, adjust from Coupon Add.
  * Both the Image and Expiration are moved to the next page so the user can see Available
  * coupons and make a list.
- * @param view the button
+ * @param
+ * @author Stacey Ashbrook
  */
 
-/**6. This activity is to aide and help in gathering coupons
- *  in various forms. Whether displayed within the application
- *  under drawable for user access, or from the gallery after a
- *  user has taken a picture. The activity will show the coupon as
- *  an image and allow for an expiration date to be viewed under
- *  the coupon image. At the bottom, an add coupon button will
- *  allow the user to add the coupon to an organizer list to
- *  aide in shopping discounts. The organizer portions of the
- *  application to bring together how coupon information will
- *  be display will be here.
- *
- */
 
 public class AddCouponActivity extends AppCompatActivity {
 
     /**
      * Member variables
      */
-    private Button addCoupon;
-    private TextView CouponExpiration;
-    private String imageUriString;
-    private ImageView ThemePicture;
+    private Button couponButtonCancel;
     private DBHelper db;
     private List<Coupons> couponsList;
-    private ListView CouponListView;
+    private ListView couponsListView;
     private ImageView CouponImageView;
-    public static final String EXTRA_NUMBER = "com.example.application.example.EXTRA_TEXT";
+    public static final String EXTRA_NUMBER = "com.example.application.example.EXTRA_NUMBER";
+    public static final String EXTRA_DATE = "com.example.application.example.EXTRA_DATE";
     private ArrayAdapter couponsListAdapter;
     private static final String TAG = AddCouponActivity.class.getSimpleName();
     public static final int RESULT_LOAD_IMAGE = 200;
     private Animation customAnim;
+    private EditText ExpirationDateEditText;
 
 
     /**
@@ -86,6 +74,8 @@ public class AddCouponActivity extends AppCompatActivity {
 
         CouponImageView = findViewById(R.id.CouponImageView);
         CouponImageView.setImageURI(getUriToResource(this, R.drawable.images));
+        db = new DBHelper(this);
+        couponsList = db.getAllCouponsList();
 
         Button addCoupon = (Button) findViewById(R.id.button_addcoupon);
         addCoupon.setOnClickListener(new View.OnClickListener() {
@@ -110,11 +100,13 @@ public class AddCouponActivity extends AppCompatActivity {
      *      * number easiest entry.
      */
     public void openActivity2() {
-        EditText editText1 = (EditText) findViewById(R.id.edittext1);
-        int number = Integer.parseInt(editText1.getText().toString());
+        EditText couponEditText = (EditText) findViewById(R.id.ExpirationDateEditText);
+       // int number = Integer.parseInt(couponEditText.getText().toString());
+        long date = Integer.parseInt(couponEditText.getText().toString());
 
         Intent intent = new Intent(this, CouponActivity.class);
-        intent.putExtra(EXTRA_NUMBER, number);
+       // intent.putExtra(EXTRA_NUMBER, number);
+        intent.putExtra(EXTRA_DATE, date);
         startActivity(intent);
 
     }
@@ -124,12 +116,42 @@ public class AddCouponActivity extends AppCompatActivity {
      */
 
     public void addCoupons (View view) {
-        if(view== findViewById(R.id.button_addcoupon))
-        {
-            Toast.makeText(this, "Coupons Successfully Added", Toast.LENGTH_SHORT).show();
-            finish();
+
+        ExpirationDateEditText = findViewById(R.id.ExpirationDateEditText);
+        if(view== findViewById(R.id.button_addcoupon)) {
+            Toast.makeText(this, " Add Coupons ", Toast.LENGTH_SHORT).show();
         }
 
+        String imageURI = (String) CouponImageView.getTag();
+        String expirationDate = ExpirationDateEditText.getText().toString();
+        Coupons newCoupons = new Coupons(-1, imageURI, expirationDate, null, null);
+
+        // Add the new item to the database to ensure it is persisted.
+        db.addCoupons(newCoupons);
+        Intent forwardToCouponActivityIntent = new Intent();
+        forwardToCouponActivityIntent.putExtra("Coupon", newCoupons);
+        setResult(Activity.RESULT_OK, forwardToCouponActivityIntent);
+        CouponImageView.setImageURI(getUriToResource(this, R.drawable.images));
+
+        Toast.makeText(this, R.string.sample_text, Toast.LENGTH_SHORT).show();
+        finish();
+
+
+    }
+
+    public void cancelAll( View view) {
+
+        couponButtonCancel = (Button) findViewById(R.id.button_cancelCoupon);
+        couponsListView = (ListView) findViewById(R.id.Coupon_Image_ListView);
+        //show = (ListView) findViewById(R.id.Coupon_View);
+        couponButtonCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick ( View v ) {
+                Toast.makeText(AddCouponActivity.this,"Moving",  Toast.LENGTH_SHORT).show();
+                openActivity2();
+            }
+        });
+        db.close();
     }
 
     /**
@@ -139,6 +161,10 @@ public class AddCouponActivity extends AppCompatActivity {
     public void revertToPreviousScreen(View v)
     {
         AddCouponActivity.this.finish();
+    }
+    public void returnToMainMenu(View v)
+    {
+        this.finish();
     }
 
 

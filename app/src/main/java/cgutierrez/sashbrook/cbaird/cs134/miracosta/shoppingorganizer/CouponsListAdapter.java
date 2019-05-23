@@ -22,8 +22,15 @@ import java.util.List;
 
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Coupons;
 
+/**
+ * CouponListAdapter, ArrayAdapter to get information around from the Database
+ * and to inflate the view of the ListView for Coupons.
+ * Work with Model Coupons through DBHelper to run AddCoupon and CouponActivity, with
+ * CouponDetailActivity as the last connection.
+ * @author Stacey Ashbrook
+ */
 public class CouponsListAdapter extends ArrayAdapter<Coupons> {
-//working on adapter 9:03pm 04/13/2019
+
 
 //    //INSTANCE VARIABLES----------------------------------------------------------------------------
 //    private long mId;
@@ -71,19 +78,13 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
     {
         final Coupons selectedCoupons = mallCouponsList.get(position);
 
-        //Done: CODE FOR GETVIEW, TO INFLATE THE VIEW(PET_LIST_ITEM) WITH INFORMATION
-        //ABOUT THE PET. THEIMAGEVIEW SHOULD DISPLAY THE CORRECT IMAGE USING THE SETIMAGEURI()
-        /** Manually inflate the custom layout */
+         /** Manually inflate the custom layout */
         LayoutInflater inflater =
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         /** Tell the inflater to inflate pet_list_item.xml */
         View view = inflater.inflate(mResourceId, null);
 
-//        String uri ="android.resource://edu.miracostacollege.cs134.capstonelayouts/drawable/user";
-//        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-//        mContext.startActivity(intent);
-        /**
-         * ADD COUPON
+         /** ADD COUPON
          */
         LinearLayout CouponsLinearLayout =
               (LinearLayout) view.findViewById(R.id.CouponsLinearLayout);
@@ -110,22 +111,17 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
         CouponIsFavoriteTextView.setText(selectedCoupons.getIsFavorite());
         CouponExpirationDateTextView.setText(selectedCoupons.getExpirationDate());
         CouponAdditionalNotesTextView.setText(selectedCoupons.getAdditionalNotes());
-//        CouponsLinearLayout.setTag(selectedCoupons);
-//        CouponExpirationDateTextView.setText(selectedCoupons.getExpirationDate());
-//        CouponIsFavoriteTextView.setText(selectedCoupons.getIsFavorite());
-//        CouponAdditionalNotesTextView.setText(selectedCoupons.getAdditionalNotes());
-
 
         AssetManager am = mContext.getAssets();
         try {
             COUPONImageCoupon.setImageURI(Uri.parse(selectedCoupons.getImageURI()));
             InputStream stream = am.open(selectedCoupons.getImageURI());
-            Drawable event = Drawable.createFromStream(stream, selectedCoupons.getImageURI());
+            Drawable event = Drawable.createFromStream(stream, selectedCoupons.getExpirationDate());
             COUPONImageCoupon.setImageDrawable(event);
         }
         catch (IOException ex)
         {
-            Log.e("Stores Select", "Error loading " + selectedCoupons.getImageURI(), ex);
+            Log.e("Coupons Select", "Error loading " + selectedCoupons.getImageURI(), ex);
         }
 
 

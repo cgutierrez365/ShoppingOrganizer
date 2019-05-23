@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 /**
  * Splash Screen Start Activity
+ * to welcome the user to the application
  * @author: Stacey Ashbrook
  */
 
@@ -24,7 +25,7 @@ public class SplashActivity extends AppCompatActivity {
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                Intent ShoppingIntent = new Intent(SplashActivity.this, MainMenuActivity.class); //MainMenuActivity
+                Intent ShoppingIntent = new Intent(SplashActivity.this, StoresActivity.class); //MainMenuActivity
                 startActivity(ShoppingIntent);
                 //Finish the current activity (finish SplashActivity)
                 finish();

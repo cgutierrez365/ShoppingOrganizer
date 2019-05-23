@@ -115,13 +115,10 @@ public class CouponsListAdapter extends ArrayAdapter<Coupons> {
         AssetManager am = mContext.getAssets();
         try {
             COUPONImageCoupon.setImageURI(Uri.parse(selectedCoupons.getImageURI()));
-            InputStream stream = am.open(selectedCoupons.getImageURI());
-            Drawable event = Drawable.createFromStream(stream, selectedCoupons.getExpirationDate());
-            COUPONImageCoupon.setImageDrawable(event);
         }
-        catch (IOException ex)
+        catch (Exception e)
         {
-            Log.e("Coupons Select", "Error loading " + selectedCoupons.getImageURI(), ex);
+            Log.e("Coupons Select", "Error loading " + selectedCoupons.getImageURI(), e);
         }
 
 

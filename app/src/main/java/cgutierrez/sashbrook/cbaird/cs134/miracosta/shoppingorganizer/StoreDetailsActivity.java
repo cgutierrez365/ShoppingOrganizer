@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Store;
+
 /**
  * Store Details for information on individual Stores or General Information on stores
  * that carry items, coupons and located close.
@@ -62,6 +64,8 @@ public class StoreDetailsActivity extends AppCompatActivity {
         storeTextView1.setText("All Brand Name Stores" + mName);
         storeTextView2.setText("Lots of Coupons and Items to Enjoy " + mLocation);
         storeTextView3.setText("Everything can be organized, even with a pic " + mImageName);
+
+        Store store = detailsIntent.getParcelableExtra("Select Store");
 
     }
 

@@ -88,13 +88,14 @@ public class StoreAdapter extends ArrayAdapter<Store> {
         AssetManager am = mContext.getAssets();
         try {
               allStoresListImageView.setImageURI(Uri.parse(selectedLocation.getImageName()));
-              InputStream stream = am.open(selectedLocation.getImageName());
-              Drawable event = Drawable.createFromStream(stream, selectedLocation.getName());
-              allStoresListImageView.setImageDrawable(event);
+             // InputStream stream = am.open(selectedLocation.getImageName(), mResourceId);
+             // Drawable event = Drawable.createFromStream(stream, selectedLocation.getName());
+             // allStoresListImageView.setImageDrawable(event);
+
         }
-        catch (IOException ex)
+        catch (Exception e)
         {
-            Log.e("Stores Select", "Error loading " + selectedLocation.getImageName(), ex);
+            Log.e("Stores Select", "Error loading " + selectedLocation.getImageName(), e);
         }
 
         return view;

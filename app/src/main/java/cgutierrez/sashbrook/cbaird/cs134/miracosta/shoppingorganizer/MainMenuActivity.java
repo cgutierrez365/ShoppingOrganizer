@@ -64,7 +64,7 @@ public class MainMenuActivity extends AppCompatActivity {
         startActivity(itemsIntent);
     }
 
-    //TODO: Uncomment the button onClicks when the other classes are added to the project
+    //DONE: Uncomment the button onClicks when the other classes are added to the project
 
     /**
      * links to StoreActivity
@@ -82,7 +82,7 @@ public class MainMenuActivity extends AppCompatActivity {
      */
     public void viewCoupons(View v)
     {
-        Intent couponIntent = new Intent(this, CouponActivity.class);
+        Intent couponIntent = new Intent(this, AddCouponActivity.class);
         startActivity(couponIntent);
     }
 

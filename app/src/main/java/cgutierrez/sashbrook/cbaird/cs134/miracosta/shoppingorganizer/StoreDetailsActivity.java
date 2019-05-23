@@ -2,6 +2,7 @@ package cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 /**
  * oiseht
@@ -10,7 +11,8 @@ import android.os.Bundle;
 public class StoreDetailsActivity extends AppCompatActivity {
 
     //INSTANCE VARIABLES----------------------------------------------------------------------------
-    //BLEH
+    ImageView storeImageView;
+
 
 
     //ONCREATE--------------------------------------------------------------------------------------

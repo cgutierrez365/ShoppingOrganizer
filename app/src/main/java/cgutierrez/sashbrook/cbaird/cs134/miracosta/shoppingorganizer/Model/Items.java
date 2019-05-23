@@ -16,9 +16,7 @@ public class Items implements Parcelable
     private long mId;
     private String mItemName;
     private String mStoreName;
-   // private String mStoreLocation;
     private String mItemQuantity;
-    //private ArrayList<Coupons> mCoupons;
     private String mImageURI;
 
 
@@ -33,30 +31,15 @@ public class Items implements Parcelable
     }
 
 
-    public Items(long id, String itemName, String storeName,/* String storeLocation,*/ String itemQuantity, /*ArrayList<Coupons> coupons,*/ String imageURI) {
+    public Items(long id, String itemName, String storeName, String itemQuantity, String imageURI) {
         mId = id;
         mItemName = itemName;
         mStoreName = storeName;
     //    mStoreLocation = storeLocation;
         mItemQuantity = itemQuantity;
-        //mCoupons = coupons;
         mImageURI = imageURI;
     }
 
-
-    /*
-    public static final Creator<Items> CREATOR = new Creator<Items>() {
-        @Override
-        public Items createFromParcel(Parcel in) {
-            return new Items(in);
-        }
-
-        @Override
-        public Items[] newArray(int size) {
-            return new Items[size];
-        }
-    };
-    */
 
     //MUTATORS--------------------------------------------------------------------------------------
     public void setId(long id) { mId = id; }
@@ -84,12 +67,6 @@ public class Items implements Parcelable
         mItemQuantity = itemQuantity;
     }
 
-
-/*    public void setCoupons(ArrayList<Coupons> coupons)
-    {
-        mCoupons = coupons;
-    }
-*/
 
     //ACCESSORS-------------------------------------------------------------------------------------
     public long getId() { return mId; }

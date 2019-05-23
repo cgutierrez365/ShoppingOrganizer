@@ -26,7 +26,7 @@ public class ItemListAdapter extends ArrayAdapter<Items> {
 
     //INSTANCE VARIABLES----------------------------------------------------------------------------
     private Context mContext;
-    private List<Items> mItemsList = new ArrayList<>();
+    private List<Items> mItemsList;
     private int mResourceId;
 
 
@@ -46,6 +46,25 @@ public class ItemListAdapter extends ArrayAdapter<Items> {
     public View getView(int pos, View convertView, ViewGroup parent)
     {
 
+        final Items selectedItem = mItemsList.get(pos);
+
+        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(mResourceId, null);
+
+        ConstraintLayout itemListConstraintLayout = view.findViewById(R.id.customItemConstraintLayout);
+        TextView itemNameTextView = view.findViewById(R.id.itemNameTextView);
+        TextView qtyTextView = view.findViewById(R.id.qtyTextView);
+
+        itemListConstraintLayout.setTag(selectedItem);
+
+        itemNameTextView.setText(selectedItem.getItemName());
+        qtyTextView.setText(selectedItem.getItemQuantity());
+
+        return view;
+
+
+
+        /*
         final Items selectedItem = mItemsList.get(pos);
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
@@ -71,7 +90,8 @@ public class ItemListAdapter extends ArrayAdapter<Items> {
             Log.e("Shopping Organizer", "Error loading " + selectedItem.getImageURI(), e);
         }
 
-        return view;
+        return view;*/
+
 
     }
 

@@ -88,7 +88,7 @@ public class AddCouponActivity extends AppCompatActivity {
     }
 
     public void toggleCustomAnim(View v) {
-        customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
+        //customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
         CouponImageView.startAnimation(customAnim);
     }
 
@@ -230,7 +230,7 @@ public class AddCouponActivity extends AppCompatActivity {
             toast.setMargin(150, 150);
             toast.show();
         }
-        customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
+        //customAnim = AnimationUtils.loadAnimation(this, R.anim.custom_sa_anim);
         CouponImageView.startAnimation(customAnim);
     }
 

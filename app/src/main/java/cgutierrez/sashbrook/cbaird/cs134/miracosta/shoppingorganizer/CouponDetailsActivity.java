@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Coupons;
+
 public class CouponDetailsActivity extends AppCompatActivity {
 
     /**
@@ -58,6 +60,9 @@ public class CouponDetailsActivity extends AppCompatActivity {
         couponExpireTextView.setText("Lists are great!" + mExpirationDate);
         couponIsFavoriteTextView.setText("Lots of Coupons to Enjoy " + mIsFavorite);
         couponAdditionalNotesTextView.setText("Write Everything Down " + mAdditionalNotes);
+
+        //RETRIEVE SENT OBJECT
+        Coupons coupons = detailsIntent.getParcelableExtra("Select Coupons");
 
     }
 

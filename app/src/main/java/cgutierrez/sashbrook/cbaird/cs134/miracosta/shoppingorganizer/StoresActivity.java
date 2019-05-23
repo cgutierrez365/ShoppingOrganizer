@@ -137,6 +137,8 @@ public class StoresActivity extends AppCompatActivity {
     protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data ) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        /**This is the working on Activity Result :) */
+
         if (requestCode == UPDATED_LIST_CODE) {
             Store stores = new Store();
             /// (should have included it in her onCreate()
@@ -164,29 +166,18 @@ public class StoresActivity extends AppCompatActivity {
                 storeListAdapter.add(newStore);
                 storeListAdapter.notifyDataSetChanged();
             }
+
+            if(data == null){
+                return;
+            }
+            newStore = data.getParcelableExtra("newStore");
+
+            storeListAdapter.add(newStore);
+            storeListAdapter.notifyDataSetChanged();
         }
     }
 
-    /**This is the working on Activity Result :) */
-//    protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data )
-//    {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == UPDATED_LIST_CODE)
-//        {
-//
-//            if(data == null) //If user canceled action (Pressing Cancel button, exit the method)
-//            {
-//                return;
-//            }
-//
-//            Store newStore = data.getParcelableExtra("newStore");
-//
-//            storeListAdapter.add(newStore);
-//            storeListAdapter.notifyDataSetChanged();
-//
-//        }
-//    }
+
 
     public void revertToPreviousScreen ( View v ) {
         this.finish();

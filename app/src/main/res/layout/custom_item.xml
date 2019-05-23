@@ -2,12 +2,12 @@
 <!-- Author: Clarissa Gutierrez-->
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/customItemConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:onClick="viewItemDetails">
 
     <LinearLayout
-        android:id="@+id/customItemLinearLayout"
         android:layout_width="395dp"
         android:layout_height="70dp"
         android:layout_marginLeft="8dp"

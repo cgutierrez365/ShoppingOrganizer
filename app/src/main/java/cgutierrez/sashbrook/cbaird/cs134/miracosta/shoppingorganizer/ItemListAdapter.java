@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,7 @@ public class ItemListAdapter extends ArrayAdapter<Items> {
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
 
-        LinearLayout customItemLinearLayout = view.findViewById(R.id.customItemLinearLayout);
+        ConstraintLayout customItemLinearLayout = view.findViewById(R.id.customItemConstraintLayout);
         ImageView itemImageView = view.findViewById(R.id.itemImageView);
         TextView itemNameTextView = view.findViewById(R.id.itemNameTextView);
         TextView qtyTextView = view.findViewById(R.id.qtyTextView);

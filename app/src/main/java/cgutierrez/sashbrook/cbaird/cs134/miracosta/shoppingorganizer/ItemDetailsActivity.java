@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -20,7 +22,8 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHel
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items;
 
 /**
- * soeiht
+ * Item Details for information on individual Items or General Information on items,
+ * their coupons and where the items are located at in a Store.
  * @author Chloe Baird
  */
 
@@ -33,6 +36,7 @@ public class ItemDetailsActivity extends AppCompatActivity {
     private TextView quantityTextView;
     private ListView couponListView;
     private DBHelper db;
+    private Animation customAnim;
 
     private static final String TAG = ItemDetailsActivity.class.getSimpleName();
 
@@ -68,6 +72,11 @@ public class ItemDetailsActivity extends AppCompatActivity {
 //        db.getAllLinkedItemCoupons()
 
     }
+    public void toggleCustomAnim(View v) {
+        customAnim = AnimationUtils.loadAnimation(this, R.anim.chloe_shake_anim);
+        itemImageView.startAnimation(customAnim);
+    }
+
 
 
     //OTHER METHODS---------------------------------------------------------------------------------

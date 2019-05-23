@@ -17,7 +17,8 @@ import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHel
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Items;
 
 /**
- * speothpo
+ * Item Activity, to add items to the Database that can be used
+ * by the user of the App to organize there item lists properly.
  * @author Chloe Baird
  */
 

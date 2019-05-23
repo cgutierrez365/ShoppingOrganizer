@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +60,7 @@ public class AddCouponActivity extends AppCompatActivity {
     public static final int RESULT_LOAD_IMAGE = 200;
     private Animation customAnim;
     private EditText ExpirationDateEditText;
+    private Uri imageURI;
 
 
     /**
@@ -76,6 +78,15 @@ public class AddCouponActivity extends AppCompatActivity {
         CouponImageView.setImageURI(getUriToResource(this, R.drawable.images));
         db = new DBHelper(this);
         couponsList = db.getAllCouponsList();
+
+        //Initialize item image to that of the shopping cart
+        imageURI = getUriToResource(this, R.drawable.images);
+
+
+        CouponImageView.setImageURI(imageURI);
+        CouponImageView.setTag(imageURI.toString()); //tag has to be a URI toString b/c
+                        // that's how Items/Stores/Coupons class data type was configured
+
 
         Button addCoupon = (Button) findViewById(R.id.button_addcoupon);
         addCoupon.setOnClickListener(new View.OnClickListener() {
@@ -246,12 +257,18 @@ public class AddCouponActivity extends AppCompatActivity {
     protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data ) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        if (data == null)
+        {
+            return;
+        }
+
         if (requestCode == RESULT_LOAD_IMAGE) {
             Uri uri = data.getData();
             CouponImageView.setImageURI(uri);
             CouponImageView.setTag(uri.toString()); //For use in add to extract
         }
     }
+
 
     /**
      * To convert an android resource into a URI.

@@ -206,10 +206,6 @@ public class AddItemActivity extends AppCompatActivity {
         db.addItem(newItem);
 
 
-
-        //TODO: Check if lines below update the listView in ItemActivity (but doesn't immediately go to ItemActivity, until press done/cancel button
-        //TODO: Will have to coordinate with Chloe so that she starts my  AddItemActivity using startActivityForResult()
-
         Intent backToItemActivityIntent = new Intent();
         backToItemActivityIntent.putExtra("newItem", newItem);
         setResult(Activity.RESULT_OK, backToItemActivityIntent); //Sets the Intent field in onActivityResult to this intent

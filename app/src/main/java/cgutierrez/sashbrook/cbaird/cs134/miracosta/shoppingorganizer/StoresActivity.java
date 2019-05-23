@@ -167,6 +167,27 @@ public class StoresActivity extends AppCompatActivity {
         }
     }
 
+    /**This is the working on Activity Result :) */
+//    protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data )
+//    {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == UPDATED_LIST_CODE)
+//        {
+//
+//            if(data == null) //If user canceled action (Pressing Cancel button, exit the method)
+//            {
+//                return;
+//            }
+//
+//            Store newStore = data.getParcelableExtra("newStore");
+//
+//            storeListAdapter.add(newStore);
+//            storeListAdapter.notifyDataSetChanged();
+//
+//        }
+//    }
+
     public void revertToPreviousScreen ( View v ) {
         this.finish();
     }

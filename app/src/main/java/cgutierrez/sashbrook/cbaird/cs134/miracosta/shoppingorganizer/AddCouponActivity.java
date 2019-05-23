@@ -96,17 +96,16 @@ public class AddCouponActivity extends AppCompatActivity {
      * Important for moving the Expiration Date,
      * basic number entry - no slashes or spaces required.
      *
-     * >>may be adjusted to accomodate slashes?
      *      * number easiest entry.
      */
     public void openActivity2() {
         EditText couponEditText = (EditText) findViewById(R.id.ExpirationDateEditText);
-       // int number = Integer.parseInt(couponEditText.getText().toString());
-        long date = Integer.parseInt(couponEditText.getText().toString());
+        int number = Integer.parseInt(couponEditText.getText().toString());
+        //long date = Integer.parseInt(couponEditText.getText().toString());
 
         Intent intent = new Intent(this, CouponActivity.class);
-       // intent.putExtra(EXTRA_NUMBER, number);
-        intent.putExtra(EXTRA_DATE, date);
+        intent.putExtra(EXTRA_NUMBER, number);
+        //intent.putExtra(EXTRA_DATE, date);
         startActivity(intent);
 
     }
@@ -152,19 +151,6 @@ public class AddCouponActivity extends AppCompatActivity {
             }
         });
         db.close();
-    }
-
-    /**
-     * Ends AddItemActivity, thus reverting to the previous activity that called this one
-     * @param v The cancel / done button
-     */
-    public void revertToPreviousScreen(View v)
-    {
-        AddCouponActivity.this.finish();
-    }
-    public void returnToMainMenu(View v)
-    {
-        this.finish();
     }
 
 
@@ -284,6 +270,15 @@ public class AddCouponActivity extends AppCompatActivity {
         //android.resource://"
         return Uri.parse(uri);
 
+    }
+
+    /**
+     * Ends AddItemActivity, thus reverting to the previous activity that called this one
+     * @param v The cancel button
+     */
+    public void revertToPreviousScreen(View v)
+    {
+        this.finish();
     }
 }
 

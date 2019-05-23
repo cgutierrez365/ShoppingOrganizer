@@ -29,7 +29,7 @@
         android:layout_marginBottom="8dp"
         android:background="#FF2A7A1A"
         android:fontFamily="sans-serif-light"
-        android:onClick="returnToMainMenu"
+        android:onClick="revertToPreviousScreen"
         android:text="@string/cancel"
         android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"

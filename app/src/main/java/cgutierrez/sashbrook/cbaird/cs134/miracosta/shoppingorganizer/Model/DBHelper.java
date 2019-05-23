@@ -744,4 +744,13 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteNote(Notes note)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(NOTES_TABLE, NOTES_KEY_FIELD_ID + " = ?",
+                new String[]{String.valueOf(note.getId())});
+
+        db.close();
+    }
+
 }

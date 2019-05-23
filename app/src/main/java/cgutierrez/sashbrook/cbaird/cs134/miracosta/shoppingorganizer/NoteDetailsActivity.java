@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes;
 
 /**
@@ -50,6 +51,10 @@ public class NoteDetailsActivity extends AppCompatActivity {
      */
     public void deleteNote(View v)
     {
+        Notes note = (Notes) v.getTag();
+        DBHelper db = new DBHelper(this);
+
+        db.deleteNote(note);
 
     }
 

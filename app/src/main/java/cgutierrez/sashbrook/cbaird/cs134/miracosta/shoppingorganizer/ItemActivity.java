@@ -43,15 +43,19 @@ public class ItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item);
 
-        //ESTABLISH DATABASE
+
+        //CREATE DATABASE
         db = new DBHelper(this);
+        db.importItemsFromCSV("items.csv");
         itemsList = db.getAllItems();
 
-        //INFLATE CUSTOM VIEW
+        //INFLATE CUSTOM LIST VIEW
         itemListAdapter = new ItemListAdapter(this, R.layout.custom_item, itemsList);
         itemListView = findViewById(R.id.itemsListView);
         itemListView.setAdapter(itemListAdapter);
-        itemListAdapter.notifyDataSetChanged();
+
+        //CONNECT ACTIVITY TO XML
+        itemListView = findViewById(R.id.itemsListView);
 
     }
 

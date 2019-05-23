@@ -595,12 +595,9 @@ public class DBHelper extends SQLiteOpenHelper {
         AssetManager manager = mContext.getAssets();
         InputStream inStream;
 
-        try
-        {
-            InputStream inputStream = inStream = manager.open(csvFileName);
-        }
-        catch (IOException e)
-        {
+        try {
+            inStream = manager.open(csvFileName);
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }
@@ -610,26 +607,24 @@ public class DBHelper extends SQLiteOpenHelper {
 
         try
         {
-            while ( (line = buffer.readLine()) != null )
+
+            while( (line = buffer.readLine()) != null )
             {
                 String[] fields = line.split(",");
-                if(fields.length != 6)
+
+                if(fields.length != 3)
                 {
-                    Log.d("Items", "Skipping bad CSV Row: " + Arrays.toString(fields));
+                    Log.d("Shopping Organizer", "Skipping bad CSV row:" + Arrays.toString(fields));
                     continue;
                 }
 
-                long id = Long.parseLong(fields[0].trim());
-                String itemName = fields[1].trim();
-                String storeName = fields[2].trim();
-                String storeLocation = fields[3].trim();
-                String quantity = fields[4].trim();
-                String imageUri = fields[5].trim();
+                String itemName = fields[0].trim();
+                String storeName = fields[1].trim();
+                String itemQuantity = fields[2].trim();
 
-                addItem(new Items(id, itemName, storeName,/* storeLocation, */quantity, imageUri));
+                addItem(new Items(-1, itemName, storeName, itemQuantity, null));
 
             }
-
         }
         catch (IOException e)
         {
@@ -637,8 +632,8 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         }
 
-
         return true;
+
     }
 
 

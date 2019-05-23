@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.List;
+
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.DBHelper;
 import cgutierrez.sashbrook.cbaird.cs134.miracosta.shoppingorganizer.Model.Notes;
 
@@ -53,6 +55,7 @@ public class NoteDetailsActivity extends AppCompatActivity {
     {
         Notes note = (Notes) v.getTag();
         DBHelper db = new DBHelper(this);
+        //List<Notes> notesList = new List<Notes>();
 
         db.deleteNote(note);
 
